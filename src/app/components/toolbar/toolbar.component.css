@@ -1,0 +1,21 @@
+.title {
+  position: relative;
+  top: 3px;
+}
+.toolbar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+@media (min-width: 480px) {
+  .title {
+    margin-left: 20px;
+    font-size: 26px;
+    top: 4px;
+  }
+  mat-icon {
+    transform: scale(1.2);
+  }
+}

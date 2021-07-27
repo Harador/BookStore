@@ -1,18 +1,27 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
+import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+
+import { AppComponent } from './components/app-component/app.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+
+const material = [
+  MatToolbarModule,
+  MatButtonModule,
+  MatIconModule,
+  MatCardModule,
+];
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  declarations: [AppComponent, ToolbarComponent, NavbarComponent],
+  imports: [AppRoutingModule, CoreModule, material],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,0 +1,29 @@
+<mat-toolbar class="toolbar" color="primary">
+  <div class="flex-left">
+    <button
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
+      (click)="toggleNavbar.emit()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="title">BookStore</span>
+  </div>
+  <div class="flex-right">
+    <button
+      mat-icon-button
+      class="example-icon favorite-icon"
+      aria-label="Example icon-button with heart icon"
+    >
+      <mat-icon>shopping_basket</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with share icon"
+    >
+      <mat-icon>share</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
