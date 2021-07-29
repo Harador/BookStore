@@ -1,4 +1,5 @@
 import { IGenre } from './genre.interface';
+import { IAutor } from '../../autor/index';
 
 export interface IBook{
   id: number;
@@ -11,4 +12,5 @@ export interface IBook{
   image: string|null;
   writing_date: string;
   release_date: string;
+  author?: IAutor;
 }
