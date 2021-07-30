@@ -1,1 +1,6 @@
-<p>books-container works!</p>
+<div class="wrapper">
+    <div class="book-wrapper" *ngFor="let book of books">
+        <app-card-book [book]="book"></app-card-book>
+    </div>      
+</div>
+ 

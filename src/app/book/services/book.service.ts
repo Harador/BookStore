@@ -6,24 +6,26 @@ import { BehaviorSubject, Observable, pipe } from 'rxjs';
 
 import { IBook } from '../interfaces/book.interface';
 import { IAutor } from '../../autor/index';
+import { BookModule } from './../book.module';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class BookService {
+
   public books$ = new BehaviorSubject<IBook[]>([]);
   private booksUrl: string = '/api/books';
   private subscribe: any;
 
   constructor(private http: HttpClient) {
     this.subscribe = this.getBooks().subscribe((books) => {
-      this.books$.next(books);
+      this.books$.next(books.books);
+      console.log(this.books$.value);
       this.subscribe.unsubscribe();
     })
   }
 
-  public getBooks(): Observable<IBook[]> {
+  public getBooks(): Observable<any> {
     return this.http
-      .get<IBook[]>(this.booksUrl);
+      .get<any>(this.booksUrl);
   }
+
 }

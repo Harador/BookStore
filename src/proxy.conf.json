@@ -1,0 +1,8 @@
+{
+    "/api/*": {
+      "target": "http://salex.kubesh.ru",
+      "secure": false, 
+      "changeOrigin": true,
+      "logLevel": "debug"      
+    }
+  }
