@@ -1,0 +1,15 @@
+<mat-card class="example-card book" *ngIf="book">
+    <div class="image">
+        <a  routerLink="detail/{{book.id}}" target="_blank">
+            <img *ngIf="book.image" mat-card-image [src]="book.image">
+            <img *ngIf="!book.image" mat-card-image src="/assets/images/cover.png">            
+        </a>
+    </div>
+    <a class="title"
+     routerLink="detail/{{book.id}}">
+    {{book.title}}
+    </a>
+    <span class="price">{{book.price}}$</span>
+    <button class="cart-batton" mat-raised-button color="primary">Add to cart</button>
+</mat-card>
+

@@ -1,0 +1,26 @@
+<div class="page">
+    <div class="book" *ngIf="book">
+        <div class="image">
+            <img *ngIf="book.image" mat-card-image [src]="book.image">
+            <img *ngIf="!book.image" mat-card-image src="/assets/images/cover.png">
+        </div>
+        <div class="detail">
+            <h2 class='title'>{{book.title}}</h2>
+            <span class="author" *ngIf="book.author">
+                {{book.author.first_name + ' ' + book.author.last_name}}
+            </span>
+            <div class="genres">
+                <span *ngFor="let genre of book.genres">
+                    {{genre.name}}
+                </span>
+            </div>
+            <div class="cart">
+                <p class="price">Price: {{book.price}}$</p> 
+                <button class="cart-button" mat-raised-button color="primary">Add to cart</button>
+            </div>                      
+            <p class="description">{{book.description}}</p>
+            <span class="date">Writing: {{book.writing_date | date}}</span>
+            <span class="date">Release: {{book.release_date | date}}</span>
+        </div>
+    </div>
+</div>
