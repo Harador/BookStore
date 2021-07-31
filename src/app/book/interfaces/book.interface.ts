@@ -1,5 +1,6 @@
+import { IAuthor } from '../../author/interfaces/author.interface';
+
 import { IGenre } from './genre.interface';
-import { IAuthor } from '../../author/index';
 
 export interface IBook {
   id: number;
@@ -9,7 +10,7 @@ export interface IBook {
   price: number;
   genres: IGenre[];
   previews: string[];
-  image: string|null;
+  image: string | null;
   writing_date: string;
   release_date: string;
   author?: IAuthor;

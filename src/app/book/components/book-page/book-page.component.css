@@ -1,0 +1,48 @@
+.page{
+    height: 100%;
+    width: 100%;
+    padding: 20px 0;
+}
+.book{
+    max-width: 510px;
+    margin: 0 auto;   
+}
+.image{
+    height: 400px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+.image img{
+    height: 100%;
+    object-fit: cover;
+}
+.detail{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.author{
+    font-size: 16px;
+}
+.cart{
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    padding: 10px;
+}
+.price{
+    margin: 5px 0 0;
+    font-size: 16px;
+}
+.cart-button{
+    transition: 0.1s;
+    width: 200px;
+}
+.cart-button:hover{
+    transform: scale(1.05);
+}
+.description{
+    margin: 10px auto;
+    max-width: 500px;
+    padding: 0 10px;
+}
