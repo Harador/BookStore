@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: 'autors',
     loadChildren: () =>
-      import('./autor/autor.module').then((m) => m.AutorModule),
+      import('./author/author.module').then((m) => m.AuthorModule),
   },
 ];
 

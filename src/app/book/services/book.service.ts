@@ -5,8 +5,8 @@ import { BehaviorSubject, Observable, pipe } from 'rxjs';
 // import { tap } from 'rxjs/operators';
 
 import { IBook } from '../interfaces/book.interface';
-import { IAutor } from '../../autor/index';
-import { BookModule } from './../book.module';
+import { IAuthor } from '../../author/index';
+
 
 @Injectable()
 export class BookService {
@@ -18,9 +18,8 @@ export class BookService {
   constructor(private http: HttpClient) {
     this.subscribe = this.getBooks().subscribe((books) => {
       this.books$.next(books.books);
-      console.log(this.books$.value);
       this.subscribe.unsubscribe();
-    })
+    });
   }
 
   public getBooks(): Observable<any> {

@@ -567,7 +567,7 @@
     "no-lifecycle-call": true,
     "no-output-native": false,
     "no-pipe-impure": true,
-    "prefer-on-push-typescriptonent-change-detection": false,
+
     "template-accessibility-elements-content": true,
     "template-accessibility-tabindex-no-positive": true,
     "template-accessibility-table-scope": true,
