@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 
 import { BookCardComponent } from './components/book-card/book-card.component';
 import { BooksContainerComponent } from './components/books-container/books-container.component';
-import { BookPageComponent } from './book-page/book-page.component';
+import { BookPageComponent } from './components/book-page/book-page.component';
 
 
 import { BookService } from './services/book.service';
