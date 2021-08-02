@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+
 import { Subject, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { IBook } from '../../interfaces/book.interface';
-import { IGenre } from '../../interfaces/genre.interface';
-
+import { IGenre } from '../../../genre/interfaces/genre.interface';
 import { BookService } from '../../services/book.service';
 
 @Component({
