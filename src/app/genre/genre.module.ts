@@ -12,6 +12,6 @@ import { GenreService } from './services/genre.service';
   imports: [
     CommonModule, GenreRoutingModule,
   ],
-  providers: [GenreService,]
+  providers: [GenreService, ],
 })
 export class GenreModule { }

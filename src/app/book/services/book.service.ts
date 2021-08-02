@@ -4,8 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, pipe } from 'rxjs';
 
 import { IBook } from '../interfaces/book.interface';
-import { IAuthor } from '../../author/index';
-
 
 @Injectable()
 export class BookService {

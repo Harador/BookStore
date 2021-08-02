@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable, } from 'rxjs';
 import { IGenre } from '../interfaces/genre.interface';
 
 @Injectable()
-export class GenreService{
+export class GenreService {
 
   public genres$ = new BehaviorSubject<IGenre[]>([]);
 

@@ -6,9 +6,12 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./toolbar.component.css'],
 })
 export class ToolbarComponent implements OnInit {
+
   @Output()
-  toggleNavbar = new EventEmitter();
+  public readonly toggleNavbar = new EventEmitter();
+
   constructor() {}
 
-  ngOnInit(): void {}
+  public ngOnInit(): void {}
+
 }

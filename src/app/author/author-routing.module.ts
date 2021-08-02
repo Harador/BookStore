@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { AuthorsComponent } from './components/authors/authors.component';
 
 const routes: Routes = [
