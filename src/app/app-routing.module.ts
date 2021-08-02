@@ -12,6 +12,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./author/author.module').then((m) => m.AuthorModule),
   },
+  {
+    path: 'genres',
+    loadChildren: () =>
+      import('./genre/genre.module').then((m) => m.GenreModule),
+  },
 ];
 
 @NgModule({
