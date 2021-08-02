@@ -5,17 +5,17 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/books' },
   {
     path: 'books',
-    loadChildren: () => import('./book/book.module').then((m) => m.BookModule),
+    loadChildren: () => import('./books/books.module').then((m) => m.BooksModule),
   },
   {
-    path: 'autors',
+    path: 'authors',
     loadChildren: () =>
-      import('./author/author.module').then((m) => m.AuthorModule),
+      import('./authors/authors.module').then((m) => m.AuthorsModule),
   },
   {
     path: 'genres',
     loadChildren: () =>
-      import('./genre/genre.module').then((m) => m.GenreModule),
+      import('./genres/genres.module').then((m) => m.GenresModule),
   },
 ];
 
