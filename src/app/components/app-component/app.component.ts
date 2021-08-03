@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+
   public isNavbarShow: boolean = false;
 
   constructor() {}
@@ -13,4 +14,5 @@ export class AppComponent {
   public toggleNavbar(): void {
     this.isNavbarShow = !this.isNavbarShow;
   }
+
 }
