@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { BooksRoutingModule } from './books-routing.module';
 import { BookCardComponent } from './components/book-card/book-card.component';
@@ -15,6 +16,7 @@ const material = [
   MatButtonModule,
   MatIconModule,
   MatCardModule,
+  MatPaginatorModule,
 ];
 
 @NgModule({
@@ -22,4 +24,4 @@ const material = [
   imports: [CommonModule, BooksRoutingModule, material],
   providers: [BookService],
 })
-export class BooksModule {}
+export class BooksModule { }

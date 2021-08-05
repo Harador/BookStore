@@ -1,6 +1,11 @@
 <div class="wrapper">
-    <div class="book-wrapper" *ngFor="let book of books">
-        <app-card-book [book]="book"></app-card-book>
-    </div>      
+    <div class="books">
+        <div class="book-wrapper" *ngFor="let book of books">
+            <app-card-book [book]="book"></app-card-book>
+        </div>
+    </div>
+    <div>
+        <mat-paginator [length]="meta.records" [pageSize]="meta.limit">
+        </mat-paginator>
+    </div>
 </div>
- 

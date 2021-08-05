@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { pluck } from 'rxjs/operators';
 
 import { IBook } from '../interfaces/book.interface';
+import { IListResponse } from '../../index';
 
 @Injectable()
 export class BookService {
@@ -16,12 +16,9 @@ export class BookService {
   ) {
   }
 
-  public gets(): Observable<IBook[]> {
+  public gets(): Observable<IListResponse> {
     return this.http
-      .get<IBook[]>(this.booksUrl)
-      .pipe(
-        pluck('books'),
-      );
+      .get<IListResponse>(this.booksUrl);
   }
 
   public get(id: number): Observable<IBook> {

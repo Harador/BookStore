@@ -1,13 +1,11 @@
 <div class="authors-wrapper">
-    <!-- <table class="autors">
-        <caption>Our Autors:</caption>
-        <tr *ngFor="let author of authors">
-            <td>{{author.first_name + ' ' + author.last_name}}</td>
-        </tr>
-    </table> -->
     <div class="authors">
         <span class="author" *ngFor="let author of authors">
             <a>{{author.first_name + ' ' + author.last_name}}</a>
         </span>
+    </div>
+    <div>
+        <mat-paginator [length]="meta.records" [pageSize]="meta.limit">
+        </mat-paginator>
     </div>
 </div>
