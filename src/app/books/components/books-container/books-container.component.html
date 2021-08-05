@@ -5,7 +5,8 @@
         </div>
     </div>
     <div>
-        <mat-paginator [length]="meta.records" [pageSize]="meta.limit">
+        <mat-paginator #paginator [pageIndex]="meta.page" [length]="meta.records" [pageSize]="meta.limit"
+         (page)='handlePage($event)'>
         </mat-paginator>
     </div>
 </div>
