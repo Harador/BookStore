@@ -1,3 +1,7 @@
+@import 'src/mat-theme.scss';
+$primary: map-get($my-primary, default);
+$accent: map-get($my-accent, 100);
+
 .nav-wrapper {
   display: none;
   height: 100%;
@@ -10,17 +14,17 @@
   width: 100%;
   height: 100%;
   padding: 15px 15px;
-  border-right: 1px solid #dbdbdb;
+  border-right: 1px solid $accent
 }
 .nav-link {
   color: black;
   font-size: 28px;
   padding: 10px;
   margin-bottom: 15px;
-  border-right: 2px solid #673ab7;
+  border-right: 2px solid $primary;
 }
 .nav-link:hover {
-  color: #673ab7;
+  color: $primary;
 }
 .active {
   display: block;
@@ -40,6 +44,6 @@
   .nav-link {
     padding: 15px;
     border-right: none;
-    border-left: 2px solid #673ab7;
+    border-left: 2px solid $primary;
   }
 }

@@ -1,3 +1,7 @@
+@import 'src/mat-theme.scss';
+$primary: map-get($my-primary, default);
+$accent: map-get($my-accent, A400);
+
 .authors-wrapper{
     height: 100%;
     padding: 50px;
@@ -18,7 +22,7 @@
     margin: 10px;
     width: 40%;
     flex-grow: 1;
-    background-color: rgb(103 58 183 / 80%);   
+    background-color: $accent;   
     border-radius: 5px; 
     transition-duration: 0.1s;
     word-wrap: break-word;
@@ -33,7 +37,7 @@
 .author:hover{
     cursor: pointer;
     transform: scale(1.02);
-    background-color: rgb(103 58 183);  
+    background-color: $primary;  
 }
 .author:active{
     transform: scale(0.99);
