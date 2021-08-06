@@ -4,4 +4,11 @@
             {{genre.name}}
         </span>
     </div>
+    <div>
+        <mat-paginator [pageIndex]="meta.page - 1"
+         [length]="meta.records" [pageSize]="meta.limit"
+         [pageSizeOptions]="[5, 10, 25, 100]"
+         (page)='handlePage($event)'>
+        </mat-paginator>
+    </div>
 </div>

@@ -1,10 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { PageEvent } from '@angular/material/paginator';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { IGenre } from '../../interfaces/genre.interface';
 import { GenreService } from '../../services/genre.service';
+import { IMeta } from '../../../';
 
 @Component({
   selector: 'app-genres',
@@ -16,23 +20,72 @@ export class GenresComponent implements OnInit, OnDestroy {
 
   public genres: IGenre[] = [];
 
-  private readonly destroy$
-  = new Subject<void>();
+  public meta: IMeta = {
+    pages: 0,
+    page: 0,
+    records: 0,
+    limit: 0,
+  };
 
-  constructor(private readonly genreservice: GenreService) { }
+  private readonly _destroy$ = new Subject<void>();
+
+  constructor(
+    private readonly _router: Router,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _genreService: GenreService,
+  ) { }
 
   public ngOnInit(): void {
-    this.genreservice.gets()
-      .pipe(
-        takeUntil(this.destroy$),
-      )
-      .subscribe((genres) => {
-        this.genres = genres;
-      });
+    this._subscribeQueryParamsAndLoadList();
   }
+
   public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
+
+  /**
+   * switch page
+   * @param event mat-paginator's switch page event
+   */
+  public handlePage(event: PageEvent): void {
+    // new page index
+    const page: number = event.pageIndex + 1;
+    const limit: number = event.pageSize;
+    this._changePage(page, limit);
+    window.scrollTo(0, 0);
+  }
+
+  private _changePage(page: number, limit: number): void {
+    this._router.navigate(['/genres'], { queryParams: { page, limit } });
+  }
+
+  /**
+   * load list
+   * @param page query parameter
+   * @param limit query parameter
+   */
+  private _loadList(page: number = 1, limit: number = 10): void {
+    this._genreService.gets(page, limit)
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe(
+        (list) => {
+          this.meta = list.meta;
+          this.genres = list.genres;
+        },
+      );
+  }
+
+  private _subscribeQueryParamsAndLoadList(): void {
+    this._activatedRoute.queryParams
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe(({ page, limit }) => {
+        this._loadList(page, limit);
+      });
   }
 
 }

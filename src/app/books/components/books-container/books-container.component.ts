@@ -18,10 +18,8 @@ import { BookService } from '../../services/books.service';
 })
 export class BooksContainerComponent implements OnInit, OnDestroy {
 
-  // list's books
   public books: IBook[] = [];
 
-  // list's meta
   public meta: IMeta = {
     pages: 0,
     page: 0,
@@ -29,33 +27,21 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
     limit: 0,
   };
 
-  // unsubscribe var
-  private readonly destroy$: Subject<void> = new Subject<void>();
+  private readonly _destroy$ = new Subject<void>();
 
   constructor(
-    private readonly bookService: BookService,
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly router: Router,
+    private readonly _router: Router,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _bookService: BookService,
   ) { }
 
   public ngOnInit(): void {
-    /**
-     * subscribe to
-     * query-parameters
-     * and load list
-     */
-    this.activatedRoute.queryParams
-      .pipe(
-        takeUntil(this.destroy$),
-      )
-      .subscribe((params) => {
-        this._loadList(params.page);
-      });
+    this._subscribeQueryParamsAndLoadList();
   }
 
   public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   /**
@@ -65,26 +51,24 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
   public handlePage(event: PageEvent): void {
     // new page index
     const page: number = event.pageIndex + 1;
-    this._toPage(page);
+    const limit: number = event.pageSize;
+    this._changePage(page, limit);
     window.scrollTo(0, 0);
   }
 
-  /**
-   * switch page
-   * @param page query parameter
-   */
-  private _toPage(page: number): void {
-    this.router.navigate(['/books'], { queryParams: { page } });
+  private _changePage(page: number, limit: number): void {
+    this._router.navigate(['/books'], { queryParams: { page, limit } });
   }
 
   /**
    * load list
    * @param page query parameter
+   * @param limit query parameter
    */
-  private _loadList(page: number = 1): void {
-    this.bookService.gets(page)
+  private _loadList(page: number = 1, limit: number = 10): void {
+    this._bookService.gets(page, limit)
       .pipe(
-        takeUntil(this.destroy$),
+        takeUntil(this._destroy$),
       )
       .subscribe(
         (list) => {
@@ -92,6 +76,16 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
           this.books = list.books;
         },
       );
+  }
+
+  private _subscribeQueryParamsAndLoadList(): void {
+    this._activatedRoute.queryParams
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe(({ page, limit }) => {
+        this._loadList(page, limit);
+      });
   }
 
 }

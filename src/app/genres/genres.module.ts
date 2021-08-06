@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 import { GenresRoutingModule } from './genres-routing.module';
 import { GenresComponent } from './components/genres/genres.component';
 import { GenreService } from './services/genre.service';
@@ -10,7 +12,7 @@ import { GenreService } from './services/genre.service';
     GenresComponent,
   ],
   imports: [
-    CommonModule, GenresRoutingModule,
+    CommonModule, GenresRoutingModule, MatPaginatorModule,
   ],
   providers: [GenreService, ],
 })

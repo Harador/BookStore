@@ -12,20 +12,21 @@ export class BookService {
   private readonly booksUrl: string = '/api/books';
 
   constructor(
-    private readonly http: HttpClient,
+    private readonly _http: HttpClient,
   ) {
   }
 
   /**
    * get books list
    * @param page query parameter
+   * @param limit query parameter
    * @returns list include books and meta
    */
-  public gets(page: number = 1): Observable<IListResponse> {
+  public gets(page: number = 1, limit: number = 10): Observable<IListResponse> {
     const params = new HttpParams()
-    .set('page', page);
+    .appendAll({ page, limit });
 
-    return this.http
+    return this._http
       .get<IListResponse>(this.booksUrl, { params });
   }
 
@@ -35,7 +36,7 @@ export class BookService {
    * @returns book
    */
   public get(id: number): Observable<IBook> {
-    return this.http.get<IBook>(this.booksUrl + `/${id}`);
+    return this._http.get<IBook>(this.booksUrl + `/${id}`);
   }
 
 }
