@@ -21,10 +21,13 @@ $accent: map-get($my-accent, 100);
   font-size: 28px;
   padding: 10px;
   margin-bottom: 15px;
-  border-right: 2px solid $primary;
+  border-right: 2px solid $accent;
 }
 .nav-link:hover {
   color: $primary;
+}
+.active-link{
+  border-right: 2px solid $primary;
 }
 .active {
   display: block;
@@ -44,6 +47,9 @@ $accent: map-get($my-accent, 100);
   .nav-link {
     padding: 15px;
     border-right: none;
+    border-left: 2px solid $accent;
+  }
+  .active-link{
     border-left: 2px solid $primary;
   }
 }

@@ -18,7 +18,10 @@ import { BookService } from '../../services/books.service';
 })
 export class BooksContainerComponent implements OnInit, OnDestroy {
 
+  // list's books
   public books: IBook[] = [];
+
+  // list's meta
   public meta: IMeta = {
     pages: 0,
     page: 0,
@@ -26,6 +29,7 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
     limit: 0,
   };
 
+  // unsubscribe var
   private readonly destroy$: Subject<void> = new Subject<void>();
 
   constructor(
@@ -35,18 +39,18 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit(): void {
-    const page = this.activatedRoute.snapshot.params.page;
-
-    this.bookService.gets(page)
+    /**
+     * subscribe to
+     * query-parameters
+     * and load list
+     */
+    this.activatedRoute.queryParams
       .pipe(
         takeUntil(this.destroy$),
       )
-      .subscribe(
-        (list) => {
-          this.meta = list.meta;
-          this.books = list.books;
-        },
-      );
+      .subscribe((params) => {
+        this._loadList(params.page);
+      });
   }
 
   public ngOnDestroy(): void {
@@ -54,13 +58,30 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  /**
+   * switch page
+   * @param event mat-paginator's switch page event
+   */
   public handlePage(event: PageEvent): void {
+    // new page index
     const page: number = event.pageIndex + 1;
-    this._getList(page);
-    this.router.navigate(['books/'+page]);
+    this._toPage(page);
+    window.scrollTo(0, 0);
   }
 
-  private _getList(page: number = 1): void{
+  /**
+   * switch page
+   * @param page query parameter
+   */
+  private _toPage(page: number): void {
+    this.router.navigate(['/books'], { queryParams: { page } });
+  }
+
+  /**
+   * load list
+   * @param page query parameter
+   */
+  private _loadList(page: number = 1): void {
     this.bookService.gets(page)
       .pipe(
         takeUntil(this.destroy$),
@@ -72,4 +93,5 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
         },
       );
   }
+
 }
