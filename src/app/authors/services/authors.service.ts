@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 
 import { IListResponse } from '../../index';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthorService {
 
   private readonly authorsUrl: string = '/api/authors';

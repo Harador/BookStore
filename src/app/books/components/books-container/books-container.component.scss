@@ -7,6 +7,15 @@
 .book-wrapper{
     margin: 10px 15px;
 }
+.filter{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 1;
+    &:hover{
+        transform: scale(1.02);
+    }
+}
 
 @media (max-width: 768px){
     .book-wrapper{

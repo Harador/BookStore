@@ -1,4 +1,16 @@
 <div class="wrapper">
+
+    <div class="filter">
+      <button
+      mat-fab
+      class="example-icon"
+      (click)="openDialog()">
+      <mat-icon><span class="material-icons-outlined">
+        filter_list
+        </span></mat-icon>
+    </button>
+    </div>
+
     <div class="books">
         <div class="book-wrapper" *ngFor="let book of books">
             <app-card-book [book]="book"></app-card-book>

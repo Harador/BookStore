@@ -1,0 +1,67 @@
+<h1 mat-dialog-title align='center'>Books' Filter</h1>
+<div mat-dialog-content>
+    <form action="" #form="ngForm">
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Author</mat-label>
+            <input  [(ngModel)]="model.author" #search name="author" type="text" appAuthor [authors]="authors" matInput [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let author of authors | autocomplite: search.value" [value]="getFullName(author)">
+                {{author.first_name}}
+                {{author.last_name}}
+              </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Genre</mat-label>
+            <mat-select ngModel name="genre" [(ngModel)]="model.genre">
+               <mat-option *ngFor="let genre of genres" [value]="genre.name">
+               {{genre.name}}
+               </mat-option>
+             </mat-select>
+        </mat-form-field>
+
+        <div class="price-group" appPrice ngModelGroup="price" #priceCtrl="ngModelGroup">
+
+            <span>Max price: {{max.value || 0}}</span>
+            <mat-slider 
+                name="max"
+                #max = "ngModel"
+                [(ngModel)]="model.maxPrice"
+                thumbLabel
+                [displayWith]="formatLabel"
+                tickInterval="1000"
+                step="100"
+                min="0"
+                max="9900"
+                aria-label="units"
+                cdkFocusInitial
+                >
+            </mat-slider>
+            
+            <span>Min price: {{min.value || 0}}</span>
+            <mat-slider 
+            name="min"
+            #min = "ngModel"
+            [(ngModel)]="model.minPrice"
+            thumbLabel
+            [displayWith]="formatLabel"
+            tickInterval="1000"
+            step="100"
+            min="0"
+            max="9900"
+            aria-label="units"
+            >
+            </mat-slider>
+
+            <mat-error class="price-err" *ngIf="priceCtrl.invalid">Minimum price must be less then the maximum!</mat-error>
+        </div>
+
+    </form>
+</div>
+
+<mat-dialog-actions class="buttons">
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-button [disabled]="form.invalid || form.pristine" [mat-dialog-close]="model">Apply</button>
+</mat-dialog-actions>

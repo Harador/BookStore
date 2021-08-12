@@ -2,14 +2,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { IBook } from '../../interfaces/book.interface';
 import { IMeta } from '../../../index';
-import { BookService } from '../../services/books.service';
-
+import { BooksService } from '../../services/books.service';
+import { BooksFilterComponent } from '../books-filter/books-filter.component';
+import { IBooksFilterQuery } from '../../interfaces/books-query-params.interface';
 
 @Component({
   selector: 'app-books-container',
@@ -32,7 +34,8 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
   constructor(
     private readonly _router: Router,
     private readonly _activatedRoute: ActivatedRoute,
-    private readonly _bookService: BookService,
+    private readonly _bookService: BooksService,
+    private readonly _dialog: MatDialog,
   ) { }
 
   public ngOnInit(): void {
@@ -42,6 +45,17 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  public openDialog(): void {
+    const dialog = this._dialog.open(BooksFilterComponent);
+    dialog.afterClosed()
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe((filter) => {
+        console.log(filter);
+      });
   }
 
   /**
@@ -56,7 +70,7 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
     window.scrollTo(0, 0);
   }
 
-  private _changePage(page: number, limit: number): void {
+  private _changePage(page: number, limit: number) : void {
     this._router.navigate(['/books'], { queryParams: { page, limit } });
   }
 

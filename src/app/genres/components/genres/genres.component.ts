@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { IGenre } from '../../interfaces/genre.interface';
-import { GenreService } from '../../services/genre.service';
+import { GenresService } from '../../services/genres.service';
 import { IMeta } from '../../../';
 
 @Component({
@@ -32,7 +32,7 @@ export class GenresComponent implements OnInit, OnDestroy {
   constructor(
     private readonly _router: Router,
     private readonly _activatedRoute: ActivatedRoute,
-    private readonly _genreService: GenreService,
+    private readonly _genresService: GenresService,
   ) { }
 
   public ngOnInit(): void {
@@ -66,7 +66,7 @@ export class GenresComponent implements OnInit, OnDestroy {
    * @param limit query parameter
    */
   private _loadList(page: number = 1, limit: number = 10): void {
-    this._genreService.gets(page, limit)
+    this._genresService.gets(page, limit)
       .pipe(
         takeUntil(this._destroy$),
       )

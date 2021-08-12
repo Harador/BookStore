@@ -3,10 +3,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { IListResponse } from '../../';
+import { IListResponse } from '../..';
 
-@Injectable()
-export class GenreService {
+@Injectable({
+  providedIn: 'root',
+})
+export class GenresService {
 
   private readonly genresUrl: string = '/api/genres';
 

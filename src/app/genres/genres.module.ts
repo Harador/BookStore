@@ -5,7 +5,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { GenresRoutingModule } from './genres-routing.module';
 import { GenresComponent } from './components/genres/genres.component';
-import { GenreService } from './services/genre.service';
 
 @NgModule({
   declarations: [
@@ -14,6 +13,5 @@ import { GenreService } from './services/genre.service';
   imports: [
     CommonModule, GenresRoutingModule, MatPaginatorModule,
   ],
-  providers: [GenreService, ],
 })
 export class GenresModule { }

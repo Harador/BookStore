@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { IBook } from '../../interfaces/book.interface';
-import { BookService } from '../../services/books.service';
+import { BooksService } from '../../services/books.service';
 
 @Component({
   selector: 'app-book-page',
@@ -21,7 +21,7 @@ export class BookPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly bookService: BookService,
+    private readonly bookService: BooksService,
   ) { }
 
   public ngOnInit(): void {

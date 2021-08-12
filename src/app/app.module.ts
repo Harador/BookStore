@@ -20,7 +20,7 @@ const material = [
 
 @NgModule({
   declarations: [AppComponent, ToolbarComponent, NavbarComponent],
-  imports: [AppRoutingModule, CoreModule, material],
+  imports: [AppRoutingModule, CoreModule, material ],
   providers: [],
   bootstrap: [AppComponent],
 })

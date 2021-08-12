@@ -1,0 +1,18 @@
+
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+form{
+    display: flex;
+    flex-direction: column;
+}
+.price-group{
+    display: flex;
+    flex-direction: column;
+}
+.price-err{
+    max-width: 200px;
+    text-align: center;
+}
