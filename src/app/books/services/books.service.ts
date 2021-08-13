@@ -25,15 +25,13 @@ export class BooksService {
    * @param limit query parameter
    * @returns list include books and meta
    */
-  public gets(page: number = 1, limit: number = 10): Observable<IListResponse> {
-    const filters = {
-      'q[authors_name_cont]': '',
-      'q[genres_name_cont]': '',
-      'q[max_price_cont]': 10000,
-      'q[min_price_cont]': 0,
-    };
+  public gets(
+    page: number = 1,
+    limit: number = 10,
+    filterQuery: IBooksFilterQuery,
+    ): Observable<IListResponse> {
     const params = new HttpParams()
-     .appendAll({ page, limit, ...filters });
+     .appendAll({ page, limit, ...filterQuery });
 
     return this._http
       .get<IListResponse>(this.booksUrl, { params });

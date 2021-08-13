@@ -23,6 +23,7 @@ export class ValidateFilterService {
     control: AbstractControl,
     authors: IAuthor[] = []): null | ValidationErrors {
     if (!control.touched && control.pristine
+       || !control.value
        || this._isIncludeName(authors, control.value)) {
       return null;
     }

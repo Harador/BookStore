@@ -2,7 +2,7 @@
 
 export interface IBooksFilterQuery {
   genre: string;
-  author: string;
+  author: number;
   minPrice: number;
   maxPrice: number;
 }

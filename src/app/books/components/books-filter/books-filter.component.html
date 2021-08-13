@@ -4,9 +4,15 @@
 
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Author</mat-label>
-            <input  [(ngModel)]="model.author" #search name="author" type="text" appAuthor [authors]="authors" matInput [matAutocomplete]="auto">
+            <input  [(ngModel)]="model.author" matInput
+              (ngModelChange)="handleInput()"
+              #search name="author"
+              type="text" appAuthor 
+              [authors]="authors"
+              [matAutocomplete]="auto"
+              >
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let author of authors | autocomplite: search.value" [value]="getFullName(author)">
+              <mat-option *ngFor="let author of authors" [value]="getFullName(author)">
                 {{author.first_name}}
                 {{author.last_name}}
               </mat-option>
@@ -57,11 +63,10 @@
 
             <mat-error class="price-err" *ngIf="priceCtrl.invalid">Minimum price must be less then the maximum!</mat-error>
         </div>
-
     </form>
 </div>
 
 <mat-dialog-actions class="buttons">
     <button mat-button mat-dialog-close>Close</button>
-    <button mat-button [disabled]="form.invalid || form.pristine" [mat-dialog-close]="model">Apply</button>
+    <button mat-button [disabled]="form.invalid || form.pristine" (click)="closeDialog()">Apply</button>
 </mat-dialog-actions>

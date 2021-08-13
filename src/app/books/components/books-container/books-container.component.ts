@@ -29,13 +29,22 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
     limit: 0,
   };
 
+  // filter's params for this._changePage()
+  // will overwritten from this._subscribeQueryParamsAndLoadList()
+  private filterQuery: IBooksFilterQuery = {
+    author:  0,
+    genre: '',
+    minPrice: 0,
+    maxPrice: 9900,
+  };
+
   private readonly _destroy$ = new Subject<void>();
 
   constructor(
     private readonly _router: Router,
     private readonly _activatedRoute: ActivatedRoute,
-    private readonly _bookService: BooksService,
     private readonly _dialog: MatDialog,
+    private readonly _bookService: BooksService,
   ) { }
 
   public ngOnInit(): void {
@@ -53,8 +62,10 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this._destroy$),
       )
-      .subscribe((filter) => {
-        console.log(filter);
+      .subscribe((filterQuery) => {
+        if (filterQuery) {
+          this._changePage(1, 10, { ...filterQuery });
+        }
       });
   }
 
@@ -66,12 +77,17 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
     // new page index
     const page: number = event.pageIndex + 1;
     const limit: number = event.pageSize;
-    this._changePage(page, limit);
+    this._changePage(page, limit, this.filterQuery);
     window.scrollTo(0, 0);
   }
 
-  private _changePage(page: number, limit: number) : void {
-    this._router.navigate(['/books'], { queryParams: { page, limit } });
+  private _changePage(
+    page: number,
+    limit: number,
+    filterQuery: IBooksFilterQuery,
+    ) : void {
+    this._router.navigate(['/books'],
+    { queryParams: { page, limit, ...filterQuery } });
   }
 
   /**
@@ -79,8 +95,12 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
    * @param page query parameter
    * @param limit query parameter
    */
-  private _loadList(page: number = 1, limit: number = 10): void {
-    this._bookService.gets(page, limit)
+  private _loadList(
+    page: number = 1,
+    limit: number = 10,
+    filterQuery: IBooksFilterQuery,
+    ): void {
+    this._bookService.gets(page, limit, filterQuery)
       .pipe(
         takeUntil(this._destroy$),
       )
@@ -97,8 +117,15 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this._destroy$),
       )
-      .subscribe(({ page, limit }) => {
-        this._loadList(page, limit);
+      .subscribe((params) => {
+        const filterQuery: IBooksFilterQuery = {
+          author: params.author ?? 0,
+          genre: params.genre ?? '',
+          minPrice: params.minPrice ?? 0,
+          maxPrice: params.maxPrice ?? 9900,
+        };
+        this.filterQuery = filterQuery;
+        this._loadList(params.page, params.limit, filterQuery);
       });
   }
 

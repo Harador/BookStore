@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
+import { MatDialogRef } from '@angular/material/dialog';
+
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, map, debounceTime, } from 'rxjs/operators';
+
 
 import { AuthorService, IAuthor } from '../../../authors';
 import { GenresService, IGenre } from '../../../genres';
-import { IBooksFilterQuery } from '../../interfaces/books-query-params.interface';
 
 @Component({
   selector: 'app-books-filter',
@@ -17,26 +19,72 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
   public authors: IAuthor[] = [];
   public genres?: IGenre[];
 
-  public model: IBooksFilterQuery = {
+  public model = {
     author: '',
     genre: '',
     maxPrice: 9900,
     minPrice: 0,
   };
 
+  private readonly _debounce$ = new Subject<void>();
   private readonly _destroy$ = new Subject<void>();
 
   constructor(
+    private readonly _dialogRef: MatDialogRef<BooksFilterComponent>,
     private readonly _authorService: AuthorService,
     private readonly _genresService: GenresService,
-  ) { }
+  ) {
+  }
 
   public ngOnInit(): void {
     this._loadData();
+
+    this._debounce$
+      .pipe(
+        debounceTime(500),
+        takeUntil(this._destroy$),
+      )
+      .subscribe(() => {
+        this.filterAuthors();
+      });
   }
+
   public ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  public closeDialog(): void {
+    // search author by model's author name
+    const selectAuthor = this.authors.find((author) => {
+      return this.getFullName(author)
+        .toLowerCase() === (this.model.author.toLowerCase());
+    });
+    // send model with author's id instead of his fullname
+    this._dialogRef.close({
+      ...this.model,
+      author: selectAuthor?.id || 0,
+    });
+  }
+
+  public handleInput(): void {
+    this._debounce$.next();
+  }
+
+  public filterAuthors(): void {
+    this._authorService.gets(1, 100)
+      .pipe(
+        map((list) => {
+          return list.authors.filter((author) => {
+            return this.getFullName(author).toLowerCase()
+              .includes(this.model.author.toLowerCase());
+          });
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe((authors) => {
+        this.authors = authors;
+      });
   }
 
   public getFullName(author: IAuthor): string {
