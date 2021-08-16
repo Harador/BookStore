@@ -12,16 +12,19 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { BooksRoutingModule } from './books-routing.module';
 import { BookCardComponent } from './components/book-card/book-card.component';
 import { BooksContainerComponent } from './components/books-container/books-container.component';
-import { BookPageComponent } from './components/book-page/book-page.component';
+import { BookDetailComponent } from './components/book-detail/book-detail.component';
 import { BooksFilterComponent } from './components/books-filter/books-filter.component';
 import { PriceValidateDirective } from './directives/price-validate.directive';
 import { ValidateFilterService } from './services/validate-filter.service';
 import { AutocomplitePipe } from './pipes/autocomplite.pipe';
 import { AuthorValidateDirective } from './directives/author-validate.directive';
+import { BookCreateComponent } from './components/book-create/book-create.component';
 
 const material = [
   MatButtonModule,
@@ -35,16 +38,22 @@ const material = [
   MatAutocompleteModule,
   MatSelectModule,
   MatSliderModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 ];
 
 @NgModule({
   declarations: [
-    BookCardComponent, BooksContainerComponent,
-    BookPageComponent, BooksFilterComponent,
-    PriceValidateDirective, AutocomplitePipe,
+    BookCardComponent,
+    BooksContainerComponent,
+    BookDetailComponent,
+    BooksFilterComponent,
+    PriceValidateDirective,
+    AutocomplitePipe,
     AuthorValidateDirective,
+    BookCreateComponent,
   ],
   imports: [CommonModule, BooksRoutingModule, FormsModule, material],
-  providers: [ValidateFilterService, ],
+  providers: [ValidateFilterService],
 })
 export class BooksModule { }

@@ -21,10 +21,11 @@ export class ValidateFilterService {
 
   public validateAuthorInput(
     control: AbstractControl,
-    authors: IAuthor[] = []): null | ValidationErrors {
+    authors: IAuthor[] = [],
+    ): null | ValidationErrors {
     if (!control.touched && control.pristine
        || !control.value
-       || this._isIncludeName(authors, control.value)) {
+       || this._isTrueAuthor(authors, control.value)) {
       return null;
     }
 
@@ -32,9 +33,9 @@ export class ValidateFilterService {
   }
 
 
-  private _isIncludeName(authors: IAuthor[], value: string): boolean {
+  private _isTrueAuthor(authors: IAuthor[], selectAuthor: IAuthor): boolean {
     return authors.some((author) => {
-      return `${author.first_name} ${author.last_name}` === value;
+      return author === selectAuthor;
     });
   }
 

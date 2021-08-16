@@ -1,0 +1,47 @@
+@import 'src/mat-theme.scss';
+$primary: map-get($my-primary, default);
+$accent: map-get($my-accent, 100);
+
+.wrapper{
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+}
+.create-body{
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid $accent;
+    border-radius: 10px;
+    max-width: 400px;
+}
+.back-wrapper{
+    position: absolute;
+    top:0;
+    left:0;
+    transform: translate(-30%, -30%);
+    border-radius: 50%;
+    border: 2px solid $accent;
+    background-color: #fff;
+}
+form{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px 20px;
+}
+.full-width{
+    width: 100%;
+}
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    button{
+        flex-grow: 1;
+        max-width: 80px;
+    }
+}

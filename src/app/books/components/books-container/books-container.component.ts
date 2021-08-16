@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
@@ -22,21 +22,8 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
 
   public books: IBook[] = [];
 
-  public meta: IMeta = {
-    pages: 0,
-    page: 0,
-    records: 0,
-    limit: 0,
-  };
+  public meta!: IMeta;
 
-  // filter's params for this._changePage()
-  // will overwritten from this._subscribeQueryParamsAndLoadList()
-  private filterQuery: IBooksFilterQuery = {
-    author:  0,
-    genre: '',
-    minPrice: 0,
-    maxPrice: 9900,
-  };
 
   private readonly _destroy$ = new Subject<void>();
 
@@ -45,7 +32,20 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _dialog: MatDialog,
     private readonly _bookService: BooksService,
-  ) { }
+  ) {
+    const page = this._activatedRoute.snapshot.queryParams.page
+    ? +this._activatedRoute.snapshot.queryParams.page
+    : 1;
+    const limit = this._activatedRoute.snapshot.queryParams.limit
+    ? +this._activatedRoute.snapshot.queryParams.limit
+    : 10;
+
+    this.meta = {
+      page,
+      records: 0,
+      limit,
+    };
+  }
 
   public ngOnInit(): void {
     this._subscribeQueryParamsAndLoadList();
@@ -64,30 +64,27 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
       )
       .subscribe((filterQuery) => {
         if (filterQuery) {
-          this._changePage(1, 10, { ...filterQuery });
+          this._changePage({ ...filterQuery });
         }
       });
   }
 
   /**
-   * switch page
+   * switch page (paginator)
    * @param event mat-paginator's switch page event
    */
   public handlePage(event: PageEvent): void {
     // new page index
     const page: number = event.pageIndex + 1;
     const limit: number = event.pageSize;
-    this._changePage(page, limit, this.filterQuery);
+    this._changePage({ page, limit });
     window.scrollTo(0, 0);
   }
 
-  private _changePage(
-    page: number,
-    limit: number,
-    filterQuery: IBooksFilterQuery,
-    ) : void {
-    this._router.navigate(['/books'],
-    { queryParams: { page, limit, ...filterQuery } });
+  private _changePage(queryParams: Params) : void {
+    this._router.navigate([''],
+      { relativeTo: this._activatedRoute,
+        queryParams, queryParamsHandling: 'merge' });
   }
 
   /**
@@ -119,12 +116,11 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
       )
       .subscribe((params) => {
         const filterQuery: IBooksFilterQuery = {
-          author: params.author ?? 0,
-          genre: params.genre ?? '',
-          minPrice: params.minPrice ?? 0,
-          maxPrice: params.maxPrice ?? 9900,
+          author: params.author,
+          genre: params.genre,
+          minPrice: params.minPrice,
+          maxPrice: params.maxPrice,
         };
-        this.filterQuery = filterQuery;
         this._loadList(params.page, params.limit, filterQuery);
       });
   }

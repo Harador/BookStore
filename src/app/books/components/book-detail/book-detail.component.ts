@@ -8,11 +8,11 @@ import { IBook } from '../../interfaces/book.interface';
 import { BooksService } from '../../services/books.service';
 
 @Component({
-  selector: 'app-book-page',
-  templateUrl: './book-page.component.html',
-  styleUrls: ['./book-page.component.scss'],
+  selector: 'app-book-detail',
+  templateUrl: './book-detail.component.html',
+  styleUrls: ['./book-detail.component.scss'],
 })
-export class BookPageComponent implements OnInit, OnDestroy {
+export class BookDetailComponent implements OnInit, OnDestroy {
 
   public book!: IBook;
 

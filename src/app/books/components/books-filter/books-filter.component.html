@@ -4,17 +4,16 @@
 
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Author</mat-label>
-            <input  [(ngModel)]="model.author" matInput
-              (ngModelChange)="handleInput()"
-              #search name="author"
-              type="text" appAuthor 
-              [authors]="authors"
+            <input matInput type="text" 
+              ngModel
+              (input)="handleInput(search.value)"
+              #search name="search"
+              appAuthor [authors]="authors"
               [matAutocomplete]="auto"
-              >
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let author of authors" [value]="getFullName(author)">
-                {{author.first_name}}
-                {{author.last_name}}
+            >
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFullNameAndTakeId">
+              <mat-option *ngFor="let author of authors" [value]="author">
+                {{getFullName(author)}}
               </mat-option>
             </mat-autocomplete>
         </mat-form-field>
@@ -22,7 +21,7 @@
         <mat-form-field appearance="fill">
             <mat-label>Genre</mat-label>
             <mat-select ngModel name="genre" [(ngModel)]="model.genre">
-               <mat-option *ngFor="let genre of genres" [value]="genre.name">
+               <mat-option *ngFor="let genre of genres" [value]="genre.id">
                {{genre.name}}
                </mat-option>
              </mat-select>
@@ -60,7 +59,6 @@
             aria-label="units"
             >
             </mat-slider>
-
             <mat-error class="price-err" *ngIf="priceCtrl.invalid">Minimum price must be less then the maximum!</mat-error>
         </div>
     </form>

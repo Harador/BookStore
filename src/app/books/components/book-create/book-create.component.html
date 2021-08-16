@@ -1,0 +1,56 @@
+<div class="wrapper">
+    <div class="create-body">
+        <div class="back-wrapper">
+            <button (click)="navBack()" class="back" mat-icon-button color="primary">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+        <form action="">
+            <mat-form-field class="full-width"  appearance="fill">
+                <mat-label>title</mat-label>
+                <input matInput type="text">
+            </mat-form-field>
+            <mat-form-field class="full-width"  appearance="fill">
+                <mat-label>price</mat-label>
+                <input matInput type="number">
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>author</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let author of authors" value="author.id">
+                        {{author.first_name}}
+                        {{author.last_name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>genre</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let genre of genres" value="genre.id">
+                        {{genre.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="full-width"  appearance="fill">
+                <mat-label>description</mat-label>
+                <textarea matInput></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Writing date</mat-label>
+                <input matInput [matDatepicker]="writing">
+                <mat-datepicker-toggle matSuffix [for]="writing"></mat-datepicker-toggle>
+                <mat-datepicker #writing></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Release date</mat-label>
+                <input matInput [matDatepicker]="release">
+                <mat-datepicker-toggle matSuffix [for]="release"></mat-datepicker-toggle>
+                <mat-datepicker #release></mat-datepicker>
+            </mat-form-field>
+            <div class="buttons">
+                <button mat-raised-button color="primary">Reset</button>
+                <button mat-raised-button disabled color="primary">Create</button>
+            </div>
+        </form>
+    </div>
+</div>

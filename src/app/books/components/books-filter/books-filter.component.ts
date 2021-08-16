@@ -5,9 +5,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil, map, debounceTime, } from 'rxjs/operators';
 
-
 import { AuthorService, IAuthor } from '../../../authors';
 import { GenresService, IGenre } from '../../../genres';
+import { IBooksFilterQuery } from '../../interfaces/books-query-params.interface';
 
 @Component({
   selector: 'app-books-filter',
@@ -19,14 +19,16 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
   public authors: IAuthor[] = [];
   public genres?: IGenre[];
 
-  public model = {
-    author: '',
-    genre: '',
+  public model: IBooksFilterQuery = {
+    author: undefined,
+    genre: undefined,
     maxPrice: 9900,
     minPrice: 0,
   };
 
-  private readonly _debounce$ = new Subject<void>();
+  public readonly displayFullNameAndTakeId = this._displayFullNameAndTakeId.bind(this);
+
+  private readonly _debounce$ = new Subject<string>();
   private readonly _destroy$ = new Subject<void>();
 
   constructor(
@@ -44,8 +46,8 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
         debounceTime(500),
         takeUntil(this._destroy$),
       )
-      .subscribe(() => {
-        this.filterAuthors();
+      .subscribe((fullName) => {
+        this.filterAuthors(fullName);
       });
   }
 
@@ -55,29 +57,26 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
   }
 
   public closeDialog(): void {
-    // search author by model's author name
-    const selectAuthor = this.authors.find((author) => {
-      return this.getFullName(author)
-        .toLowerCase() === (this.model.author.toLowerCase());
-    });
-    // send model with author's id instead of his fullname
-    this._dialogRef.close({
-      ...this.model,
-      author: selectAuthor?.id || 0,
-    });
+    this._dialogRef.close(this.model);
   }
 
-  public handleInput(): void {
-    this._debounce$.next();
+  public handleInput(fullName: string): any {
+    this._debounce$.next(fullName);
   }
 
-  public filterAuthors(): void {
+  public filterAuthors(fullName: string): void {
+    const arrName = fullName.trim().toLowerCase().split(' ');
+    const firstName = arrName[0];
+    const lastName = arrName[1] || '';
+
     this._authorService.gets(1, 100)
       .pipe(
         map((list) => {
           return list.authors.filter((author) => {
-            return this.getFullName(author).toLowerCase()
-              .includes(this.model.author.toLowerCase());
+            return author.first_name.toLowerCase()
+              .includes(firstName)
+              || author.last_name.toLowerCase()
+                .includes(lastName);
           });
         }),
         takeUntil(this._destroy$),
@@ -97,6 +96,16 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
     }
 
     return value;
+  }
+
+  private _displayFullNameAndTakeId($event: IAuthor): string {
+    if ($event) {
+      this.model.author = $event.id;
+
+      return `${$event.first_name } ${$event.last_name }`;
+    }
+
+    return '';
   }
 
   private _loadData(): void {
