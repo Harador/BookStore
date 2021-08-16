@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { FormBuilder, FormArray, Validators } from '@angular/forms';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -14,6 +15,18 @@ import { GenresService, IGenre } from 'src/app/genres';
 })
 export class BookCreateComponent implements OnInit, OnDestroy {
 
+  public form = this.fb.group({
+    title: ['', Validators.required],
+    price: [],
+    author: [],
+    genresCtrls: this.fb.array([
+      this.fb.control('')
+    ]),
+    description: [],
+    writingDate: [],
+    releaseDate: [],
+  });
+
   public authors!: IAuthor[];
   public genres!: IGenre[];
 
@@ -21,9 +34,14 @@ export class BookCreateComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly _location: Location,
+    private readonly fb: FormBuilder,
     private readonly _authorsService: AuthorService,
     private readonly _genresService: GenresService,
   ) { }
+
+  get genresCtrls(){
+    return this.form.get('genresCtrls') as FormArray;
+  }
 
   ngOnInit(): void {
     this._loadData();
@@ -32,6 +50,14 @@ export class BookCreateComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  public addGenreCtrl(){
+    this.genresCtrls.push(this.fb.control(''))
+  }
+
+  public submit(){
+    console.log(this.form.value);
   }
 
   public navBack(){

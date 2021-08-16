@@ -1,56 +1,73 @@
 <div class="wrapper">
     <div class="create-body">
+
         <div class="back-wrapper">
             <button (click)="navBack()" class="back" mat-icon-button color="primary">
                 <mat-icon>arrow_back</mat-icon>
             </button>
         </div>
-        <form action="">
+
+        <form [formGroup]="form" action="">
             <mat-form-field class="full-width"  appearance="fill">
                 <mat-label>title</mat-label>
-                <input matInput type="text">
+                <input matInput type="text" formControlName="title">
             </mat-form-field>
+
             <mat-form-field class="full-width"  appearance="fill">
                 <mat-label>price</mat-label>
-                <input matInput type="number">
+                <input matInput type="number" formControlName="price">
             </mat-form-field>
+
             <mat-form-field class="full-width" appearance="fill">
                 <mat-label>author</mat-label>
-                <mat-select>
+                <mat-select formControlName="author">
                     <mat-option *ngFor="let author of authors" value="author.id">
                         {{author.first_name}}
                         {{author.last_name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field class="full-width" appearance="fill">
-                <mat-label>genre</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let genre of genres" value="genre.id">
-                        {{genre.name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+
+            <div formArrayName="genresCtrls" class="genres-array full-width">
+                <mat-form-field *ngFor="let genreCtrl of genresCtrls.controls; let i = index"
+                 class="full-width" appearance="fill">
+                    <mat-label>genre {{i + 1}}</mat-label>
+                    <mat-select [formControlName]="i">
+                        <mat-option *ngFor="let genre of genres" [value]="genre.id">
+                            {{genre.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button (click)="addGenreCtrl()" class="add-genre" mat-raised-button color="accent">
+                    <mat-icon class="icon">add</mat-icon>
+                    add genre
+                </button>
+            </div>
+
             <mat-form-field class="full-width"  appearance="fill">
                 <mat-label>description</mat-label>
-                <textarea matInput></textarea>
+                <textarea matInput formControlName="description"></textarea>
             </mat-form-field>
+
             <mat-form-field appearance="fill">
                 <mat-label>Writing date</mat-label>
-                <input matInput [matDatepicker]="writing">
+                <input matInput [matDatepicker]="writing" formControlName="writingDate">
                 <mat-datepicker-toggle matSuffix [for]="writing"></mat-datepicker-toggle>
                 <mat-datepicker #writing></mat-datepicker>
             </mat-form-field>
+
             <mat-form-field appearance="fill">
                 <mat-label>Release date</mat-label>
-                <input matInput [matDatepicker]="release">
+                <input matInput [matDatepicker]="release" formControlName="releaseDate">
                 <mat-datepicker-toggle matSuffix [for]="release"></mat-datepicker-toggle>
                 <mat-datepicker #release></mat-datepicker>
             </mat-form-field>
+
             <div class="buttons">
                 <button mat-raised-button color="primary">Reset</button>
-                <button mat-raised-button disabled color="primary">Create</button>
+                <button mat-raised-button color="primary" (click)="submit()">ShowForm</button>
             </div>
+
         </form>
     </div>
 </div>

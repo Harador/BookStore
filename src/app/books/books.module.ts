@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -53,7 +53,7 @@ const material = [
     AuthorValidateDirective,
     BookCreateComponent,
   ],
-  imports: [CommonModule, BooksRoutingModule, FormsModule, material],
+  imports: [CommonModule, BooksRoutingModule, FormsModule, ReactiveFormsModule, material],
   providers: [ValidateFilterService],
 })
 export class BooksModule { }

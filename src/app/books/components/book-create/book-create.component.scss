@@ -36,12 +36,21 @@ form{
 .full-width{
     width: 100%;
 }
+.genres-array{
+    text-align: center;
+}
+
+.add-genre{
+    position: relative;
+    padding-left: 5px;
+    margin: -10px 0 10px;
+}
 .buttons{
     width: 100%;
     display: flex;
     justify-content: space-around;
     button{
         flex-grow: 1;
-        max-width: 80px;
+        max-width: 100px;
     }
 }
