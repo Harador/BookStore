@@ -46,14 +46,14 @@ export class BookCreateComponent implements OnInit, OnDestroy {
   public initForm(): void {
     this.form = this._fb.group({
       title: ['', Validators.required],
-      price: [],
-      author: [],
+      price: [null, [Validators.required, Validators.min(100)]],
+      author: [null, Validators.required],
       genresCtrls: this._fb.array([
-        this._fb.control(''),
+        this._fb.control(null, Validators.required),
       ]),
-      description: [],
-      writingDate: [],
-      releaseDate: [],
+      description: ['', Validators.minLength(10)],
+      writingDate: [null, Validators.required],
+      releaseDate: [null, Validators.required],
     });
   }
 
@@ -62,7 +62,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
   }
 
   public addGenreCtrl(): void {
-    this.genresCtrls.push(this._fb.control(''));
+    this.genresCtrls.push(this._fb.control('', Validators.required));
   }
 
   public submit(): void {
@@ -74,20 +74,23 @@ export class BookCreateComponent implements OnInit, OnDestroy {
   }
 
   private _loadData(): void {
-    this._authorsService.gets(1, 100)
-      .pipe(
-        takeUntil(this._destroy$),
-      )
-      .subscribe((list) => {
-        this.authors = list.authors;
-      });
-
+    this._loadAuthors();
     this._genresService.gets(1, 100)
       .pipe(
         takeUntil(this._destroy$),
       )
       .subscribe((list) => {
         this.genres = list.genres;
+      });
+  }
+
+  private _loadAuthors(name?: string): void {
+    this._authorsService.gets(1, 100, name)
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe((list) => {
+        this.authors = list.authors;
       });
   }
 
