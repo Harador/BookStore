@@ -1,7 +1,6 @@
 import { Directive, Input } from '@angular/core';
 import { NG_VALIDATORS, FormControl, Validator, ValidationErrors } from '@angular/forms';
 
-import { ValidateFilterService } from '../services/validate-filter.service';
 import { IAuthor } from '../../authors';
 
 @Directive({
@@ -16,12 +15,22 @@ export class AuthorValidateDirective implements Validator {
 
   @Input() public authors: IAuthor[] = [];
 
-  constructor(
-    private readonly _validateFilterService: ValidateFilterService,
-  ) {}
+  constructor() {}
 
   public validate(control: FormControl): ValidationErrors | null {
-    return this._validateFilterService.validateAuthorInput(control, this.authors);
+    if (!control.touched && control.pristine
+        || !control.value
+        || this._isTrueAuthor(this.authors, control.value)) {
+      return null;
+    }
+
+    return { unknowAuthor: true };
+  }
+
+  private _isTrueAuthor(authors: IAuthor[], selectAuthor: IAuthor): boolean {
+    return authors.some((author) => {
+      return author === selectAuthor;
+    });
   }
 
 }

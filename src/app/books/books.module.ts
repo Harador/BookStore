@@ -20,12 +20,10 @@ import { BookCardComponent } from './components/card/card.component';
 import { BooksContainerComponent } from './components/container/container.component';
 import { BookDetailComponent } from './components/detail/detail.component';
 import { BooksFilterComponent } from './components/filter/filter.component';
-import { PriceValidateDirective } from './directives/price-validate.directive';
-import { ValidateFilterService } from './services/validate-filter.service';
-import { AutocomplitePipe } from './pipes/autocomplite.pipe';
-import { AuthorValidateDirective } from './directives/author-validate.directive';
 import { BookCreateComponent } from './components/create/create.component';
-
+import { PriceValidateDirective } from './directives/price-validate.directive';
+import { AuthorValidateDirective } from './directives/author-validate.directive';
+import { AutocomplitePipe } from './pipes/autocomplite.pipe';
 
 @NgModule({
   declarations: [
@@ -59,6 +57,5 @@ import { BookCreateComponent } from './components/create/create.component';
 
     BooksRoutingModule,
   ],
-  providers: [ValidateFilterService],
 })
 export class BooksModule { }

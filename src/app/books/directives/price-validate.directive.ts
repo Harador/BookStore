@@ -1,8 +1,6 @@
 import { Directive } from '@angular/core';
 import { NG_VALIDATORS, FormGroup, Validator, ValidationErrors } from '@angular/forms';
 
-import { ValidateFilterService } from '../services/validate-filter.service';
-
 @Directive({
   selector: '[appPrice]',
   providers: [{
@@ -13,11 +11,17 @@ import { ValidateFilterService } from '../services/validate-filter.service';
 })
 export class PriceValidateDirective implements Validator {
 
-  constructor(
-    private readonly _validateFilterService: ValidateFilterService,
-  ) {}
+  constructor() {}
+
   public validate(control: FormGroup): ValidationErrors | null {
-    return this._validateFilterService.validatePrice(control);
+    const min = control.value.min;
+    const max = control.value.max;
+
+    if (min > max) {
+      return { priceError : true };
+    }
+
+    return null;
   }
 
 }
