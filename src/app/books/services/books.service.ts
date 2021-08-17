@@ -12,7 +12,8 @@ import { IListResponse } from '../../index';
 })
 export class BooksService {
 
-  private readonly booksUrl: string = '/api/books';
+  private readonly _booksUrl: string = '/api/books';
+  private readonly _authorsUrl: string = '/api/authors';
 
   constructor(
     private readonly _http: HttpClient,
@@ -30,11 +31,17 @@ export class BooksService {
     limit: number = 10,
     filterQuery: IBooksFilterQuery,
     ): Observable<IListResponse> {
+    if (filterQuery.author) {
+      return this.getsByAuthorId(page, limit, filterQuery);
+    }
+
+    const queries = this._getTrueFilterQueries(filterQuery);
+
     const params = new HttpParams()
-     .appendAll({ page, limit, ...filterQuery });
+     .appendAll({ page, limit, ...queries });
 
     return this._http
-      .get<IListResponse>(this.booksUrl, { params });
+      .get<IListResponse>(this._booksUrl, { params });
   }
 
   /**
@@ -43,7 +50,50 @@ export class BooksService {
    * @returns book
    */
   public get(id: number): Observable<IBook> {
-    return this._http.get<IBook>(this.booksUrl + `/${id}`);
+    return this._http.get<IBook>(this._booksUrl + `/${id}`);
+  }
+
+  /**
+   * get books list by author id
+   * @param page query parameter
+   * @param limit query parameter
+   * @param filterQuery filter queries
+   * @returns list include books and meta
+   */
+  public getsByAuthorId(
+    page: number = 1,
+    limit: number = 10,
+    filterQuery: IBooksFilterQuery,
+  ): Observable<IListResponse> {
+    const queries = this._getTrueFilterQueries(filterQuery);
+    const id = filterQuery.author;
+    const params = new HttpParams()
+     .appendAll({ page, limit, ...queries });
+
+    return this._http
+      .get<IListResponse>(`${this._authorsUrl}/${id}/books`, { params });
+  }
+
+  /**
+   * get true filters queries from filter
+   * @param filter filter with params
+   * @returns new queries
+   */
+  private _getTrueFilterQueries(filter: IBooksFilterQuery): any {
+    const queries: any = {};
+
+    if (filter.maxPrice
+      && filter.minPrice) {
+      queries['q[price_lteq]'] = filter.maxPrice;
+      queries['q[price_gteq]'] = filter.minPrice;
+    }
+
+    if (filter.genre) {
+      queries['q[genres_name_cont]'] = filter.genre;
+    }
+    console.log(queries);
+    
+    return queries;
   }
 
 }
