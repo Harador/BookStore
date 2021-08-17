@@ -37,11 +37,11 @@
                             {{genre.name}}
                         </mat-option>
                     </mat-select>
-                    <button *ngIf="i > 0" (click)="deleteGenreSelect(i)" class="delete-select" mat-icon-button color="warn">
+                    <button type="button" *ngIf="i > 0" (click)="deleteGenreSelect(i)" class="delete-select" mat-icon-button color="warn">
                         <mat-icon class="icon">clear</mat-icon>
                     </button>
                 </mat-form-field>
-                <button (click)="addGenreCtrl()" class="add-genre" mat-raised-button color="accent">
+                <button type="button" (click)="addGenreCtrl()" class="add-genre" mat-raised-button color="accent">
                     <mat-icon class="icon">add</mat-icon>
                     add genre
                 </button>
