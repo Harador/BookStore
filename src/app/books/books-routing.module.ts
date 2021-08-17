@@ -8,7 +8,7 @@ import { BooksContainerComponent } from './components/books-container/books-cont
 const routes: Routes = [
  { path: '', component: BooksContainerComponent },
  { path: 'detail/:id', component: BookDetailComponent },
- { path: 'create', component: BookCreateComponent}
+ { path: 'create', component: BookCreateComponent },
 ];
 
 @NgModule({

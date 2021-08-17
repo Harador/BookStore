@@ -19,4 +19,5 @@ export class ToolbarComponent implements OnInit {
   public navToCreateBook(): void {
     this._router.navigate(['/books/create']);
   }
+
 }

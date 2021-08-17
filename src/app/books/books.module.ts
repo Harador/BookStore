@@ -26,21 +26,6 @@ import { AutocomplitePipe } from './pipes/autocomplite.pipe';
 import { AuthorValidateDirective } from './directives/author-validate.directive';
 import { BookCreateComponent } from './components/book-create/book-create.component';
 
-const material = [
-  MatButtonModule,
-  MatIconModule,
-  MatCardModule,
-  MatPaginatorModule,
-  MatPaginatorModule,
-  MatDialogModule,
-  MatInputModule,
-  MatFormFieldModule,
-  MatAutocompleteModule,
-  MatSelectModule,
-  MatSliderModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-];
 
 @NgModule({
   declarations: [
@@ -53,7 +38,27 @@ const material = [
     AuthorValidateDirective,
     BookCreateComponent,
   ],
-  imports: [CommonModule, BooksRoutingModule, FormsModule, ReactiveFormsModule, material],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatPaginatorModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+
+    BooksRoutingModule,
+  ],
   providers: [ValidateFilterService],
 })
 export class BooksModule { }
