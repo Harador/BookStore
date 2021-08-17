@@ -23,9 +23,16 @@ export class AuthorService {
    * @param limit query parameter
    * @returns list include authors and meta
    */
-  public gets(page: number = 1, limit: number = 10): Observable<IListResponse> {
-    const params = new HttpParams()
-    .appendAll({ page, limit });
+  public gets(page: number = 1, limit: number = 10, name?: string): Observable<IListResponse> {
+    let params;
+
+    if (name) {
+      params = new HttpParams()
+    .appendAll({ page, limit, 'q[name_cont]': name });
+    } else {
+      params = new HttpParams()
+    .appendAll({ page, limit, });
+    }
 
     return this._http
       .get<IListResponse>(this.authorsUrl, { params });
