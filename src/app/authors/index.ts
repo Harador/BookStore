@@ -1,4 +1,4 @@
-export { AuthorsComponent } from './components/authors/authors.component';
+export { AuthorsListComponent } from './components/list/list.component';
 
 export { IAuthor } from './interfaces/author.interface';
-export { AuthorService } from './services/authors.service';
+export { AuthorsService } from './services/authors.service';

@@ -16,15 +16,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
 import { BooksRoutingModule } from './books-routing.module';
-import { BookCardComponent } from './components/book-card/book-card.component';
-import { BooksContainerComponent } from './components/books-container/books-container.component';
-import { BookDetailComponent } from './components/book-detail/book-detail.component';
-import { BooksFilterComponent } from './components/books-filter/books-filter.component';
+import { BookCardComponent } from './components/card/card.component';
+import { BooksContainerComponent } from './components/container/container.component';
+import { BookDetailComponent } from './components/detail/detail.component';
+import { BooksFilterComponent } from './components/filter/filter.component';
 import { PriceValidateDirective } from './directives/price-validate.directive';
 import { ValidateFilterService } from './services/validate-filter.service';
 import { AutocomplitePipe } from './pipes/autocomplite.pipe';
 import { AuthorValidateDirective } from './directives/author-validate.directive';
-import { BookCreateComponent } from './components/book-create/book-create.component';
+import { BookCreateComponent } from './components/create/create.component';
 
 
 @NgModule({

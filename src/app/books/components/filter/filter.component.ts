@@ -5,14 +5,14 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil, map, debounceTime, } from 'rxjs/operators';
 
-import { AuthorService, IAuthor } from '../../../authors';
+import { AuthorsService, IAuthor } from '../../../authors';
 import { GenresService, IGenre } from '../../../genres';
 import { IBooksFilterQuery } from '../../interfaces/books-query-params.interface';
 
 @Component({
   selector: 'app-books-filter',
-  templateUrl: './books-filter.component.html',
-  styleUrls: ['./books-filter.component.scss'],
+  templateUrl: './filter.component.html',
+  styleUrls: ['./filter.component.scss'],
 })
 export class BooksFilterComponent implements OnInit, OnDestroy {
 
@@ -33,7 +33,7 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly _dialogRef: MatDialogRef<BooksFilterComponent>,
-    private readonly _authorService: AuthorService,
+    private readonly _authorService: AuthorsService,
     private readonly _genresService: GenresService,
   ) {
   }

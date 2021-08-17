@@ -9,8 +9,8 @@ import { BooksService } from '../../services/books.service';
 
 @Component({
   selector: 'app-book-detail',
-  templateUrl: './book-detail.component.html',
-  styleUrls: ['./book-detail.component.scss'],
+  templateUrl: './detail.component.html',
+  styleUrls: ['./detail.component.scss'],
 })
 export class BookDetailComponent implements OnInit, OnDestroy {
 

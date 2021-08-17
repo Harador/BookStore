@@ -4,12 +4,12 @@ import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AutorsRoutingModule } from './authors-routing.module';
-import { AuthorsComponent } from './components/authors/authors.component';
+import { AuthorsListComponent } from './components/list/list.component';
 
 const material = [ MatPaginatorModule, ];
 
 @NgModule({
-  declarations: [AuthorsComponent],
+  declarations: [AuthorsListComponent],
   imports: [CommonModule, AutorsRoutingModule, material],
 })
 

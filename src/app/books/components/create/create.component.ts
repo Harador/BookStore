@@ -5,13 +5,13 @@ import { FormBuilder, FormArray, Validators, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { AuthorService, IAuthor } from '../../../authors';
+import { AuthorsService, IAuthor } from '../../../authors';
 import { GenresService, IGenre } from '../../../genres';
 
 @Component({
   selector: 'app-book-create',
-  templateUrl: './book-create.component.html',
-  styleUrls: ['./book-create.component.scss'],
+  templateUrl: './create.component.html',
+  styleUrls: ['./create.component.scss'],
 })
 export class BookCreateComponent implements OnInit, OnDestroy {
 
@@ -25,7 +25,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
   constructor(
     private readonly _location: Location,
     private readonly _fb: FormBuilder,
-    private readonly _authorsService: AuthorService,
+    private readonly _authorsService: AuthorsService,
     private readonly _genresService: GenresService,
   ) { }
 

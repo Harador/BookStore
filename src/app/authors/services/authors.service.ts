@@ -8,7 +8,7 @@ import { IListResponse } from '../../index';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthorService {
+export class AuthorsService {
 
   private readonly authorsUrl: string = '/api/authors';
 

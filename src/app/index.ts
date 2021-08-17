@@ -1,5 +1,5 @@
-export { ToolbarComponent } from './components/toolbar/toolbar.component';
-export { AppComponent } from './components/app-component/app.component';
+export { ToolbarComponent } from './layout/components/toolbar/toolbar.component';
+export { AppComponent } from './app-component/app.component';
 
-export { IListResponse } from './interfaces/list-response.interface';
-export { IMeta } from './interfaces/meta.interface';
+export { IListResponse } from './layout/interfaces/list-response.interface';
+export { IMeta } from './layout/interfaces/meta.interface';

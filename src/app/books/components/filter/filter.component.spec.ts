@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BooksFilterComponent } from './books-filter.component';
+import { BooksFilterComponent } from './filter.component';
 
 describe('FilterComponent', () => {
   let component: BooksFilterComponent;
@@ -8,7 +8,7 @@ describe('FilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BooksFilterComponent ]
+      declarations: [ BooksFilterComponent ],
     })
       .compileComponents();
   });

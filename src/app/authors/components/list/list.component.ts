@@ -8,15 +8,15 @@ import { takeUntil } from 'rxjs/operators';
 
 import { IAuthor } from '../../interfaces/author.interface';
 import { IMeta } from '../../../index';
-import { AuthorService } from '../../services/authors.service';
+import { AuthorsService } from '../../services/authors.service';
 
 
 @Component({
   selector: 'app-authors',
-  templateUrl: './authors.component.html',
-  styleUrls: ['./authors.component.scss'],
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
 })
-export class AuthorsComponent implements OnInit, OnDestroy {
+export class AuthorsListComponent implements OnInit, OnDestroy {
 
   public authors: IAuthor[] = [];
 
@@ -33,7 +33,7 @@ export class AuthorsComponent implements OnInit, OnDestroy {
   constructor(
     private readonly _router: Router,
     private readonly _activatedRoute: ActivatedRoute,
-    private readonly _authorservice: AuthorService,
+    private readonly _authorservice: AuthorsService,
   ) { }
 
   public ngOnInit(): void {

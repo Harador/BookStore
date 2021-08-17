@@ -10,13 +10,13 @@ import { takeUntil } from 'rxjs/operators';
 import { IBook } from '../../interfaces/book.interface';
 import { IMeta } from '../../../index';
 import { BooksService } from '../../services/books.service';
-import { BooksFilterComponent } from '../books-filter/books-filter.component';
+import { BooksFilterComponent } from '../filter/filter.component';
 import { IBooksFilterQuery } from '../../interfaces/books-query-params.interface';
 
 @Component({
   selector: 'app-books-container',
-  templateUrl: './books-container.component.html',
-  styleUrls: ['./books-container.component.scss'],
+  templateUrl: './container.component.html',
+  styleUrls: ['./container.component.scss'],
 })
 export class BooksContainerComponent implements OnInit, OnDestroy {
 

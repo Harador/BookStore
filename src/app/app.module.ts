@@ -1,26 +1,14 @@
 import { NgModule } from '@angular/core';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './components/app-component/app.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { LayoutModule } from './layout/layout.module';
+import { AppComponent } from './app-component/app.component';
 
-const material = [
-  MatToolbarModule,
-  MatButtonModule,
-  MatIconModule,
-  MatCardModule,
-];
 
 @NgModule({
-  declarations: [AppComponent, ToolbarComponent, NavbarComponent],
-  imports: [AppRoutingModule, CoreModule, material ],
+  declarations: [AppComponent, ],
+  imports: [AppRoutingModule, CoreModule, LayoutModule ],
   providers: [],
   bootstrap: [AppComponent],
 })

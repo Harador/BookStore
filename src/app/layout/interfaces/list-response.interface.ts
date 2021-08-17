@@ -1,6 +1,6 @@
-import { IBook } from '../books';
-import { IAuthor } from '../authors';
-import { IGenre } from '../genres';
+import { IBook } from '../../books';
+import { IAuthor } from '../../authors';
+import { IGenre } from '../../genres';
 
 import { IMeta } from './meta.interface';
 

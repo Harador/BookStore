@@ -4,8 +4,8 @@ import { IBook } from '../../interfaces/book.interface';
 
 @Component({
   selector: 'app-card-book',
-  templateUrl: './book-card.component.html',
-  styleUrls: ['./book-card.component.scss'],
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.scss'],
 })
 export class BookCardComponent implements OnInit {
 
