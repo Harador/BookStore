@@ -67,7 +67,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",         
-          
+          "options": {
+              "proxyConfig": "proxy.conf.json",
+              "browserTarget": "BookStore:build"
+          },
           "configurations": {
             "production": {
               "browserTarget": "BookStore:build:production"
