@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -14,6 +14,10 @@ export class BooksService {
 
   private readonly _booksUrl: string = '/api/books';
   private readonly _authorsUrl: string = '/api/authors';
+
+  private readonly _httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
   constructor(
     private readonly _http: HttpClient,
@@ -74,6 +78,13 @@ export class BooksService {
       .get<IListResponse>(`${this._authorsUrl}/${id}/books`, { params });
   }
 
+  public create(book: IBook): Observable<any> {
+    const id = book.author_id;
+
+    return this._http
+      .post(`${this._authorsUrl}/${id}/books`, book, this._httpOptions);
+  }
+
   /**
    * get true filters queries from filter
    * @param filter filter with params
@@ -91,8 +102,7 @@ export class BooksService {
     if (filter.genre) {
       queries['q[genres_name_cont]'] = filter.genre;
     }
-    console.log(queries);
-    
+
     return queries;
   }
 

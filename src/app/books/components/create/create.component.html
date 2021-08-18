@@ -7,7 +7,7 @@
             </button>
         </div>
 
-        <form [formGroup]="form">
+        <form [formGroup]="form" #createForm>
             <mat-form-field class="full-width"  appearance="fill">
                 <mat-label>title</mat-label>
                 <input matInput type="text" formControlName="title">
@@ -19,21 +19,27 @@
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="fill">
-                <mat-label>author</mat-label>
-                <mat-select formControlName="author">
-                    <mat-option *ngFor="let author of authors" value="author.id">
-                        {{author.first_name}}
-                        {{author.last_name}}
-                    </mat-option>
-                </mat-select>
+                <mat-label>Author</mat-label>
+                <input matInput type="text" 
+                  (input)="handleInput(search.value)"
+                  formControlName="author"
+                  #search name="search"
+                  appAuthor [authors]="authorsList"
+                  [matAutocomplete]="auto"
+                >
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFullNameAndTakeId">
+                  <mat-option *ngFor="let author of authorsList" [value]="author">
+                    {{getFullName(author)}}
+                  </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
 
-            <div formArrayName="genresCtrls" class="genres-array full-width">
-                <mat-form-field *ngFor="let genreCtrl of genresCtrls.controls; let i = index"
+            <div formArrayName="genres" class="genres-array full-width">
+                <mat-form-field *ngFor="let genreCtrl of genres.controls; let i = index"
                  class="full-width genres-field" appearance="fill">
                     <mat-label>genre {{i + 1}}</mat-label>
                     <mat-select [formControlName]="i">
-                        <mat-option *ngFor="let genre of genres" [value]="genre">
+                        <mat-option *ngFor="let genre of genresList" [value]="genre">
                             {{genre.name}}
                         </mat-option>
                     </mat-select>
@@ -54,21 +60,24 @@
 
             <mat-form-field appearance="fill">
                 <mat-label>Writing date</mat-label>
-                <input matInput [matDatepicker]="writing" formControlName="writingDate">
+                <input matInput [matDatepicker]="writing" formControlName="writing_date">
                 <mat-datepicker-toggle matSuffix [for]="writing"></mat-datepicker-toggle>
                 <mat-datepicker #writing></mat-datepicker>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>Release date</mat-label>
-                <input matInput [matDatepicker]="release" formControlName="releaseDate">
+                <input matInput [matDatepicker]="release" formControlName="release_date">
                 <mat-datepicker-toggle matSuffix [for]="release"></mat-datepicker-toggle>
                 <mat-datepicker #release></mat-datepicker>
             </mat-form-field>
 
             <div class="buttons">
                 <button mat-raised-button color="primary" type="reset">Reset</button>
-                <button mat-raised-button color="primary" (click)="submit()">ShowForm</button>
+                <button mat-raised-button color="primary" 
+                    (click)="submit()">
+                    ShowForm
+                </button>
             </div>
 
         </form>
