@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { Subject } from 'rxjs';
-import { takeUntil, map, debounceTime, } from 'rxjs/operators';
+import { takeUntil, debounceTime, } from 'rxjs/operators';
 
 import { AuthorsService, IAuthor } from '../../../authors';
 import { GenresService, IGenre } from '../../../genres';
@@ -67,22 +67,13 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
   public filterAuthors(fullName: string): void {
     const arrName = fullName.trim().toLowerCase().split(' ');
     const firstName = arrName[0];
-    const lastName = arrName[1] || '';
 
-    this._authorService.gets(1, 100)
+    this._authorService.gets(1, 10, firstName)
       .pipe(
-        map((list) => {
-          return list.authors.filter((author) => {
-            return author.first_name.toLowerCase()
-              .includes(firstName)
-              || author.last_name.toLowerCase()
-                .includes(lastName);
-          });
-        }),
         takeUntil(this._destroy$),
       )
-      .subscribe((authors) => {
-        this.authors = authors;
+      .subscribe((list) => {
+        this.authors = list.authors;
       });
   }
 
@@ -109,7 +100,7 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
   }
 
   private _loadData(): void {
-    this._authorService.gets(1, 100)
+    this._authorService.gets()
       .pipe(
        takeUntil(this._destroy$),
       )
