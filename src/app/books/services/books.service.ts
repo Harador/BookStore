@@ -78,7 +78,7 @@ export class BooksService {
       .get<IListResponse>(`${this._authorsUrl}/${id}/books`, { params });
   }
 
-  public create(book: IBook): Observable<any> {
+  public create(book: Partial<IBook>): Observable<any> {
     const id = book.author_id;
 
     return this._http

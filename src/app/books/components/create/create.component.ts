@@ -85,11 +85,9 @@ export class BookCreateComponent implements OnInit, OnDestroy {
 
   public submit(): void {
     const value = this.form.value;
-    const book: IBook = {
+    const book: Partial<IBook> = {
       ...value,
       author_id: value.author.id,
-      writing_date: value.writing_date.toISOString(),
-      release_date: value.writing_date.toISOString(),
     };
     this._booksService.create(book)
       .pipe(
