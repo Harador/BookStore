@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { Subject } from 'rxjs';
-import { takeUntil, debounceTime, } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil, debounceTime, switchMap, } from 'rxjs/operators';
+import { IListResponse } from 'src/app/layout/interfaces/list-response.interface';
 
 import { AuthorsService, IAuthor } from '../../../authors';
 import { GenresService, IGenre } from '../../../genres';
@@ -28,7 +29,7 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
 
   public readonly displayFullNameAndTakeId = this._displayFullNameAndTakeId.bind(this);
 
-  private readonly _debounce$ = new Subject<string>();
+  private readonly _debounceInput$ = new Subject<string>();
   private readonly _destroy$ = new Subject<void>();
 
   constructor(
@@ -40,15 +41,7 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this._loadData();
-
-    this._debounce$
-      .pipe(
-        debounceTime(500),
-        takeUntil(this._destroy$),
-      )
-      .subscribe((fullName) => {
-        this.filterAuthors(fullName);
-      });
+    this._debounceInputSubscribe();
   }
 
   public ngOnDestroy(): void {
@@ -61,20 +54,7 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
   }
 
   public handleInput(fullName: string): any {
-    this._debounce$.next(fullName);
-  }
-
-  public filterAuthors(fullName: string): void {
-    const arrName = fullName.trim().toLowerCase().split(' ');
-    const firstName = arrName[0];
-
-    this._authorService.gets(1, 10, firstName)
-      .pipe(
-        takeUntil(this._destroy$),
-      )
-      .subscribe((list) => {
-        this.authors = list.authors;
-      });
+    this._debounceInput$.next(fullName);
   }
 
   public getFullName(author: IAuthor): string {
@@ -87,6 +67,27 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
     }
 
     return value;
+  }
+
+  private _debounceInputSubscribe(): void {
+    this._debounceInput$
+      .pipe(
+        debounceTime(500),
+        switchMap((name: string) => {
+          return this._filterAuthors$(name);
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe((list) => {
+        this.authors = list.authors;
+      });
+  }
+
+  private _filterAuthors$(fullName: string): Observable<IListResponse> {
+    const arrName = fullName.trim().toLowerCase().split(' ');
+    const firstName = arrName[0];
+
+    return this._authorService.gets(1, 10, firstName);
   }
 
   private _displayFullNameAndTakeId($event: IAuthor): string {
