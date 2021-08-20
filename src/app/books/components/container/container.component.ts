@@ -33,22 +33,11 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
     private readonly _dialog: MatDialog,
     private readonly _bookService: BooksService,
   ) {
-    const page = this._activatedRoute.snapshot.queryParams.page
-    ? +this._activatedRoute.snapshot.queryParams.page
-    : 1;
-    const limit = this._activatedRoute.snapshot.queryParams.limit
-    ? +this._activatedRoute.snapshot.queryParams.limit
-    : 10;
-
-    this.meta = {
-      page,
-      records: 0,
-      limit,
-    };
   }
 
   public ngOnInit(): void {
     this._subscribeQueryParamsAndLoadList();
+    this._initMeta();
   }
 
   public ngOnDestroy(): void {
@@ -123,6 +112,14 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
         };
         this._loadList(params.page, params.limit, filterQuery);
       });
+  }
+
+  private _initMeta(): void {
+    this.meta = {
+      page: 0,
+      records: 0,
+      limit: 0,
+    };
   }
 
 }

@@ -20,12 +20,7 @@ export class AuthorsListComponent implements OnInit, OnDestroy {
 
   public authors: IAuthor[] = [];
 
-  public meta: IMeta = {
-    pages: 0,
-    page: 0,
-    records: 0,
-    limit: 0,
-  };
+  public meta!: IMeta;
 
   private readonly _destroy$
     = new Subject<void>();
@@ -38,6 +33,7 @@ export class AuthorsListComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this._subscribeQueryParamsAndLoadList();
+    this._initMeta();
   }
 
   public ngOnDestroy(): void {
@@ -86,6 +82,14 @@ export class AuthorsListComponent implements OnInit, OnDestroy {
       .subscribe(({ page, limit }) => {
         this._loadList(page, limit);
       });
+  }
+
+  private _initMeta(): void {
+    this.meta = {
+      page: 0,
+      records: 0,
+      limit: 0,
+    }
   }
 
 }

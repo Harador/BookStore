@@ -20,12 +20,7 @@ export class GenresComponent implements OnInit, OnDestroy {
 
   public genres: IGenre[] = [];
 
-  public meta: IMeta = {
-    pages: 0,
-    page: 0,
-    records: 0,
-    limit: 0,
-  };
+  public meta!: IMeta;
 
   private readonly _destroy$ = new Subject<void>();
 
@@ -86,6 +81,14 @@ export class GenresComponent implements OnInit, OnDestroy {
       .subscribe(({ page, limit }) => {
         this._loadList(page, limit);
       });
+  }
+
+  private _initMeta(): void {
+    this.meta = {
+      page: 0,
+      records: 0,
+      limit: 0,
+    };
   }
 
 }
