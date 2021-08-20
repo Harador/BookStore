@@ -32,6 +32,7 @@ export class GenresComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this._subscribeQueryParamsAndLoadList();
+    this._initMeta();
   }
 
   public ngOnDestroy(): void {

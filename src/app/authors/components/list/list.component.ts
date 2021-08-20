@@ -89,7 +89,7 @@ export class AuthorsListComponent implements OnInit, OnDestroy {
       page: 0,
       records: 0,
       limit: 0,
-    }
+    };
   }
 
 }
