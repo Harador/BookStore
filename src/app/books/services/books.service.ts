@@ -79,7 +79,7 @@ export class BooksService {
   }
 
   public create(book: Partial<IBook>): Observable<any> {
-    const id = book.author_id;
+    const id = book.authorId;
 
     return this._http
       .post(`${this._authorsUrl}/${id}/books`, book, this._httpOptions);

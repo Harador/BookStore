@@ -59,13 +59,13 @@ export class BookCreateComponent implements OnInit, OnDestroy {
         this._fb.control(null, Validators.required),
       ]),
       description: ['', Validators.minLength(10)],
-      writing_date: [null, Validators.required],
-      release_date: [null, Validators.required],
+      writingDate: [null, Validators.required],
+      releaseDate: [null, Validators.required],
     });
   }
 
   public getFullName(author: IAuthor): string {
-    return `${author.first_name} ${author.last_name}`;
+    return `${author.firstName} ${author.lastName}`;
   }
 
   public deleteGenreSelect(index: number): void {
@@ -80,7 +80,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
     const value = this.form.value;
     const book: Partial<IBook> = {
       ...value,
-      author_id: value.author.id,
+      authorId: value.author.id,
     };
     this._booksService.create(book)
       .pipe(

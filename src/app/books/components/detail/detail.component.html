@@ -7,7 +7,7 @@
         <div class="detail">
             <h2 class='title'>{{book.title}}</h2>
             <span class="author" *ngIf="book.author">
-                {{book.author.first_name + ' ' + book.author.last_name}}
+                {{book.author.firstName + ' ' + book.author.lastName}}
             </span>
             <div class="genres">
                 <span *ngFor="let genre of book.genres">
@@ -19,8 +19,8 @@
                 <button class="cart-button" mat-raised-button color="primary">Add to cart</button>
             </div>                      
             <p class="description">{{book.description}}</p>
-            <span class="date">Writing: {{book.writing_date | date}}</span>
-            <span class="date">Release: {{book.release_date | date}}</span>
+            <span class="date">Writing: {{book.writingDate | date}}</span>
+            <span class="date">Release: {{book.releaseDate | date}}</span>
         </div>
     </div>
 </div>

@@ -4,8 +4,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, debounceTime, switchMap, } from 'rxjs/operators';
-import { IListResponse } from 'src/app/layout/interfaces/list-response.interface';
 
+import { IListResponse } from '../../../';
 import { AuthorsService, IAuthor } from '../../../authors';
 import { GenresService, IGenre } from '../../../genres';
 import { IBooksFilterQuery } from '../../interfaces/books-query-params.interface';
@@ -58,7 +58,7 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
   }
 
   public getFullName(author: IAuthor): string {
-    return `${author.first_name} ${author.last_name}`;
+    return `${author.firstName} ${author.lastName}`;
   }
 
   public formatLabel(value: number): string | number {
@@ -94,7 +94,7 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
     if ($event) {
       this.model.author = $event.id;
 
-      return `${$event.first_name } ${$event.last_name }`;
+      return `${$event.firstName } ${$event.lastName }`;
     }
 
     return '';
