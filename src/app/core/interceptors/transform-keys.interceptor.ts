@@ -6,13 +6,13 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { transformCollKeys } from './helpers/transform-collection-keys';
-import { stringToCamel } from './helpers/string-to-camel';
-import { stringToSnake } from './helpers/string-to-snake';
+import { transformCollKeys } from '../helpers/transform-collection-keys';
+import { stringToCamel } from '../helpers/string-to-camel';
+import { stringToSnake } from '../helpers/string-to-snake';
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
-export class CoreInterceptor implements HttpInterceptor {
+export class TransformKeysInterceptor implements HttpInterceptor {
 
   public intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {

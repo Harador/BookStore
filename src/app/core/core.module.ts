@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { CoreInterceptor } from './core.interceptor';
+import { TransformKeysInterceptor } from './interceptors/transform-keys.interceptor';
 
 @NgModule({
   declarations: [],
@@ -13,7 +13,7 @@ import { CoreInterceptor } from './core.interceptor';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: CoreInterceptor,
+      useClass: TransformKeysInterceptor,
       multi: true,
     },
   ],

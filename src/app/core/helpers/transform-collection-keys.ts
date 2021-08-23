@@ -1,6 +1,7 @@
-export function transformCollKeys
-(col: {[key: string]: any} | any[],
- transform: Function): Object | any[] {
+export function transformCollKeys(
+  col: {[key: string]: any} | any[],
+  transform: Function,
+): Object | unknown[] {
   let newCol: any;
 
   if (Array.isArray(col)) {
