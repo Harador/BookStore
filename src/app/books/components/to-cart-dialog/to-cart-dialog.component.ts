@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormArray, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -8,7 +8,7 @@ import { IBook } from '../../interfaces/book.interface';
 @Component({
   selector: 'app-to-cart-dialog',
   templateUrl: './to-cart-dialog.component.html',
-  styleUrls: ['./to-cart-dialog.component.scss']
+  styleUrls: ['./to-cart-dialog.component.scss'],
 })
 export class ToCartDialogComponent implements OnInit {
 

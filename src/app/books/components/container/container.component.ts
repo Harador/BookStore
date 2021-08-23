@@ -15,7 +15,6 @@ import { BooksFilterComponent } from '../filter/filter.component';
 import { ToCartDialogComponent } from '../to-cart-dialog/to-cart-dialog.component';
 
 
-
 @Component({
   selector: 'app-books-container',
   templateUrl: './container.component.html',
