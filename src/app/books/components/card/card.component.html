@@ -10,6 +10,10 @@
     {{book.title}}
     </a>
     <span class="price">{{book.price}}$</span>
-    <button class="cart-batton" mat-raised-button color="primary">Add to cart</button>
+    <button class="cart-batton"
+     mat-raised-button color="primary"
+     (click)="openDialog()">
+        Add to cart
+    </button>
 </mat-card>
 

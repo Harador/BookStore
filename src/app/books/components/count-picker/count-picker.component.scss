@@ -1,0 +1,15 @@
+.picker{
+    display: flex;
+    .count-b{
+        font-size: 26px;
+        padding: 0;
+        min-width: unset;
+        width: 30px;
+    }
+    .count-i{
+        font-size: 16px;
+        min-width: unset;
+        width: 30px;
+        text-align: center;
+    }
+}

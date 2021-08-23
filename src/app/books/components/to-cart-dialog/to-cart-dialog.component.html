@@ -1,0 +1,38 @@
+<div class="dialog">
+    <h2>{{book.title}}</h2>
+    <span class="price">{{book.price}}$</span>
+    <!-- <form [formGroup] = "form">
+        <app-count-picker #picker name="picker" formControlName="counter"></app-count-picker>
+        
+        <span>{{form.status}}</span>
+
+        <mat-dialog-actions class="buttons">
+            <button type="button" mat-button mat-dialog-close cdkFocusInitial>Close</button>
+            <button type="submit" mat-button mat-dialog-close
+            [disabled]="!form.valid">
+                Apply
+            </button>
+        </mat-dialog-actions>
+
+    </form> -->
+
+    <form #formTest="ngForm">
+        <app-count-picker #picker="ngModel" [(ngModel)]="testC" min="5" max="15"  name="picker2" ></app-count-picker>
+        <span class="error" *ngIf="picker.touched && picker.hasError('lessThenMin')">
+            Must be more then: {{picker.getError('lessThenMin') - 1}}!
+        </span>
+        <span class="error" *ngIf="picker.touched && picker.hasError('moreThenMax')">
+            Must be less then: {{picker.getError('moreThenMax') + 1}}!
+        </span>
+        <span>Form status: {{formTest.status}}</span>
+
+        <mat-dialog-actions class="buttons">
+            <button type="button" mat-button mat-dialog-close cdkFocusInitial>Close</button>
+            <button type="submit" mat-button mat-dialog-close
+            [disabled]="!formTest.valid">
+                Apply
+            </button>
+        </mat-dialog-actions>
+
+    </form>
+</div>

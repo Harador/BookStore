@@ -21,9 +21,12 @@ import { BooksContainerComponent } from './components/container/container.compon
 import { BookDetailComponent } from './components/detail/detail.component';
 import { BooksFilterComponent } from './components/filter/filter.component';
 import { BookCreateComponent } from './components/create/create.component';
+import { ToCartDialogComponent } from './components/to-cart-dialog/to-cart-dialog.component';
 import { PriceValidateDirective } from './directives/price-validate.directive';
 import { AuthorValidateDirective } from './directives/author-validate.directive';
 import { AutocomplitePipe } from './pipes/autocomplite.pipe';
+import { CountPickerComponent } from './components/count-picker/count-picker.component';
+
 
 @NgModule({
   declarations: [
@@ -31,10 +34,12 @@ import { AutocomplitePipe } from './pipes/autocomplite.pipe';
     BooksContainerComponent,
     BookDetailComponent,
     BooksFilterComponent,
-    PriceValidateDirective,
-    AutocomplitePipe,
-    AuthorValidateDirective,
     BookCreateComponent,
+    ToCartDialogComponent,
+    PriceValidateDirective,
+    AuthorValidateDirective,
+    AutocomplitePipe,
+    CountPickerComponent,
   ],
   imports: [
     CommonModule,

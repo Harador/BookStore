@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
 
 import { IBook } from '../../interfaces/book.interface';
 
@@ -11,10 +12,16 @@ export class BookCardComponent implements OnInit {
 
   @Input()
   public book!: IBook;
+  @Output()
+  public readonly openAddToCartDialog = new EventEmitter<IBook>();
 
   constructor() { }
 
   public ngOnInit(): void {
+  }
+
+  public openDialog(): void {
+    this.openAddToCartDialog.emit(this.book);
   }
 
 }

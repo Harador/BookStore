@@ -9,9 +9,12 @@ import { takeUntil } from 'rxjs/operators';
 
 import { IBook } from '../../interfaces/book.interface';
 import { IMeta } from '../../../index';
+import { IBooksFilterQuery } from '../../interfaces/books-query-params.interface';
 import { BooksService } from '../../services/books.service';
 import { BooksFilterComponent } from '../filter/filter.component';
-import { IBooksFilterQuery } from '../../interfaces/books-query-params.interface';
+import { ToCartDialogComponent } from '../to-cart-dialog/to-cart-dialog.component';
+
+
 
 @Component({
   selector: 'app-books-container',
@@ -45,7 +48,7 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
     this._destroy$.complete();
   }
 
-  public openDialog(): void {
+  public openFilterDialog(): void {
     const dialog = this._dialog.open(BooksFilterComponent);
     dialog.afterClosed()
       .pipe(
@@ -56,6 +59,10 @@ export class BooksContainerComponent implements OnInit, OnDestroy {
           this._changePage({ ...filterQuery });
         }
       });
+  }
+
+  public openAddToCartDialog(book: any): void {
+    this._dialog.open(ToCartDialogComponent, { data: { book } });
   }
 
   /**

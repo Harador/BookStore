@@ -4,7 +4,7 @@
       <button
       mat-fab
       class="example-icon"
-      (click)="openDialog()">
+      (click)="openFilterDialog()">
       <mat-icon><span class="material-icons-outlined">
         filter_list
         </span></mat-icon>
@@ -13,7 +13,7 @@
 
     <div class="books">
         <div class="book-wrapper" *ngFor="let book of books">
-            <app-card-book [book]="book"></app-card-book>
+            <app-card-book [book]="book" (openAddToCartDialog)="openAddToCartDialog($event)"></app-card-book>
         </div>
     </div>
     <div>
