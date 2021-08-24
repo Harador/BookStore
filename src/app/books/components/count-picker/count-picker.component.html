@@ -1,15 +1,18 @@
 <div class="picker">
     <button mat-flat-button 
-    color="primary" class="count-b"
-    (click)="onRemove()"
-    [disabled]="value<2">
+        color="primary" 
+        class="count-b"
+        (click)="onRemove()"
+        [disabled]="value < 2">
     -
     </button>
+
     <input #input [value]="value" class="count-i" (input)="onInput(input)">
+
     <button mat-flat-button color="primary"
      class="count-b"
      (click)="onAdd()"
-     [disabled]="value>98">
+     [disabled]="value > 98">
      +
     </button>
 </div>

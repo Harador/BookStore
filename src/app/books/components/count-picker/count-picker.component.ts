@@ -24,42 +24,51 @@ export class CountPickerComponent implements OnInit, ControlValueAccessor, Valid
 
   @Input()
   public increment = 1;
+
   @Input()
   public min?: string;
+
   @Input()
   public max?: string;
 
-  public value = 1;
   public touched = false;
 
-  private readonly reg = new RegExp('^[0-9]+$');
+  private _value = 1;
 
   constructor() { }
+
+  public get value(): number {
+    return this._value;
+  }
+
+  public set value(val: number) {
+    this._value = val;
+
+    this.onChange(this.value);
+    this.markAsTouched();
+  }
 
   public ngOnInit(): void {
   }
 
   public onAdd(): void {
     this.value += this.increment;
-    this.onChange(this.value);
-    this.markAsTouched();
   }
 
   public onRemove(): void {
     this.value -= this.increment;
-    this.onChange(this.value);
-    this.markAsTouched();
   }
 
   public onInput(input: any): void {
-    const value = input.value;
+    const value = parseInt(input.value, 10);
 
-    if (!this.reg.test(value) || value > 99 || value === '00') {
+    if (isNaN(value) || value === 0) {
       this.value = 0;
       input.value = 0;
     } else {
-      this.value = +value;
+      this.value = value;
     }
+
     this.onChange(this.value);
     this.markAsTouched();
   }
@@ -89,6 +98,7 @@ export class CountPickerComponent implements OnInit, ControlValueAccessor, Valid
 
   public validate(control: AbstractControl): ValidationErrors | null {
     const count = control.value;
+
     if (this.min && count < +this.min) {
       return {
         lessThenMin: +this.min,
