@@ -39,7 +39,7 @@
                  class="full-width genres-field" appearance="fill">
                     <mat-label>genre {{i + 1}}</mat-label>
                     <mat-select [formControlName]="i">
-                        <mat-option *ngFor="let genre of genresList" [value]="genre">
+                        <mat-option *ngFor="let genre of genresList | filterGenres:genres " [value]="genre">
                             {{genre.name}}
                         </mat-option>
                     </mat-select>
@@ -63,6 +63,9 @@
                 <input matInput [matDatepicker]="writing" formControlName="writingDate">
                 <mat-datepicker-toggle matSuffix [for]="writing"></mat-datepicker-toggle>
                 <mat-datepicker #writing></mat-datepicker>
+                <mat-error class="error" *ngIf="form.hasError('falseReleaseDate')">
+                    False release date!
+                </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
@@ -70,13 +73,18 @@
                 <input matInput [matDatepicker]="release" formControlName="releaseDate">
                 <mat-datepicker-toggle matSuffix [for]="release"></mat-datepicker-toggle>
                 <mat-datepicker #release></mat-datepicker>
+                <mat-error class="error" *ngIf="form.hasError('falseReleaseDate')">
+                    False release date!
+                </mat-error>
             </mat-form-field>
 
             <div class="buttons">
                 <button mat-raised-button color="primary" type="reset">Reset</button>
-                <button mat-raised-button color="primary" 
-                    (click)="submit()">
-                    Submit
+                <button mat-raised-button
+                 color="primary" 
+                 (click)="submit()"
+                 [disabled]="form.invalid || form.pristine">
+                 Submit
                 </button>
             </div>
 

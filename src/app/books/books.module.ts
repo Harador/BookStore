@@ -24,8 +24,8 @@ import { BookCreateComponent } from './components/create/create.component';
 import { ToCartDialogComponent } from './components/to-cart-dialog/to-cart-dialog.component';
 import { PriceValidateDirective } from './directives/price-validate.directive';
 import { AuthorValidateDirective } from './directives/author-validate.directive';
-import { AutocomplitePipe } from './pipes/autocomplite.pipe';
 import { CountPickerComponent } from './components/count-picker/count-picker.component';
+import { FilterGenresPipe } from './pipes/filter-genres.pipe';
 
 
 @NgModule({
@@ -38,8 +38,8 @@ import { CountPickerComponent } from './components/count-picker/count-picker.com
     ToCartDialogComponent,
     PriceValidateDirective,
     AuthorValidateDirective,
-    AutocomplitePipe,
     CountPickerComponent,
+    FilterGenresPipe,
   ],
   imports: [
     CommonModule,

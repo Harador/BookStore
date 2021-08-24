@@ -9,6 +9,8 @@ import { AuthorsService, IAuthor } from '../../../authors';
 import { GenresService, IGenre } from '../../../genres';
 import { IBook, BooksService } from '../../';
 import { IListResponse } from '../../../';
+import { datePickerValidate } from '../../validators/date-picker.validate';
+
 
 @Component({
   selector: 'app-book-create',
@@ -36,7 +38,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
   ) { }
 
   public get genres(): FormArray {
-    return this.form.get('genres') as FormArray;
+    return this.form?.get('genres') as FormArray;
   }
 
   public ngOnInit(): void {
@@ -56,12 +58,15 @@ export class BookCreateComponent implements OnInit, OnDestroy {
       price: [null, [Validators.required, Validators.min(100)]],
       author: [null, Validators.required],
       genres: this._fb.array([
-        this._fb.control(null, Validators.required),
+        this._fb.control(
+          null,
+          Validators.required,
+        ),
       ]),
       description: ['', Validators.minLength(10)],
       writingDate: [null, Validators.required],
       releaseDate: [null, Validators.required],
-    });
+    }, { validators: datePickerValidate });
   }
 
   public getFullName(author: IAuthor): string {
@@ -73,7 +78,10 @@ export class BookCreateComponent implements OnInit, OnDestroy {
   }
 
   public addGenreCtrl(): void {
-    this.genres.push(this._fb.control('', Validators.required));
+    this.genres.push(this._fb.control(
+      null,
+      Validators.required,
+    ));
   }
 
   public submit(): void {
