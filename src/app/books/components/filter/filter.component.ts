@@ -109,7 +109,7 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
         this.authors = list.authors;
       });
 
-    this._genresService.gets(1, 100)
+    this._genresService.gets({})
       .pipe(
        takeUntil(this._destroy$),
       )

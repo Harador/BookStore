@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, AbstractControl, FormArray, Validators, FormGroup } from '@angular/forms';
 
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, pipe } from 'rxjs';
 import { takeUntil, debounceTime, switchMap } from 'rxjs/operators';
 
 import { AuthorsService, IAuthor } from '../../../authors';
@@ -178,7 +178,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
   }
 
   private _loasGenres(): void {
-    this._genresService.gets(1, 100)
+    this._genresService.gets({})
       .pipe(
         takeUntil(this._destroy$),
       )
