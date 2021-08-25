@@ -38,8 +38,8 @@
                 <mat-form-field *ngFor="let genreCtrl of genres.controls; let i = index"
                  class="full-width genres-field" appearance="fill">
                     <mat-label>genre {{i + 1}}</mat-label>
-                    <mat-select [formControlName]="i">
-                        <mat-option *ngFor="let genre of genresList | filterGenres:genres " [value]="genre">
+                    <mat-select #genreSelect [formControlName]="i">
+                        <mat-option *ngFor="let genre of (genresList | filterGenres:genres) " [value]="genre">
                             {{genre.name}}
                         </mat-option>
                     </mat-select>
@@ -47,7 +47,12 @@
                         <mat-icon class="icon">clear</mat-icon>
                     </button>
                 </mat-form-field>
-                <button type="button" (click)="addGenreCtrl()" class="add-genre" mat-raised-button color="accent">
+                <button type="button"
+                 (click)="addGenreCtrl()"
+                 class="add-genre" 
+                 mat-raised-button 
+                 color="accent"
+                 [disabled]="isAddGenreDisabled">
                     <mat-icon class="icon">add</mat-icon>
                     add genre
                 </button>
@@ -63,8 +68,8 @@
                 <input matInput [matDatepicker]="writing" formControlName="writingDate">
                 <mat-datepicker-toggle matSuffix [for]="writing"></mat-datepicker-toggle>
                 <mat-datepicker #writing></mat-datepicker>
-                <mat-error class="error" *ngIf="form.hasError('falseReleaseDate')">
-                    False release date!
+                <mat-error>
+                    Must be less than release date!
                 </mat-error>
             </mat-form-field>
 
@@ -73,8 +78,8 @@
                 <input matInput [matDatepicker]="release" formControlName="releaseDate">
                 <mat-datepicker-toggle matSuffix [for]="release"></mat-datepicker-toggle>
                 <mat-datepicker #release></mat-datepicker>
-                <mat-error class="error" *ngIf="form.hasError('falseReleaseDate')">
-                    False release date!
+                <mat-error>
+                    Must be more than writing date!
                 </mat-error>
             </mat-form-field>
 

@@ -8,14 +8,14 @@ import { IGenre } from '../../genres';
 })
 export class FilterGenresPipe implements PipeTransform {
 
-  public transform(genres: IGenre[], form: FormArray): IGenre[] {
-    if (genres && Array.isArray(form.value)) {
-      genres = genres.filter((genre: IGenre) => {
-        return !form.value.includes(genre);
+  public transform(genresList: IGenre[], group: FormArray): IGenre[] {
+    if (genresList && Array.isArray(group.value)) {
+      genresList = genresList.filter((genre: IGenre) => {
+        return !group.value.includes(genre);
       });
     }
 
-    return genres;
+    return genresList;
   }
 
 }

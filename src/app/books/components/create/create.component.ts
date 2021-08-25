@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormBuilder, FormArray, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, AbstractControl, FormArray, Validators, FormGroup } from '@angular/forms';
 
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, debounceTime, switchMap } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { AuthorsService, IAuthor } from '../../../authors';
 import { GenresService, IGenre } from '../../../genres';
 import { IBook, BooksService } from '../../';
 import { IListResponse } from '../../../';
-import { datePickerValidate } from '../../validators/date-picker.validate';
+import { moreAndLess } from '../../validators/more-less.validate';
 
 
 @Component({
@@ -41,6 +41,20 @@ export class BookCreateComponent implements OnInit, OnDestroy {
     return this.form?.get('genres') as FormArray;
   }
 
+  public get releaseCtrl(): AbstractControl | null {
+    return this.form?.get('releaseDate');
+  }
+
+  public get writingCtrl(): AbstractControl | null {
+    return this.form?.get('writingDate');
+  }
+
+  public get isAddGenreDisabled(): boolean {
+    const value = this.genres.value;
+
+    return !(value[value.length - 1]);
+  }
+
   public ngOnInit(): void {
     this.initForm();
     this._loadData();
@@ -64,9 +78,21 @@ export class BookCreateComponent implements OnInit, OnDestroy {
         ),
       ]),
       description: ['', Validators.minLength(10)],
-      writingDate: [null, Validators.required],
-      releaseDate: [null, Validators.required],
-    }, { validators: datePickerValidate });
+      writingDate: [
+        null,
+        [
+          Validators.required,
+          moreAndLess(() => this.releaseCtrl),
+        ],
+      ],
+      releaseDate: [
+        null,
+        [
+          Validators.required,
+          moreAndLess(() => this.writingCtrl, true),
+        ],
+      ],
+    });
   }
 
   public getFullName(author: IAuthor): string {
