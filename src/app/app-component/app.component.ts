@@ -7,12 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  public isNavbarShow: boolean = false;
-
   constructor() {}
-
-  public toggleNavbar(): void {
-    this.isNavbarShow = !this.isNavbarShow;
-  }
 
 }
