@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { GenresRoutingModule } from './genres-routing.module';
-import { GenresComponent } from './components/genres/genres.component';
+import { GenresListComponent } from './components/genres/list.component';
+import { GenresContainer } from './containers/genres-container/genres-container.component';
 
 @NgModule({
   declarations: [
-    GenresComponent,
+    GenresListComponent,
+    GenresContainer,
   ],
   imports: [
     CommonModule, GenresRoutingModule, MatPaginatorModule,

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { GenresComponent } from './components/genres/genres.component';
+import { GenresContainer } from './containers/genres-container/genres-container.component';
 
-const routes: Routes = [{ path: '', component: GenresComponent }];
+const routes: Routes = [{ path: '', component: GenresContainer }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
