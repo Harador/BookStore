@@ -9,12 +9,14 @@ import { MatCardModule } from '@angular/material/card';
 
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { PageView } from './views/page/page.component';
 
 
 @NgModule({
   declarations: [
     ToolbarComponent,
     NavbarComponent,
+    PageView,
   ],
   imports: [
     CommonModule,
@@ -26,8 +28,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MatCardModule,
   ],
   exports: [
-    ToolbarComponent,
-    NavbarComponent,
+    PageView,
   ],
 })
 export class LayoutModule { }
