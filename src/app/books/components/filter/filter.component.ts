@@ -84,10 +84,10 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
   }
 
   private _filterAuthors$(fullName: string): Observable<IListResponse> {
-    const arrName = fullName.trim().toLowerCase().split(' ');
-    const firstName = arrName[0];
+    // const arrName = fullName.trim().toLowerCase().split(' ');
+    // const firstName = arrName[0];
 
-    return this._authorService.gets(1, 10, firstName);
+    return this._authorService.gets({});
   }
 
   private _displayFullNameAndTakeId($event: IAuthor): string {
@@ -101,7 +101,7 @@ export class BooksFilterComponent implements OnInit, OnDestroy {
   }
 
   private _loadData(): void {
-    this._authorService.gets()
+    this._authorService.gets({})
       .pipe(
        takeUntil(this._destroy$),
       )

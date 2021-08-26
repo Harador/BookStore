@@ -16,9 +16,9 @@ export class GenresContainer implements OnInit {
 
   public genresData$!: Observable<IListResponse>;
 
-  public setGenresObservable$ = new Subject<Observable<IListResponse>>();
+  private readonly _setGenres$ = new Subject<Observable<IListResponse>>();
 
-  public queryParams!: IPageParams;
+  private _queryParams!: IPageParams;
 
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
@@ -27,27 +27,27 @@ export class GenresContainer implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.initQueryParams();
-    this.setGenresObservable();
+    this._initQueryParams();
+    this._initGenresObservable();
   }
 
   public switchPage(queries: IPageParams): void {
-    this.queryParams = queries;
-    this.setGenresObservable$.next();
+    this._queryParams = queries;
+    this._setGenres$.next();
   }
 
-  public setGenresObservable(): void {
-    this.genresData$ = this.setGenresObservable$.asObservable()
+  private _initGenresObservable(): void {
+    this.genresData$ = this._setGenres$.asObservable()
       .pipe(
         startWith(''),
         switchMap(() => {
-          return this._genresService.gets(this.queryParams);
+          return this._genresService.gets(this._queryParams);
         }),
       );
   }
 
-  public initQueryParams(): void {
-    this.queryParams = {
+  private _initQueryParams(): void {
+    this._queryParams = {
       page: 1,
       limit: 10,
       ...this._activatedRoute.snapshot.queryParams,

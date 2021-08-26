@@ -1,10 +1,10 @@
-<div class="authors-wrapper">
+<div class="authors-wrapper" *ngIf="authors$ | async as response">
     <div class="authors">
-        <span class="author" *ngFor="let author of authors">
+        <span class="author" *ngFor="let author of response.authors">
             <a>{{author.firstName + ' ' + author.lastName}}</a>
         </span>
     </div>
-    <div>
+    <div *ngIf="response.meta as meta">
         <mat-paginator [pageIndex]="meta.page - 1"
         [length]="meta.records" [pageSize]="meta.limit"
         [pageSizeOptions]="[5, 10, 25, 100]"

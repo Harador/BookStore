@@ -3,7 +3,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { IListResponse } from '../../index';
+import { IListResponse, IQueriesParams } from '../../index';
+
 
 @Injectable({
   providedIn: 'root',
@@ -17,22 +18,9 @@ export class AuthorsService {
   ) {
   }
 
-  /**
-   * get books list
-   * @param page query parameter
-   * @param limit query parameter
-   * @returns list include authors and meta
-   */
-  public gets(page: number = 1, limit: number = 10, name?: string): Observable<IListResponse> {
-    let params;
-
-    if (name) {
-      params = new HttpParams()
-    .appendAll({ page, limit, 'q[name_cont]': name });
-    } else {
-      params = new HttpParams()
-    .appendAll({ page, limit, });
-    }
+  public gets(queryParams: IQueriesParams): Observable<IListResponse> {
+    const params = new HttpParams()
+    .appendAll({ ...queryParams });
 
     return this._http
       .get<IListResponse>(this.authorsUrl, { params });
