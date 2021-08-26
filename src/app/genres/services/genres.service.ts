@@ -3,15 +3,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { IListResponse, IQueries } from '../..';
-
+import { IListResponse, IQueriesParams } from '../../index';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GenresService {
 
-  private readonly genresUrl: string = '/api/genres';
+  private readonly _genresUrl: string = '/api/genres';
 
   constructor(
     private readonly _http: HttpClient,
@@ -24,9 +23,11 @@ export class GenresService {
    * @param limit query parameter
    * @returns list include authors and meta
    */
-  public gets(queries: Partial<IQueries>): Observable<IListResponse> {
+  public gets(queries: IQueriesParams): Observable<IListResponse> {
+    const params = new HttpParams().appendAll({ ...queries });
+
     return this._http
-      .get<IListResponse>(this.genresUrl, { params: queries });
+      .get<IListResponse>(this._genresUrl, { params });
   }
 
 }

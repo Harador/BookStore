@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Observable, Subject } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 
-import { GenresService, IGenre } from '../../index';
-import { IListResponse } from '../../../index';
+import { GenresService } from '../../index';
+import { IListResponse, IPageParams } from '../../../index';
 
 
 @Component({
@@ -14,30 +15,43 @@ import { IListResponse } from '../../../index';
 export class GenresContainer implements OnInit {
 
   public genresData$!: Observable<IListResponse>;
-  public genres$ = new Subject<IListResponse>();
 
-  public queryParams = {
-    page: 1,
-    limit: 10,
-  };
+  public setGenresObservable$ = new Subject<Observable<IListResponse>>();
+
+  public queryParams!: IPageParams;
 
   constructor(
+    private readonly _activatedRoute: ActivatedRoute,
     private readonly _genresService: GenresService,
   ) {
-    this.getGenres();
   }
 
   public ngOnInit(): void {
+    this.initQueryParams();
+    this.setGenresObservable();
   }
 
-  public getGenres(): void {
-    this.genresData$ = this.genres$.asObservable()
+  public switchPage(queries: IPageParams): void {
+    this.queryParams = queries;
+    this.setGenresObservable$.next();
+  }
+
+  public setGenresObservable(): void {
+    this.genresData$ = this.setGenresObservable$.asObservable()
       .pipe(
         startWith(''),
         switchMap(() => {
           return this._genresService.gets(this.queryParams);
         }),
       );
+  }
+
+  public initQueryParams(): void {
+    this.queryParams = {
+      page: 1,
+      limit: 10,
+      ...this._activatedRoute.snapshot.queryParams,
+    };
   }
 
 }
