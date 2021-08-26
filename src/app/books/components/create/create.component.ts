@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, AbstractControl, FormArray, Validators, FormGroup } from '@angular/forms';
 
-import { Observable, Subject, pipe } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil, debounceTime, switchMap } from 'rxjs/operators';
 
 import { AuthorsService, IAuthor } from '../../../authors';
