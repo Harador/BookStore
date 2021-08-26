@@ -17,12 +17,6 @@ export class GenresService {
   ) {
   }
 
-  /**
-   * get books list
-   * @param page query parameter
-   * @param limit query parameter
-   * @returns list include authors and meta
-   */
   public gets(queries: IQueriesParams): Observable<IListResponse> {
     const params = new HttpParams().appendAll({ ...queries });
 
