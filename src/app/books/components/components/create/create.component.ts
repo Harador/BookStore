@@ -5,11 +5,11 @@ import { FormBuilder, AbstractControl, FormArray, Validators, FormGroup } from '
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, debounceTime, switchMap } from 'rxjs/operators';
 
-import { AuthorsService, IAuthor } from '../../../authors';
-import { GenresService, IGenre } from '../../../genres';
-import { IBook, BooksService } from '../../';
-import { IListResponse } from '../../../';
-import { moreAndLess } from '../../validators/more-less.validate';
+import { AuthorsService, IAuthor } from '../../../../authors';
+import { GenresService, IGenre } from '../../../../genres';
+import { IBook, BooksService } from '../../../';
+import { IListResponse } from '../../../../';
+import { moreAndLess } from '../../../validators/more-less.validate';
 
 
 @Component({

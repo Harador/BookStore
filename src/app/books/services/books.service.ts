@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { IBook } from '../interfaces/book.interface';
 import { IBooksFilterQuery } from '../interfaces/books-query-params.interface';
-import { IListResponse } from '../../index';
+import { IListResponse, IQueriesParams } from '../../index';
 
 @Injectable({
   providedIn: 'root',
@@ -24,55 +24,23 @@ export class BooksService {
   ) {
   }
 
-  /**
-   * get books list
-   * @param page query parameter
-   * @param limit query parameter
-   * @returns list include books and meta
-   */
-  public gets(
-    page: number = 1,
-    limit: number = 10,
-    filterQuery: IBooksFilterQuery,
-    ): Observable<IListResponse> {
-    if (filterQuery.author) {
-      return this.getsByAuthorId(page, limit, filterQuery);
-    }
-
-    const queries = this._getTrueFilterQueries(filterQuery);
-
+  public gets(queriesParams: IQueriesParams): Observable<IListResponse> {
     const params = new HttpParams()
-     .appendAll({ page, limit, ...queries });
+     .appendAll({ ...queriesParams });
 
     return this._http
       .get<IListResponse>(this._booksUrl, { params });
   }
 
-  /**
-   * get book from id
-   * @param id book's id
-   * @returns book
-   */
   public get(id: number): Observable<IBook> {
     return this._http.get<IBook>(this._booksUrl + `/${id}`);
   }
 
-  /**
-   * get books list by author id
-   * @param page query parameter
-   * @param limit query parameter
-   * @param filterQuery filter queries
-   * @returns list include books and meta
-   */
-  public getsByAuthorId(
-    page: number = 1,
-    limit: number = 10,
-    filterQuery: IBooksFilterQuery,
-  ): Observable<IListResponse> {
-    const queries = this._getTrueFilterQueries(filterQuery);
-    const id = filterQuery.author;
+  public getsByAuthorId(queriesParams: IQueriesParams): Observable<IListResponse> {
+    // TODO take id from queries
+    const id = 1;
     const params = new HttpParams()
-     .appendAll({ page, limit, ...queries });
+     .appendAll({ ...queriesParams });
 
     return this._http
       .get<IListResponse>(`${this._authorsUrl}/${id}/books`, { params });

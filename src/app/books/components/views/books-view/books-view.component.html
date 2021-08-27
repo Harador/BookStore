@@ -1,0 +1,22 @@
+<div class="wrapper" *ngIf="books$ | async as response">
+
+    <app-filter-button></app-filter-button>
+
+    <div class="list-wrapper">
+        <div class="list">
+            <div class="book-wrapper" *ngFor="let book of response.books">
+                <app-card-book [book]="book"></app-card-book>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="response.meta as meta">
+        <mat-paginator 
+            [pageIndex]="meta.page - 1"
+            [length]="meta.records" 
+            [pageSize]="meta.limit"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            (page)='handlePage($event)'>
+        </mat-paginator>
+    </div>
+</div>

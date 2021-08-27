@@ -30,25 +30,3 @@ export function moreAndLess(
     return null;
   };
 }
-
-//   const releaseCtrl = group.get('releaseDate');
-//   const writingCtrl = group.get('writingDate');
-//   console.log(releaseCtrl);
-
-//   const releaseDate = releaseCtrl?.value;
-//   const writingDate = writingCtrl?.value;
-
-//   const error = { falseReleaseDate: true };
-
-//   if (releaseDate && writingDate > releaseDate) {
-//     writingCtrl?.setErrors(error);
-//     releaseCtrl?.setErrors(error);
-
-//     return error;
-//   }
-
-//   writingCtrl?.setErrors(null);
-//   releaseCtrl?.setErrors(null);
-
-//   return null;
-

@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { IBook } from '../../interfaces/book.interface';
+import { IBook } from '../../../interfaces/book.interface';
 
 @Component({
   selector: 'app-to-cart-dialog',

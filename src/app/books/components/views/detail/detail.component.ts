@@ -4,15 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { IBook } from '../../interfaces/book.interface';
-import { BooksService } from '../../services/books.service';
+import { IBook } from '../../../interfaces/book.interface';
+import { BooksService } from '../../../services/books.service';
 
 @Component({
-  selector: 'app-book-detail',
+  selector: 'app-book-detail-view',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
-export class BookDetailComponent implements OnInit, OnDestroy {
+export class BookDetailView implements OnInit, OnDestroy {
 
   public book!: IBook;
 

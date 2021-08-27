@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BookCreateComponent } from './components/create/create.component';
-import { BookDetailComponent } from './components/detail/detail.component';
-import { BooksContainerComponent } from './components/container/container.component';
+import { BookCreateComponent } from './components/components/create/create.component';
+import { BookDetailView } from './components/views/detail/detail.component';
+import { BooksContainer } from './components/containers/books-container/books-container.component';
 
 const routes: Routes = [
- { path: '', component: BooksContainerComponent },
- { path: 'detail/:id', component: BookDetailComponent },
+ { path: '', component: BooksContainer },
+ { path: 'detail/:id', component: BookDetailView },
  { path: 'create', component: BookCreateComponent },
 ];
 
