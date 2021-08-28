@@ -1,6 +1,8 @@
 import { IFiltration, IPageParams, IQueriesParams } from '../interfaces/queries.interface';
 
-export function getTrueSortParams(params: IFiltration & IPageParams): IQueriesParams {
+export function getTrueQueryParams(
+    params: IFiltration & Partial<IPageParams>,
+): IQueriesParams {
   const trueParams: IFiltration = {};
 
   Object.keys(params).forEach((key) => {
