@@ -3,7 +3,7 @@
 
         <div class="back-wrapper">
             <button (click)="navBack()" class="back" mat-icon-button color="primary">
-                <mat-icon>arrow_back</mat-icon>
+                <mat-icon class="back-icon">arrow_back</mat-icon>
             </button>
         </div>
 
@@ -84,8 +84,8 @@
             </mat-form-field>
 
             <div class="buttons">
-                <button mat-raised-button color="primary" type="reset">Reset</button>
-                <button mat-raised-button
+                <button class="form-button" mat-raised-button color="primary" type="reset">Reset</button>
+                <button class="form-button" mat-raised-button
                  color="primary" 
                  (click)="submit()"
                  [disabled]="form.invalid || form.pristine">
