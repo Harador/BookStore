@@ -6,7 +6,8 @@ import {
 
 import { MatDialog } from '@angular/material/dialog';
 
-import { IBook } from '../../interfaces/book.interface';
+import { IBook } from '@books';
+
 import { ToCartDialogComponent } from '../to-cart-dialog/to-cart-dialog.component';
 
 @Component({
