@@ -1,5 +1,4 @@
 
-
 export interface IBooksFilterQuery {
   genre?: string;
   author?: number;

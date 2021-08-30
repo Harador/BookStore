@@ -2,7 +2,14 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src/app",
+    "paths": {
+      "@app":[ "index.ts" ],
+      "@core": [ "core/index.ts" ],
+      "@books": [ "books/index.ts" ],
+      "@genres": [ "genres/index.ts" ],
+      "@authors": [ "authors/index.ts" ],
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,

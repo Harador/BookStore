@@ -4,8 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 
-import { AuthorsService } from '../../services/authors.service';
-import { IListResponse, IPageParams } from '../../../index';
+import { AuthorsService } from '../../index';
+
+import { IListResponse, IPageParams } from '@app';
 
 
 @Component({

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { IListResponse, IQueriesParams } from '../../index';
+import { IListResponse, IQueriesParams } from '@app';
 
 
 @Injectable({

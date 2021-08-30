@@ -3,9 +3,9 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { IBook } from '../interfaces/book.interface';
-import { IBooksFilterQuery } from '../interfaces/books-query-params.interface';
-import { IListResponse, IQueriesParams } from '../../index';
+import { IBook, IBooksFilterQuery } from '../index';
+
+import { IListResponse, IQueriesParams } from '@app';
 
 @Injectable({
   providedIn: 'root',

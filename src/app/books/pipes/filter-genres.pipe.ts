@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { FormArray } from '@angular/forms';
 
-import { IGenre } from '../../genres';
+import { IGenre } from '@genres';
 
 @Pipe({
   name: 'filterGenres',

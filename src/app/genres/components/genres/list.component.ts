@@ -5,7 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 
 import { Observable } from 'rxjs';
 
-import { IListResponse, IPageParams } from '../../../index';
+import { IListResponse, IPageParams } from '@app';
 
 
 @Component({

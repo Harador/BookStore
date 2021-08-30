@@ -5,7 +5,8 @@ import { Observable, Subject } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 
 import { GenresService } from '../../index';
-import { IListResponse, IPageParams } from '../../../index';
+
+import { IListResponse, IPageParams } from '@app';
 
 
 @Component({

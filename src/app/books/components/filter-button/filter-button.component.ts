@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 
-import { FilterDialogContainer } from '../../containers/filter-dialog-container/filter-container.component';
+import { FilterDialogContainer } from '../../index';
 @Component({
   selector: 'app-filter-button',
   templateUrl: './filter-button.component.html',

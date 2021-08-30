@@ -4,9 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { startWith, switchMap, takeUntil, } from 'rxjs/operators';
 
-import { IListResponse, IQueriesParams } from '../../../index';
-import { AuthorsService } from '../../../authors';
-import { BooksService } from '../../services/books.service';
+import { AuthorsService } from '@authors';
+import { BooksService } from '@books';
+
+import { IListResponse, IQueriesParams } from '@app';
 
 @Component({
   selector: 'app-books-container',

@@ -1,4 +1,4 @@
-import { IFiltration, IPageParams, IQueriesParams } from '../interfaces/queries.interface';
+import { IFiltration, IPageParams, IQueriesParams } from '../index';
 
 export function getTrueQueryParams(
     params: IFiltration & Partial<IPageParams>,

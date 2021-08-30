@@ -1,5 +1,5 @@
-import { IAuthor } from '../../authors/interfaces/author.interface';
-import { IGenre } from '../../genres/index';
+import { IAuthor } from '@authors';
+import { IGenre } from '@genres';
 
 export interface IBook {
   id: number;

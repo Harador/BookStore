@@ -1,7 +1,7 @@
 import { Directive, Input } from '@angular/core';
 import { NG_VALIDATORS, FormControl, Validator, ValidationErrors } from '@angular/forms';
 
-import { IAuthor } from '../../authors';
+import { IAuthor } from '@authors';
 
 @Directive({
   selector: '[appAuthor]',

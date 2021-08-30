@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { GenresContainer } from './containers/genres-container/genres-container.component';
+import { GenresContainer } from './index';
 
 const routes: Routes = [{ path: '', component: GenresContainer }];
 

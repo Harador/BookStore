@@ -12,15 +12,15 @@ import {
 } from '@angular/forms';
 import { Location } from '@angular/common';
 
-
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, debounceTime, switchMap } from 'rxjs/operators';
 
-import { AuthorsService, IAuthor } from '../../../authors';
-import { GenresService, IGenre } from '../../../genres';
-import { IBook, BooksService } from '../../';
-import { IListResponse } from '../../../';
-import { moreAndLess } from '../../validators/more-less.validate';
+import { AuthorsService, IAuthor } from '@authors';
+import { GenresService, IGenre } from '@genres';
+
+import { IBook, BooksService, moreAndLess } from '../../index';
+
+import { IListResponse } from '@app';
 
 
 @Component({

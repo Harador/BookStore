@@ -9,10 +9,12 @@ import {
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, debounceTime, switchMap, } from 'rxjs/operators';
 
-import { IListResponse } from '../../..';
-import { AuthorsService, IAuthor } from '../../../authors';
-import { GenresService, IGenre } from '../../../genres';
-import { IBooksFilterQuery } from '../../interfaces/books-query-params.interface';
+import { AuthorsService, IAuthor } from '@authors';
+import { GenresService, IGenre } from '@genres';
+
+import { IBooksFilterQuery } from '../../index';
+
+import { IListResponse } from '@app';
 
 @Component({
   selector: 'app-filter',

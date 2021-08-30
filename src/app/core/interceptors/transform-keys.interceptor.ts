@@ -6,9 +6,8 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { transformCollKeys } from '../helpers/transform-collection-keys';
-import { stringToCamel } from '../helpers/string-to-camel';
-import { stringToSnake } from '../helpers/string-to-snake';
+import { transformCollKeys, stringToCamel, stringToSnake } from '../index';
+
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
