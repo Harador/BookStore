@@ -4,10 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { startWith, switchMap, takeUntil, } from 'rxjs/operators';
 
-import { AuthorsService } from '@authors';
 import { BooksService } from '@books';
 
-import { IListResponse, IQueriesParams } from '@app';
+import { IListResponse, IQueriesParams, getTrueQueryParams } from '@app';
 
 @Component({
   selector: 'app-books-container',
@@ -62,7 +61,7 @@ export class BooksContainer implements OnInit, OnDestroy {
       )
       .subscribe((params) => {
         window.scrollTo(0, 0);
-        this._queryParams = params;
+        this._queryParams = getTrueQueryParams(params);
         this._setBooks$.next();
       });
   }

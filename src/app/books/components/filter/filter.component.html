@@ -4,16 +4,19 @@
 
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Author</mat-label>
-            <input matInput type="text" 
+            <input matInput 
+              type="text" 
               ngModel
               (input)="handleInput(search.value)"
-              #search name="search"
-              appAuthor [authors]="authors"
+              #search 
+              name="search"
+              appAuthor 
+              [authors]="authors"
               [matAutocomplete]="auto"
             >
             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFullNameAndTakeId">
               <mat-option *ngFor="let author of authors" [value]="author">
-                {{getFullName(author)}}
+                {{author.firstName + " " + author.lastName}}
               </mat-option>
             </mat-autocomplete>
         </mat-form-field>

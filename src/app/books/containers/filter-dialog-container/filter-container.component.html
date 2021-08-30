@@ -1,1 +1,7 @@
-<app-filter (closeDialog)="closeDialog()"></app-filter>
+<app-filter 
+  (closeDialog)="submitFilter($event)"
+  (sortAuthors)="sortAuthors($event)"
+  [authors]="authors"
+  [genres]="genres"
+>
+</app-filter>
