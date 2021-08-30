@@ -18,7 +18,7 @@ export function transformCollKeys(
       .forEach((key) => {
         const value = col[key];
         key = transform(key);
-        newCol[key] = value && typeof value === 'object'
+        newCol[key] = value && typeof value === 'object' && !(value instanceof Date)
           ? transformCollKeys(value, transform)
           : value;
       });
