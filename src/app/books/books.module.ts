@@ -27,7 +27,7 @@ import { AuthorValidateDirective } from './directives/author-validate.directive'
 import { CountPickerComponent } from './components/count-picker/count-picker.component';
 import { FilterGenresPipe } from './pipes/filter-genres.pipe';
 import { FilterDialogContainer } from './containers/filter-dialog-container/filter-container.component';
-import { CreateViewComponent } from './views/create-view/create-view.component';
+import { CreateViewComponent } from './views/create/create-view.component';
 import { BooksListComponent } from './components/books-list/books-list.component';
 import { FilterButtonComponent } from './components/filter-button/filter-button.component';
 
