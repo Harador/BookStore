@@ -2,6 +2,9 @@ import {
    Component,
    OnDestroy,
    OnInit,
+   Input,
+   Output,
+   EventEmitter,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -12,15 +15,10 @@ import {
 } from '@angular/forms';
 import { Location } from '@angular/common';
 
-import { Observable, Subject } from 'rxjs';
-import { takeUntil, debounceTime, switchMap } from 'rxjs/operators';
+import { IAuthor } from '@authors';
+import { IGenre } from '@genres';
 
-import { AuthorsService, IAuthor } from '@authors';
-import { GenresService, IGenre } from '@genres';
-
-import { IBook, BooksService, moreAndLess } from '../../index';
-
-import { IListResponse } from '@app';
+import { IBook, moreAndLess } from '../../index';
 
 
 @Component({
@@ -32,20 +30,17 @@ export class BookCreateComponent implements OnInit, OnDestroy {
 
   public form!: FormGroup;
 
-  public authorsList!: IAuthor[];
-  public genresList!: IGenre[];
+  @Input() public authorsList!: IAuthor[];
+  @Input() public genresList!: IGenre[];
+
+  @Output() public readonly sortAuthors = new EventEmitter<string>();
+  @Output() public readonly createBook = new EventEmitter<IBook>();
 
   public readonly displayFullNameAndTakeId = this._displayFullNameAndTakeId.bind(this);
-
-  private readonly _destroy$ = new Subject<void>();
-  private readonly _debounceInput$ = new Subject<string>();
 
   constructor(
     private readonly _location: Location,
     private readonly _fb: FormBuilder,
-    private readonly _authorsService: AuthorsService,
-    private readonly _genresService: GenresService,
-    private readonly _booksService: BooksService,
   ) { }
 
   public get genres(): FormArray {
@@ -68,13 +63,9 @@ export class BookCreateComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.initForm();
-    this._loadData();
-    this._debounceInputSubscribe();
   }
 
   public ngOnDestroy(): void {
-    this._destroy$.next();
-    this._destroy$.complete();
   }
 
   public initForm(): void {
@@ -106,10 +97,6 @@ export class BookCreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  public getFullName(author: IAuthor): string {
-    return `${author.firstName} ${author.lastName}`;
-  }
-
   public deleteGenreSelect(index: number): void {
     this.genres.removeAt(index);
   }
@@ -122,18 +109,10 @@ export class BookCreateComponent implements OnInit, OnDestroy {
   }
 
   public submit(): void {
-    const value = this.form.value;
-    const book: Partial<IBook> = {
-      ...value,
-      authorId: value.author.id,
-    };
-    this._booksService.create(book)
-      .pipe(
-        takeUntil(this._destroy$),
-      )
-      .subscribe((res) => {
-        this.navBack();
-      });
+    const book: IBook = this.form.value;
+    book.authorId = book.author?.id || 0;
+    this.createBook.emit(book);
+    this.navBack();
   }
 
   public navBack(): void {
@@ -141,28 +120,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
   }
 
   public handleInput(fullName: string): any {
-    this._debounceInput$.next(fullName);
-  }
-
-  private _debounceInputSubscribe(): void {
-    this._debounceInput$
-      .pipe(
-        debounceTime(500),
-        switchMap((name: string) => {
-          return this._filterAuthors(name);
-        }),
-        takeUntil(this._destroy$),
-      )
-      .subscribe((list) => {
-        this.authorsList = list.authors;
-      });
-  }
-
-  private _filterAuthors(fullName: string): Observable<IListResponse> {
-    // const arrName = fullName.trim().toLowerCase().split(' ');
-    // const firstName = arrName[0];
-
-    return this._authorsService.gets({});
+    this.sortAuthors.emit(fullName);
   }
 
   private _displayFullNameAndTakeId(author: IAuthor): string {
@@ -171,31 +129,6 @@ export class BookCreateComponent implements OnInit, OnDestroy {
     }
 
     return '';
-  }
-
-  private _loadData(): void {
-    this._loadAuthors();
-    this._loasGenres();
-  }
-
-  private _loadAuthors(name?: string): void {
-    this._authorsService.gets({})
-      .pipe(
-        takeUntil(this._destroy$),
-      )
-      .subscribe((list) => {
-        this.authorsList = list.authors;
-      });
-  }
-
-  private _loasGenres(): void {
-    this._genresService.gets({})
-      .pipe(
-        takeUntil(this._destroy$),
-      )
-      .subscribe((list) => {
-        this.genresList = list.genres;
-      });
   }
 
 }

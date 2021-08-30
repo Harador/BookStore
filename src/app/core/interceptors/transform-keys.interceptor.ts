@@ -19,7 +19,7 @@ export class TransformKeysInterceptor implements HttpInterceptor {
       const newRequest = req.clone({
         body: transformCollKeys(req.body, stringToSnake),
       });
-
+      console.log(newRequest);
       return next.handle(newRequest);
     }
 

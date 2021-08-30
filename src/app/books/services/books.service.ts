@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { IBook, IBooksFilterQuery } from '../index';
 
 import { IListResponse, IQueriesParams } from '@app';
+import { IFiltration, IPageParams } from 'interfaces/queries.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,11 @@ export class BooksService {
   ) {
   }
 
-  public gets(queriesParams: IQueriesParams): Observable<IListResponse> {
+  public gets(queriesParams: IFiltration & Partial<IPageParams>): Observable<IListResponse> {
+    if (queriesParams.authorId) {
+      return this.getsByAuthorId(queriesParams);
+    }
+
     const params = new HttpParams()
      .appendAll({ ...queriesParams });
 
@@ -36,9 +41,8 @@ export class BooksService {
     return this._http.get<IBook>(this._booksUrl + `/${id}`);
   }
 
-  public getsByAuthorId(queriesParams: IQueriesParams): Observable<IListResponse> {
-    // TODO take id from queries
-    const id = 1;
+  public getsByAuthorId(queriesParams: IFiltration): Observable<IListResponse> {
+    const id = queriesParams.authorId;
     const params = new HttpParams()
      .appendAll({ ...queriesParams });
 
@@ -53,25 +57,5 @@ export class BooksService {
       .post(`${this._authorsUrl}/${id}/books`, book, this._httpOptions);
   }
 
-  /**
-   * get true filters queries from filter
-   * @param filter filter with params
-   * @returns new queries
-   */
-  private _getTrueFilterQueries(filter: IBooksFilterQuery): any {
-    const queries: any = {};
-
-    if (filter.maxPrice
-      && filter.minPrice) {
-      queries['q[price_lteq]'] = filter.maxPrice;
-      queries['q[price_gteq]'] = filter.minPrice;
-    }
-
-    if (filter.genre) {
-      queries['q[genres_name_cont]'] = filter.genre;
-    }
-
-    return queries;
-  }
 
 }

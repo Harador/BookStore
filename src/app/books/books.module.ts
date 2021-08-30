@@ -27,9 +27,9 @@ import { AuthorValidateDirective } from './directives/author-validate.directive'
 import { CountPickerComponent } from './components/count-picker/count-picker.component';
 import { FilterGenresPipe } from './pipes/filter-genres.pipe';
 import { FilterDialogContainer } from './containers/filter-dialog-container/filter-container.component';
-import { CreateViewComponent } from './views/create/create-view.component';
 import { BooksListComponent } from './components/books-list/books-list.component';
 import { FilterButtonComponent } from './components/filter-button/filter-button.component';
+import { CreateContainer } from './containers/create-container/create-container.component';
 
 @NgModule({
   declarations: [
@@ -44,9 +44,9 @@ import { FilterButtonComponent } from './components/filter-button/filter-button.
     CountPickerComponent,
     FilterGenresPipe,
     FilterDialogContainer,
-    CreateViewComponent,
     BooksListComponent,
     FilterButtonComponent,
+    CreateContainer,
   ],
   imports: [
     CommonModule,
