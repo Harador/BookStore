@@ -1,6 +1,6 @@
 <mat-card class="example-card book" *ngIf="book">
     <div class="image">
-        <a  routerLink="detail/{{book.id}}" target="_blank">
+        <a  routerLink="detail/{{book.id}}">
             <img *ngIf="book.image" mat-card-image [src]="book.image">
             <img *ngIf="!book.image" mat-card-image src="/assets/images/cover.png">            
         </a>
