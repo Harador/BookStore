@@ -165,9 +165,9 @@ export class BookCreateComponent implements OnInit, OnDestroy {
     return this._authorsService.gets({});
   }
 
-  private _displayFullNameAndTakeId($event: IAuthor): string {
-    if ($event) {
-      return this.getFullName($event);
+  private _displayFullNameAndTakeId(author: IAuthor): string {
+    if (author) {
+      return `${author.firstName} ${author.lastName}`;
     }
 
     return '';
