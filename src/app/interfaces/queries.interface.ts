@@ -4,6 +4,7 @@ export interface IPageParams {
   records?: number;
 }
 
+// authorName, authorId, genre, minPrice, maxPrice
 export interface IFiltration {
   [key: string]: string | number;
 }
