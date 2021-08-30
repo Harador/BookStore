@@ -1,7 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR,
-         NG_VALIDATORS, Validator, AbstractControl,
-         ValidationErrors } from '@angular/forms';
+import {
+   Component,
+   OnInit,
+   Input,
+} from '@angular/core';
+import {
+   AbstractControl,
+   ControlValueAccessor,
+   NG_VALUE_ACCESSOR,
+   NG_VALIDATORS,
+   Validator,
+   ValidationErrors
+  } from '@angular/forms';
 
 @Component({
   selector: 'app-count-picker',

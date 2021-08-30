@@ -59,12 +59,19 @@
             aria-label="units"
             >
             </mat-slider>
-            <mat-error class="price-err" *ngIf="priceCtrl.invalid">Minimum price must be less then the maximum!</mat-error>
+            <mat-error class="price-err" *ngIf="priceCtrl.invalid">
+              Minimum price must be less then the maximum!
+            </mat-error>
         </div>
     </form>
 </div>
 
 <mat-dialog-actions class="buttons">
     <button mat-button mat-dialog-close>Close</button>
-    <button mat-button [disabled]="form.invalid || form.pristine" (click)="closeThisDialog()">Apply</button>
+    <button mat-button
+      [disabled]="form.invalid || form.pristine" 
+      (click)="closeThisDialog()"
+    >
+     Apply
+    </button>
 </mat-dialog-actions>

@@ -1,20 +1,25 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { PageEvent } from '@angular/material/paginator';
 
 import { Observable } from 'rxjs';
 
-import { IListResponse, IPageParams } from '../../../../index';
+import { IListResponse, IPageParams } from '../../../index';
 
 @Component({
-  selector: 'app-books-view',
-  templateUrl: './books-view.component.html',
-  styleUrls: ['./books-view.component.scss']
+  selector: 'app-books-list',
+  templateUrl: './books-list.component.html',
+  styleUrls: ['./books-list.component.scss'],
 })
-export class BooksViewComponent implements OnInit {
+export class BooksListComponent implements OnInit {
 
-  @Input() public books$!: Observable<IListResponse>;
+  @Input()
+  public books$!: Observable<IListResponse>;
 
   constructor(
     private readonly _router: Router,
@@ -35,7 +40,8 @@ export class BooksViewComponent implements OnInit {
 
     this._router.navigate([], {
       relativeTo: this._activatedRoute,
-      queryParams, queryParamsHandling: 'merge',
+      queryParams,
+      queryParamsHandling: 'merge',
     });
   }
 

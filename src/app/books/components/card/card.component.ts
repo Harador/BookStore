@@ -1,8 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+} from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 
-import { IBook } from '../../../interfaces/book.interface';
+import { IBook } from '../../interfaces/book.interface';
 import { ToCartDialogComponent } from '../to-cart-dialog/to-cart-dialog.component';
 
 @Component({
@@ -23,7 +27,10 @@ export class BookCardComponent implements OnInit {
   }
 
   public openDialog(): void {
-    this._dialog.open(ToCartDialogComponent, { data: { book: this.book } });
+    this._dialog.open(
+      ToCartDialogComponent,
+      { data: { book: this.book } },
+    );
   }
 
 }

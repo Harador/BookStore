@@ -37,8 +37,14 @@ export class GenresListComponent implements OnInit, OnDestroy {
       limit: event.pageSize,
     };
 
-    this._router.navigate([],
-    { relativeTo: this._activatedRoute, queryParams, queryParamsHandling: 'merge' });
+    this._router.navigate(
+      [],
+      {
+        relativeTo: this._activatedRoute,
+        queryParams,
+        queryParamsHandling: 'merge',
+      },
+    );
 
     this.switchPage.emit(queryParams);
   }

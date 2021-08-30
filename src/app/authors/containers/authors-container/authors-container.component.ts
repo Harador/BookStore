@@ -36,7 +36,7 @@ export class AuthorsContainerComponent implements OnInit {
   }
 
   private _initAuthorsObservable (): void {
-    this.authorsData$ = this._setAuthors$.asObservable()
+    this.authorsData$ = this._setAuthors$
     .pipe(
       startWith(''),
       switchMap(() => this._authorsService.gets(this._queryParams)),

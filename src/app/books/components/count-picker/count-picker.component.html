@@ -9,7 +9,8 @@
 
     <input #input [value]="value" class="count-i" (input)="onInput(input)">
 
-    <button mat-flat-button color="primary"
+    <button mat-flat-button
+     color="primary"
      class="count-b"
      (click)="onAdd()"
      [disabled]="value > 98">

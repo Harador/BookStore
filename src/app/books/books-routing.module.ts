@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BookCreateComponent } from './components/components/create/create.component';
-import { BookDetailView } from './components/views/detail/detail.component';
-import { BooksContainer } from './components/containers/books-container/books-container.component';
+import { BookCreateComponent } from './components/create/create.component';
+import { BookDetailView } from './views/detail/detail.component';
+import { BooksContainer } from './containers/books-container/books-container.component';
 
 const routes: Routes = [
  { path: '', component: BooksContainer },

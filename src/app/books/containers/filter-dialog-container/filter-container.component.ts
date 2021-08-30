@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { AuthorsService } from '../../../../authors';
-import { GenresService } from '../../../../genres';
+import { AuthorsService } from '../../../authors';
+import { GenresService } from '../../../genres';
 
 @Component({
   selector: 'app-filter-container',

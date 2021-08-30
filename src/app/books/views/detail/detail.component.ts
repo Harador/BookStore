@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { IBook } from '../../../interfaces/book.interface';
-import { BooksService } from '../../../services/books.service';
+import { IBook } from '../../interfaces/book.interface';
+import { BooksService } from '../../services/books.service';
 
 @Component({
   selector: 'app-book-detail-view',

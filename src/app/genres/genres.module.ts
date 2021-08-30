@@ -13,7 +13,9 @@ import { GenresContainer } from './containers/genres-container/genres-container.
     GenresContainer,
   ],
   imports: [
-    CommonModule, GenresRoutingModule, MatPaginatorModule,
+    CommonModule,
+    GenresRoutingModule,
+    MatPaginatorModule,
   ],
 })
 export class GenresModule { }

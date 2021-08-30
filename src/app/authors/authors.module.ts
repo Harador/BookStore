@@ -7,11 +7,17 @@ import { AutorsRoutingModule } from './authors-routing.module';
 import { AuthorsListComponent } from './components/list/list.component';
 import { AuthorsContainerComponent } from './containers/authors-container/authors-container.component';
 
-const material = [ MatPaginatorModule, ];
 
 @NgModule({
-  declarations: [AuthorsListComponent, AuthorsContainerComponent],
-  imports: [CommonModule, AutorsRoutingModule, material],
+  declarations: [
+    AuthorsListComponent,
+    AuthorsContainerComponent,
+  ],
+  imports: [
+    CommonModule,
+    AutorsRoutingModule,
+    MatPaginatorModule,
+  ],
 })
 
 export class AuthorsModule { }

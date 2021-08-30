@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Output,
+  EventEmitter,
+  Input
+} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { PageEvent } from '@angular/material/paginator';
@@ -38,7 +45,8 @@ export class AuthorsListComponent implements OnInit, OnDestroy {
 
     this._router.navigate([], {
       relativeTo: this._activatedRoute,
-      queryParams, queryParamsHandling: 'merge',
+      queryParams,
+      queryParamsHandling: 'merge',
     });
 
     this.changePage.emit(queryParams);

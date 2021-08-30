@@ -1,14 +1,18 @@
-import { Component, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
-
-import { MatDialogRef } from '@angular/material/dialog';
+import {
+   Component,
+   OnDestroy,
+   OnInit,
+   Output,
+   EventEmitter,
+} from '@angular/core';
 
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, debounceTime, switchMap, } from 'rxjs/operators';
 
-import { IListResponse } from '../../../..';
-import { AuthorsService, IAuthor } from '../../../../authors';
-import { GenresService, IGenre } from '../../../../genres';
-import { IBooksFilterQuery } from '../../../interfaces/books-query-params.interface';
+import { IListResponse } from '../../..';
+import { AuthorsService, IAuthor } from '../../../authors';
+import { GenresService, IGenre } from '../../../genres';
+import { IBooksFilterQuery } from '../../interfaces/books-query-params.interface';
 
 @Component({
   selector: 'app-filter',
@@ -17,7 +21,7 @@ import { IBooksFilterQuery } from '../../../interfaces/books-query-params.interf
 })
 export class FilterComponent implements OnInit, OnDestroy {
 
-  @Output() public closeDialog = new EventEmitter();
+  @Output() public readonly closeDialog = new EventEmitter();
 
   public authors: IAuthor[] = [];
   public genres?: IGenre[];

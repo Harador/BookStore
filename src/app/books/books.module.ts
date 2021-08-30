@@ -16,20 +16,20 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
 import { BooksRoutingModule } from './books-routing.module';
-import { BookCardComponent } from './components/components/card/card.component';
-import { BooksContainer } from './components/containers/books-container/books-container.component';
-import { BookDetailView } from './components/views/detail/detail.component';
-import { FilterComponent } from './components/components/filter/filter.component';
-import { BookCreateComponent } from './components/components/create/create.component';
-import { ToCartDialogComponent } from './components/components/to-cart-dialog/to-cart-dialog.component';
+import { BookCardComponent } from './components/card/card.component';
+import { BooksContainer } from './containers/books-container/books-container.component';
+import { BookDetailView } from './views/detail/detail.component';
+import { FilterComponent } from './components/filter/filter.component';
+import { BookCreateComponent } from './components/create/create.component';
+import { ToCartDialogComponent } from './components/to-cart-dialog/to-cart-dialog.component';
 import { PriceValidateDirective } from './directives/price-validate.directive';
 import { AuthorValidateDirective } from './directives/author-validate.directive';
-import { CountPickerComponent } from './components/components/count-picker/count-picker.component';
+import { CountPickerComponent } from './components/count-picker/count-picker.component';
 import { FilterGenresPipe } from './pipes/filter-genres.pipe';
-import { FilterDialogContainer } from './components/containers/filter-dialog-container/filter-container.component';
-import { CreateViewComponent } from './components/views/create-view/create-view.component';
-import { BooksViewComponent } from './components/views/books-view/books-view.component';
-import { FilterButtonComponent } from './components/components/filter-button/filter-button.component';
+import { FilterDialogContainer } from './containers/filter-dialog-container/filter-container.component';
+import { CreateViewComponent } from './views/create-view/create-view.component';
+import { BooksListComponent } from './components/books-list/books-list.component';
+import { FilterButtonComponent } from './components/filter-button/filter-button.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import { FilterButtonComponent } from './components/components/filter-button/fil
     FilterGenresPipe,
     FilterDialogContainer,
     CreateViewComponent,
-    BooksViewComponent,
+    BooksListComponent,
     FilterButtonComponent,
   ],
   imports: [

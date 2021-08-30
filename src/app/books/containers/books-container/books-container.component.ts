@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { startWith, switchMap, takeUntil, } from 'rxjs/operators';
 
-import { IListResponse, IQueriesParams } from '../../../../index';
-import { AuthorsService } from '../../../../authors';
-import { BooksService } from '../../../services/books.service';
+import { IListResponse, IQueriesParams } from '../../../index';
+import { AuthorsService } from '../../../authors';
+import { BooksService } from '../../services/books.service';
 
 @Component({
   selector: 'app-books-container',
@@ -30,7 +30,7 @@ export class BooksContainer implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this._initQueries();
     this._setBooksObservable();
-    this._subscribeQueryParamsAndLoadList();
+    this._subscribeQueriesAndChangeObservable();
   }
 
   public ngOnDestroy(): void {
@@ -54,12 +54,13 @@ export class BooksContainer implements OnInit, OnDestroy {
     };
   }
 
-  private _subscribeQueryParamsAndLoadList(): void {
+  private _subscribeQueriesAndChangeObservable(): void {
     this._activatedRoute.queryParams
       .pipe(
         takeUntil(this._destroy$),
       )
       .subscribe((params) => {
+        window.scrollTo(0, 0);
         this._queryParams = params;
         this._setBooks$.next();
       });
