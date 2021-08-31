@@ -25,8 +25,8 @@ export class BooksService {
   ) {
   }
 
-  public gets(queriesParams: IFiltration & Partial<IPageParams>): Observable<IListResponse> {
-    if (queriesParams.authorId) {
+  public gets(queriesParams?: IFiltration & Partial<IPageParams>): Observable<IListResponse> {
+    if (queriesParams?.authorId) {
       return this.getsByAuthorId(queriesParams);
     }
 

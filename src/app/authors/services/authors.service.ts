@@ -18,7 +18,7 @@ export class AuthorsService {
   ) {
   }
 
-  public gets(queryParams: IQueriesParams): Observable<IListResponse> {
+  public gets(queryParams?: IQueriesParams): Observable<IListResponse> {
     const params = new HttpParams()
     .appendAll({ ...queryParams });
 

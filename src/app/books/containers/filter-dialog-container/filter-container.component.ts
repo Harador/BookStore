@@ -74,7 +74,7 @@ export class FilterDialogContainer implements OnInit, OnDestroy {
   }
 
   private _loadData(): void {
-    this._authorService.gets({})
+    this._authorService.gets()
       .pipe(
        takeUntil(this._destroy$),
       )
@@ -82,7 +82,7 @@ export class FilterDialogContainer implements OnInit, OnDestroy {
         this.authors = list.authors;
       });
 
-    this._genresService.gets({})
+    this._genresService.gets()
       .pipe(
        takeUntil(this._destroy$),
       )

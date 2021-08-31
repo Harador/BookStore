@@ -17,7 +17,7 @@ export class GenresService {
   ) {
   }
 
-  public gets(queries: IQueriesParams): Observable<IListResponse> {
+  public gets(queries?: IQueriesParams): Observable<IListResponse> {
     const params = new HttpParams().appendAll({ ...queries });
 
     return this._http
