@@ -6,11 +6,13 @@ import {
    Output,
    EventEmitter,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { IAuthor } from '@authors';
 import { IGenre } from '@genres';
 
 import { IFiltration, IQueriesParams } from '@app';
+
 
 @Component({
   selector: 'app-filter',
@@ -25,20 +27,17 @@ export class FilterComponent implements OnInit, OnDestroy {
   @Output() public readonly closeDialog = new EventEmitter<IQueriesParams>();
   @Output() public readonly sortAuthors = new EventEmitter<string>();
 
-  public model: IFiltration = {
-    authorId: '',
-    genre: '',
-    maxPrice: 9900,
-    minPrice: 0,
-  };
+  public model!: IFiltration;
 
   public readonly displayFullNameAndTakeId = this._displayFullNameAndTakeId.bind(this);
 
   constructor(
+    private readonly _activatedRoute: ActivatedRoute,
   ) {
   }
 
   public ngOnInit(): void {
+    this._initModel();
   }
 
   public ngOnDestroy(): void {
@@ -68,6 +67,16 @@ export class FilterComponent implements OnInit, OnDestroy {
     }
 
     return '';
+  }
+
+  private _initModel(): void {
+    const params = this._activatedRoute.snapshot.queryParams;
+    this.model = {
+      authorId: params.authorId || '',
+      genre: params.genre || '',
+      maxPrice: params.maxPrice || 3000,
+      minPrice: params.minPrice || 0,
+    };
   }
 
 }
