@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 
@@ -7,6 +7,7 @@ import { FilterDialogContainer } from '../../index';
   selector: 'app-filter-button',
   templateUrl: './filter-button.component.html',
   styleUrls: ['./filter-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterButtonComponent implements OnInit {
 

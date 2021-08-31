@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs';
@@ -9,14 +9,15 @@ import { GenresService, IGenre } from '@genres';
 
 import { IBook, BooksService } from '../../index';
 
-import { IQueriesParams, getTrueQueryParams, filteredQueryParams } from '@app';
+import { getTrueQueryParams, } from '@app';
 
 
 
 @Component({
   selector: 'app-create-container',
   templateUrl: './create-container.component.html',
-  styleUrls: ['./create-container.component.scss']
+  styleUrls: ['./create-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateContainer implements OnInit, OnDestroy {
 

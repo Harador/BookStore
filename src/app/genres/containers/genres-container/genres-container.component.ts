@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable, Subject } from 'rxjs';
@@ -12,6 +12,7 @@ import { IListResponse, IPageParams } from '@app';
 @Component({
   selector: 'genres-container',
   templateUrl: './genres-container.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GenresContainer implements OnInit {
 

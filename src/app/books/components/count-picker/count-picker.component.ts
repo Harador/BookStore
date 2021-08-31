@@ -2,6 +2,7 @@ import {
    Component,
    OnInit,
    Input,
+   ChangeDetectionStrategy,
 } from '@angular/core';
 import {
    AbstractControl,
@@ -16,6 +17,7 @@ import {
   selector: 'app-count-picker',
   templateUrl: './count-picker.component.html',
   styleUrls: ['./count-picker.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

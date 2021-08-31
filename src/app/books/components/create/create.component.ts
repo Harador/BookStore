@@ -5,6 +5,7 @@ import {
    Input,
    Output,
    EventEmitter,
+   ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -25,6 +26,7 @@ import { IBook, moreAndLess } from '../../index';
   selector: 'app-book-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookCreateComponent implements OnInit, OnDestroy {
 

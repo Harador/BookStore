@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable, Subject } from 'rxjs';
@@ -12,6 +12,7 @@ import { IListResponse, IQueriesParams, getTrueQueryParams } from '@app';
   selector: 'app-books-container',
   templateUrl: './books-container.component.html',
   styleUrls: ['./books-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BooksContainer implements OnInit, OnDestroy {
 

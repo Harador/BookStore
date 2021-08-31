@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
   Input,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -14,6 +15,7 @@ import { ToCartDialogComponent } from '../to-cart-dialog/to-cart-dialog.componen
   selector: 'app-card-book',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookCardComponent implements OnInit {
 

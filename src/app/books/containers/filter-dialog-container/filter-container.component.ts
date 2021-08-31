@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatDialogRef } from '@angular/material/dialog';
@@ -16,6 +16,7 @@ import { IQueriesParams, getTrueQueryParams, filteredQueryParams } from '@app';
   selector: 'app-filter-container',
   templateUrl: './filter-container.component.html',
   styleUrls: ['./filter-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterDialogContainer implements OnInit, OnDestroy {
 

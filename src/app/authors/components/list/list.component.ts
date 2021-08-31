@@ -4,7 +4,8 @@ import {
   OnDestroy,
   Output,
   EventEmitter,
-  Input
+  Input,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -19,6 +20,7 @@ import { IPageParams, IListResponse } from '@app';
   selector: 'app-authors-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthorsListComponent implements OnInit, OnDestroy {
 
