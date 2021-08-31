@@ -3,10 +3,10 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { IBook, IBooksFilterQuery } from '../index';
+import { IBook } from '../index';
 
-import { IListResponse, IQueriesParams } from '@app';
-import { IFiltration, IPageParams } from 'interfaces/queries.interface';
+import { IListResponse, IFiltration, IPageParams } from '@app';
+
 
 @Injectable({
   providedIn: 'root',
