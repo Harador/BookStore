@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-toolbar',
@@ -18,6 +18,10 @@ export class ToolbarComponent implements OnInit {
 
   public navToCreateBook(): void {
     this._router.navigate(['/books/create']);
+  }
+
+  public navToAuth(): void {
+    this._router.navigate(['/auth']);
   }
 
 }

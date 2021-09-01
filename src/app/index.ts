@@ -6,3 +6,5 @@ export { IMeta } from './layout/interfaces/meta.interface';
 export { IQueriesParams, IPageParams, IFiltration } from './interfaces/queries.interface';
 export { getTrueQueryParams } from './helpers/get-true-query-params';
 export { filteredQueryParams } from './helpers/filter-query-params';
+export { UserService } from './services/user.service';
+export { IUser } from './interfaces/user-data.interface';
