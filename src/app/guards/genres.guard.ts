@@ -1,6 +1,6 @@
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 
-export class GenreGuard implements CanActivate {
+export class GenresGuard implements CanActivate {
 
   public canActivate(
     route: ActivatedRouteSnapshot,

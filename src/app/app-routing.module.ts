@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { GenresGuard } from './guards/genres.guard';
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'books' },
   {
@@ -16,11 +18,13 @@ const routes: Routes = [
     path: 'genres',
     loadChildren: () =>
       import('./genres/genres.module').then((m) => m.GenresModule),
+    canActivate: [ GenresGuard ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [ GenresGuard, ],
 })
 export class AppRoutingModule {}
