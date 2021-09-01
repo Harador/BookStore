@@ -1,0 +1,11 @@
+<div class="author-wrapper" *ngIf="author$ | async as author">
+    <a routerLink="/authors">Back to authors</a>
+    <div class="author">
+        <h1>{{author.firstName + " " + author.lastName}}'s books:</h1>
+    </div>
+    <div class="books" *ngIf="books$ | async as response">
+            <span class="book" *ngFor="let book of response.books">
+                <a routerLink="/books/detail/{{book.id}}">{{book.title}}</a>
+            </span>
+    </div>
+</div>

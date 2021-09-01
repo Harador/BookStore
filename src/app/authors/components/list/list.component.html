@@ -1,7 +1,7 @@
 <div class="authors-wrapper" *ngIf="authors$ | async as response">
     <div class="authors">
         <span class="author" *ngFor="let author of response.authors">
-            <a>{{author.firstName + ' ' + author.lastName}}</a>
+            <a routerLink="{{author.id}}">{{author.firstName + ' ' + author.lastName}}</a>
         </span>
     </div>
     <div *ngIf="response.meta as meta">

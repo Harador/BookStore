@@ -3,6 +3,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
+import { IAuthor } from '../index';
+
 import { IListResponse, IQueriesParams } from '@app';
 
 
@@ -24,6 +26,11 @@ export class AuthorsService {
 
     return this._http
       .get<IListResponse>(this.authorsUrl, { params });
+  }
+
+  public get(id: number): Observable<IAuthor> {
+    return this._http
+      .get<IAuthor>(`${this.authorsUrl}/${id}`);
   }
 
 }
