@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { GenresGuard } from './guards/genres.guard';
+import { GenresResolver } from './resolvers/genres.resolver';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'books' },
@@ -19,12 +20,15 @@ const routes: Routes = [
     loadChildren: () =>
       import('./genres/genres.module').then((m) => m.GenresModule),
     canActivate: [ GenresGuard ],
+    resolve: {
+      genresObs: GenresResolver,
+    },
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [ GenresGuard, ],
+  providers: [ GenresGuard, GenresResolver, ],
 })
 export class AppRoutingModule {}
