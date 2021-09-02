@@ -16,9 +16,21 @@
     <button (click)="navToCreateBook()" mat-icon-button>
       <mat-icon>book</mat-icon>
     </button>
-    <button (click)="navToAuth()" mat-icon-button>
+    <button [matMenuTriggerFor]="menu" class="user-button"  mat-icon-button>
+      <span class="user-status" [ngClass]="{online: isUserLogged}"></span>
       <mat-icon>account_circle</mat-icon>
     </button>
   </div>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item *ngIf="isUserLogged" (click)="handleLogOut()">
+      <mat-icon>logout</mat-icon>
+      <span>Log Out</span>
+    </button>
+    <button mat-menu-item *ngIf="!isUserLogged" (click)="navToAuth()">
+      <mat-icon>login</mat-icon>
+      <span>Sign In / Sign Up</span>
+    </button>
+  </mat-menu>
   
 </mat-toolbar>

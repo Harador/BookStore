@@ -1,1 +1,25 @@
-<p>sign-up-form works!</p>
+<form [formGroup]="form" [ngClass]="{'form-error': form.hasError('regUser')}">
+    <mat-form-field appearance="fill">
+        <mat-label>login</mat-label>
+        <input matInput type="text" formControlName="login">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>password</mat-label>
+        <input matInput type="text" formControlName="password">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>repeat password</mat-label>
+        <input matInput type="text" formControlName="repPassword">
+        <mat-error 
+        *ngIf="form.get('repPassword')?.hasError('notEqPas')"
+        >
+            wrong password!
+        </mat-error>
+    </mat-form-field>
+    <div class="error" *ngIf="form.hasError('regUser') ">Undefined user</div>
+    <button class="submit" mat-raised-button color="primary"
+      [disabled]="!form.valid"
+      (click)="submit()">
+        Sign Up
+    </button>
+</form>

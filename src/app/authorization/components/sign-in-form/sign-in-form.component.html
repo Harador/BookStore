@@ -1,1 +1,17 @@
-<p>sign-in-form works!</p>
+<form [formGroup]="form" [ngClass]="{'form-error': form.hasError('undefUser')}">
+    <mat-form-field appearance="fill">
+        <mat-label>login</mat-label>
+        <input matInput type="text" formControlName="login">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>password</mat-label>
+        <input matInput type="text" formControlName="password">
+    </mat-form-field>
+    <div class="error" *ngIf="form.hasError('undefUser') ">Undefined user</div>
+    <button mat-raised-button color="primary" 
+        [disabled]="!form.valid"
+        (click)="submit()"
+     >
+        Sign In
+    </button>
+</form>

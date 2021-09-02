@@ -1,43 +1,64 @@
 import { Injectable } from '@angular/core';
 
+import { IUser } from '../interfaces/user.interface';
+
 @Injectable()
 export class UserService {
 
   constructor() { }
 
+  private get dbUser(): IUser {
+    return JSON.parse(localStorage.user);
+  }
+
+  private set dbUser(user: IUser) {
+    location.href = 'http://localhost:4200/books';
+    localStorage.user = JSON.stringify(user);
+  }
+
   public sugnUp(login: string, password: string): void {
-    localStorage.user = {
-      login,
-      password,
-      isLogged: true,
-    };
+    const user = { login, password, isLogged: true };
+    this.dbUser = user;
   }
 
   public signIn(login: string, password: string): void {
     const logUser = { login, password, isLogged: false };
-    const dbUser = localStorage.user;
 
-    if (dbUser && this.isTrueUser(dbUser, logUser)) {
-      localStorage.user.isLogged = true;
+    if (this.isTrueUser(logUser)) {
+      const user = this.dbUser;
+      user.isLogged = true;
+      this.dbUser = user;
     }
   }
 
   public logOut(): void {
     if (localStorage.user) {
-      localStorage.user.isLogged = false;
+      const user = this.dbUser;
+      user.isLogged = false;
+      this.dbUser = user;
     }
   }
 
   public isLogged(): boolean {
-    if (localStorage.user && localStorage.user.isLogged) {
+    if (!localStorage.user) {
+      return false;
+    }
+    const user = this.dbUser;
+    if (user && user.isLogged) {
       return true;
     }
 
     return false;
   }
 
-  public isTrueUser(obj1: object, obj2: object): boolean {
-    return JSON.stringify(obj1) === JSON.stringify(obj2);
+  public isTrueUser(logUser: IUser): boolean {
+    if (localStorage.user) {
+      logUser.isLogged = false;
+
+      return JSON.stringify(logUser) === localStorage.user;
+    }
+
+    return false;
   }
 
 }

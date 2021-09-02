@@ -1,9 +1,9 @@
-<app-sign-in-form *ngIf="isSignInSelected"
-    
+<app-sign-in-form *ngIf="isSignInSelected && !isLogged"
+    (signIn)="signIn($event)"
 >
 </app-sign-in-form>
 
-<app-sign-up-form *ngIf="!isSignInSelected"
-
+<app-sign-up-form *ngIf="!isSignInSelected || isLogged"
+    (signUp)="signUp($event)"
 >
 </app-sign-up-form>

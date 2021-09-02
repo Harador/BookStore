@@ -9,6 +9,7 @@
       "@books": [ "books/index.ts" ],
       "@genres": [ "genres/index.ts" ],
       "@authors": [ "authors/index.ts" ],
+      "@auth": ["authorization/index.ts"],
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

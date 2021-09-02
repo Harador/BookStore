@@ -7,8 +7,13 @@ import { Router } from '@angular/router';
 })
 export class ToolbarComponent implements OnInit {
 
+  @Input() public isUserLogged = false;
+
   @Output()
   public readonly toggleNavbar = new EventEmitter();
+
+  @Output()
+  public readonly logOut = new EventEmitter();
 
   constructor(
     private readonly _router: Router,
@@ -22,6 +27,10 @@ export class ToolbarComponent implements OnInit {
 
   public navToAuth(): void {
     this._router.navigate(['/auth']);
+  }
+
+  public handleLogOut(): void {
+    this.logOut.emit();
   }
 
 }

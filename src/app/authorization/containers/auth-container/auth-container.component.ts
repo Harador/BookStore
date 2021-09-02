@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { IUser } from '../../interfaces/user.interface';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -9,15 +11,24 @@ import { UserService } from '../../services/user.service';
 })
 export class AuthContainer implements OnInit {
 
-  @Input() public isSignInSelected = false;
+  @Input() public isSignInSelected = true;
 
   public isLogged = this._userService.isLogged();
 
   constructor(
+    private readonly _router: Router,
     private readonly _userService: UserService,
   ) { }
 
   public ngOnInit(): void {
+  }
+
+  public signIn(user: IUser): void {
+    this._userService.signIn(user.login, user.password);
+  }
+
+  public signUp(user: IUser): void {
+    this._userService.sugnUp(user.login, user.password);
   }
 
 }
