@@ -1,5 +1,20 @@
 <div class="page">
+    <div class="switchers">
+        <a 
+            [ngClass]="{'active': isSignInSelected}"
+            (click)="selectSignIn()"
+        >
+          Sign In
+        </a>
+        <a 
+            [ngClass]="{'active': !isSignInSelected}"
+            (click)="selectSignUp()"
+        >
+        Sign Up
+        </a>
+    </div>
     <div class="form-wrapper">
-        <app-auth-container></app-auth-container>
+        <app-auth-container [isSignInSelected]="isSignInSelected"></app-auth-container>
     </div>
 </div>
+
