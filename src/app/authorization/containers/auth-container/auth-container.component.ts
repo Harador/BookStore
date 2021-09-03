@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { IUser } from '../../interfaces/user.interface';
 import { UserService } from '../../services/user.service';
