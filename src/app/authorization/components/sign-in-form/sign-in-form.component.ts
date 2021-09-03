@@ -11,6 +11,7 @@ import { signInValidator } from '../../validators/sign-in.validator';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignInFormComponent implements OnInit {
+
   @Output() public readonly signIn = new EventEmitter<IUser>();
 
   public form = this._fb.group({

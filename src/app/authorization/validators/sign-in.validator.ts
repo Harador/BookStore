@@ -17,8 +17,6 @@ export function signInValidator(): ValidatorFn {
     const value = ctrl.value;
 
     if (value && value.login && value.password) {
-      console.log(ctrl);
-
       return userService.isTrueUser(value) ? null : error;
     }
 

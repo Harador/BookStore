@@ -13,6 +13,7 @@ import { IUser } from '../../interfaces/user.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpFormComponent implements OnInit {
+
   @Output() public readonly signUp = new EventEmitter<IUser>();
 
   public form: FormGroup = this._fb.group({

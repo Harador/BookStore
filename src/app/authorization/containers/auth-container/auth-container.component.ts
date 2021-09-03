@@ -16,7 +16,6 @@ export class AuthContainer implements OnInit {
   public isLogged = this._userService.isLogged();
 
   constructor(
-    private readonly _router: Router,
     private readonly _userService: UserService,
   ) { }
 

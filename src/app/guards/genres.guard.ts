@@ -1,4 +1,4 @@
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 export class GenresGuard implements CanActivate {
 
@@ -8,4 +8,5 @@ export class GenresGuard implements CanActivate {
     ): boolean {
     return confirm('Are you sure? ^-^');
   }
+
 }

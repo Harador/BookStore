@@ -8,6 +8,7 @@ import { UserService } from '@auth';
   templateUrl: './toolbar-container.component.html',
 })
 export class ToolbarContainer implements OnInit {
+
   @Output() public readonly toggleNavbar = new EventEmitter();
 
   public isUserLogged = false;

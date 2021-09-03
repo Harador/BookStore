@@ -20,7 +20,6 @@ export class AuthorView implements OnInit {
 
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
-    private readonly _router: Router,
   ) { }
 
   public ngOnInit(): void {

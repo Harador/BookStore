@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
@@ -28,7 +27,6 @@ export class CreateContainer implements OnInit, OnDestroy {
   private readonly _destroy$ = new Subject();
 
   constructor(
-    private readonly _activatedRoute: ActivatedRoute,
     private readonly _authorService: AuthorsService,
     private readonly _genresService: GenresService,
     private readonly _booksService: BooksService,
