@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { signUpValidator } from '../../validators/sign-up.validator';
-import { repeatPassword } from '../../validators/repeat-password.validator';
 import { IUser } from '../../interfaces/user.interface';
+import { AuthValidateService } from '../../services/auth-validate.service';
 
 
 @Component({
@@ -17,13 +16,33 @@ export class SignUpFormComponent implements OnInit {
   @Output() public readonly signUp = new EventEmitter<IUser>();
 
   public form: FormGroup = this._fb.group({
-    login: ['', Validators.required],
-    password: ['', [Validators.required, repeatPassword(() => this.form?.get('repPassword'))], ],
-    repPassword: ['', [Validators.required, repeatPassword(() => this.form?.get('password'))], ],
-  }, { validators: signUpValidator() });
+    login: [
+      '',
+      Validators.required,
+    ],
+    password: [
+      '',
+      [
+        Validators.required,
+        this._authValidateService.
+          repeatPasswordValidator(() => this.form?.get('password')),
+      ],
+    ],
+    repPassword: [
+      '',
+      [
+        Validators.required,
+        this._authValidateService.
+          repeatPasswordValidator(() => this.form?.get('password')),
+      ],
+    ],
+  }, {
+    validators: this._authValidateService.signUpValidator(),
+  });
 
   constructor(
     private readonly _fb: FormBuilder,
+    private readonly _authValidateService: AuthValidateService,
   ) { }
 
   public ngOnInit(): void {

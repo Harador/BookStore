@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { IUser } from '../../interfaces/user.interface';
-import { signInValidator } from '../../validators/sign-in.validator';
+import { AuthValidateService } from '../../services/auth-validate.service';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -17,10 +17,14 @@ export class SignInFormComponent implements OnInit {
   public form = this._fb.group({
     login: ['', Validators.required],
     password: ['', Validators.required],
-  }, { validators: signInValidator(), updateOn: 'blur' });
+  }, {
+    validators: this._authValidateService.signInValidator(),
+    updateOn: 'blur',
+  });
 
   constructor(
     private readonly _fb: FormBuilder,
+    private readonly _authValidateService: AuthValidateService,
   ) { }
 
   public ngOnInit(): void {

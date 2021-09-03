@@ -16,7 +16,7 @@
             wrong password!
         </mat-error>
     </mat-form-field>
-    <div class="error" *ngIf="form.hasError('regUser') ">Undefined user</div>
+    <div class="error" *ngIf="form.hasError('regUser') ">This user already exist</div>
     <button class="submit" mat-raised-button color="primary"
       [disabled]="!form.valid"
       (click)="submit()">
