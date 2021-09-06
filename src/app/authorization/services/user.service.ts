@@ -16,7 +16,7 @@ export class UserService {
     localStorage.user = JSON.stringify(user);
   }
 
-  public sugnUp(login: string, password: string): void {
+  public signUp(login: string, password: string): void {
     const user = { login, password, isLogged: true };
     this.dbUser = user;
   }

@@ -26,7 +26,7 @@ export class AuthContainer implements OnInit {
   }
 
   public signUp(user: IUser): void {
-    this._userService.sugnUp(user.login, user.password);
+    this._userService.signUp(user.login, user.password);
   }
 
 }
