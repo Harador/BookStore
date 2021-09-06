@@ -1,3 +1,14 @@
+<div class="switchers">
+    <a [ngClass]="{'active': isSignInSelected, 'blocked': isLogged}"
+      (click)="selectSignIn()">
+        Sign In
+    </a>
+    <a [ngClass]="{'active': !isSignInSelected}"
+      (click)="selectSignUp()">
+        Sign Up
+    </a>
+</div>
+
 <app-sign-in-form *ngIf="isSignInSelected && !isLogged"
     (signIn)="signIn($event)"
 >

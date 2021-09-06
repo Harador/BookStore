@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, Output, EventEmitter } from
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { IUser } from '../../interfaces/user.interface';
-import { AuthValidateService } from '../../services/auth-validate.service';
+import { repeatPassword } from '../../validators/repeat-password.validator';
 
 
 @Component({
@@ -24,25 +24,21 @@ export class SignUpFormComponent implements OnInit {
       '',
       [
         Validators.required,
-        this._authValidateService.
-          repeatPasswordValidator(() => this.form?.get('password')),
+        repeatPassword(() => this.form?.get('repPassword')),
       ],
     ],
     repPassword: [
       '',
       [
         Validators.required,
-        this._authValidateService.
-          repeatPasswordValidator(() => this.form?.get('password')),
+        repeatPassword(() => this.form?.get('password')),
       ],
     ],
   }, {
-    validators: this._authValidateService.signUpValidator(),
   });
 
   constructor(
     private readonly _fb: FormBuilder,
-    private readonly _authValidateService: AuthValidateService,
   ) { }
 
   public ngOnInit(): void {

@@ -8,8 +8,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 
-import { UserService } from '@auth';
-
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageView } from './views/page/page.component';
@@ -35,9 +33,6 @@ import { ToolbarContainer } from './containers/toolbar-container/toolbar-contain
   ],
   exports: [
     PageView,
-  ],
-  providers: [
-    UserService,
   ],
 })
 export class LayoutModule { }

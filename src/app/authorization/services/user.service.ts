@@ -1,34 +1,54 @@
 import { Injectable } from '@angular/core';
 
+import { BehaviorSubject } from 'rxjs';
+
 import { IUser } from '../interfaces/user.interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UserService {
 
-  constructor() { }
+  public isLogged$ = new BehaviorSubject(false);
+
+  constructor() {
+    this.isLogged$.next(this.isLogged());
+  }
 
   private get dbUser(): IUser {
     return JSON.parse(localStorage.user);
   }
 
   private set dbUser(user: IUser) {
-    location.href = 'http://localhost:4200/books';
     localStorage.user = JSON.stringify(user);
   }
 
-  public signUp(login: string, password: string): void {
-    const user = { login, password, isLogged: true };
+  public signUp(login: string, password: string): boolean {
+    const user = { login, password, isLogged: false };
+
+    if (this.isTrueUser(user)) {
+      return false;
+    }
+    user.isLogged = true;
     this.dbUser = user;
+    this.isLogged$.next(true);
+
+    return true;
   }
 
-  public signIn(login: string, password: string): void {
+  public signIn(login: string, password: string): boolean {
     const logUser = { login, password, isLogged: false };
 
     if (this.isTrueUser(logUser)) {
       const user = this.dbUser;
       user.isLogged = true;
       this.dbUser = user;
+      this.isLogged$.next(true);
+
+      return true;
     }
+
+    return false;
   }
 
   public logOut(): void {
@@ -36,6 +56,8 @@ export class UserService {
       const user = this.dbUser;
       user.isLogged = false;
       this.dbUser = user;
+
+      this.isLogged$.next(false);
     }
   }
 

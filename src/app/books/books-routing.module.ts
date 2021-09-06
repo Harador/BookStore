@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { CreateBookGuard } from '@core';
+
 import { CreateContainer } from './containers/create-container/create-container.component';
 import { BookDetailView } from './views/detail/detail.component';
 import { BooksContainer } from './containers/books-container/books-container.component';
-import { CreateBookGuard } from './guards/create-book.guard';
+
 
 const routes: Routes = [
  { path: '', component: BooksContainer },
