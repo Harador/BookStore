@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { BooksRoutingModule } from './books-routing.module';
 import { BookCardComponent } from './components/card/card.component';
@@ -30,6 +31,7 @@ import { FilterDialogContainer } from './containers/filter-dialog-container/filt
 import { BooksListComponent } from './components/books-list/books-list.component';
 import { FilterButtonComponent } from './components/filter-button/filter-button.component';
 import { CreateContainer } from './containers/create-container/create-container.component';
+import { GenresAutocompComponent } from './components/genres-autocomp/genres-autocomp.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { CreateContainer } from './containers/create-container/create-container.
     BooksListComponent,
     FilterButtonComponent,
     CreateContainer,
+    GenresAutocompComponent,
   ],
   imports: [
     CommonModule,
@@ -66,6 +69,7 @@ import { CreateContainer } from './containers/create-container/create-container.
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatChipsModule,
 
     BooksRoutingModule,
   ],

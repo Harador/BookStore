@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
-import { Subject } from 'rxjs';
-import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
+import { debounceTime, startWith, switchMap, takeUntil, map } from 'rxjs/operators';
 
 import { AuthorsService, IAuthor } from '@authors';
 import { GenresService, IGenre } from '@genres';
@@ -9,6 +9,8 @@ import { GenresService, IGenre } from '@genres';
 import { IBook, BooksService } from '../../index';
 
 import { getTrueQueryParams, } from '@app';
+import { IListResponse } from 'interfaces/list-response.interface';
+import { IQueriesParams } from 'interfaces/queries.interface';
 
 
 @Component({
@@ -19,26 +21,39 @@ import { getTrueQueryParams, } from '@app';
 })
 export class CreateContainer implements OnInit, OnDestroy {
 
-  public authors!: IAuthor[];
-  public genres!: IGenre[];
+  public authors$!: Observable<IListResponse>;
 
-  private readonly _debounceInput$ = new Subject<string>();
+  private readonly _debounceAuthorsList$ = new Subject<string>();
+
   private readonly _destroy$ = new Subject();
 
   constructor(
-    private readonly _authorService: AuthorsService,
+    private readonly _authorsService: AuthorsService,
     private readonly _genresService: GenresService,
     private readonly _booksService: BooksService,
   ) { }
 
   public ngOnInit(): void {
-    this._debounceInputSubscribe();
-    this._loadData();
+    this._initAuthors$();
   }
 
   public ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
+    
+  }
+
+  public getGenresList$ = (genreName?: string): Observable<IGenre[]> => {
+    let queries: IQueriesParams = {};
+
+    if(genreName){
+      queries = getTrueQueryParams({ genreName })
+    }
+
+    return this._genresService.gets(queries)
+      .pipe(
+        map(data => data.genres)
+      )
   }
 
   public createBook(book: IBook): void {
@@ -51,41 +66,23 @@ export class CreateContainer implements OnInit, OnDestroy {
 
   public sortAuthors(name: string): void {
     name = name.trim().toLowerCase().split(' ')[0];
-    this._debounceInput$.next(name);
+    this._debounceAuthorsList$.next(name);
   }
 
-  private _debounceInputSubscribe(): void {
-    this._debounceInput$
+  private _initAuthors$(): void {
+
+    this.authors$ =  this._debounceAuthorsList$.asObservable()
       .pipe(
-        debounceTime(500),
+        debounceTime(300),
+        startWith(''),
         switchMap((authorName: string) => {
-          const param = getTrueQueryParams({ authorName });
-
-          return this._authorService.gets(param);
+          let param: IQueriesParams = {};
+          if(authorName){
+             param = getTrueQueryParams({ authorName });  
+          }
+          return this._authorsService.gets(param);
         }),
-        takeUntil(this._destroy$),
       )
-      .subscribe((list) => {
-        this.authors = list.authors;
-      });
-  }
-
-  private _loadData(): void {
-    this._authorService.gets()
-      .pipe(
-       takeUntil(this._destroy$),
-      )
-      .subscribe((list) => {
-        this.authors = list.authors;
-      });
-
-    this._genresService.gets()
-      .pipe(
-       takeUntil(this._destroy$),
-      )
-      .subscribe((list) => {
-        this.genres = list.genres;
-      });
   }
 
 }

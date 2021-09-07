@@ -16,10 +16,14 @@ import {
 } from '@angular/forms';
 import { Location } from '@angular/common';
 
+import { Observable } from 'rxjs';
+
 import { IAuthor } from '@authors';
 import { IGenre } from '@genres';
 
 import { IBook, moreAndLess } from '../../index';
+
+import { IListResponse, IQueriesParams } from '@app';
 
 
 @Component({
@@ -32,11 +36,14 @@ export class BookCreateComponent implements OnInit, OnDestroy {
 
   public form!: FormGroup;
 
-  @Input() public authorsList!: IAuthor[];
-  @Input() public genresList!: IGenre[];
+  @Input() public authors$!: Observable<IListResponse>;
+
+  @Input() public getGenresList$!:
+   (genreName?: string) => Observable<IGenre[]>;
 
   @Output() public readonly sortAuthors = new EventEmitter<string>();
   @Output() public readonly createBook = new EventEmitter<IBook>();
+
 
   public readonly displayFullNameAndTakeId = this._displayFullNameAndTakeId.bind(this);
 
@@ -75,12 +82,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
       title: ['', Validators.required],
       price: [null, [Validators.required, Validators.min(100)]],
       author: [null, Validators.required],
-      genres: this._fb.array([
-        this._fb.control(
-          null,
-          Validators.required,
-        ),
-      ]),
+      genres: [[], Validators.required],
       description: ['', Validators.minLength(10)],
       writingDate: [
         null,

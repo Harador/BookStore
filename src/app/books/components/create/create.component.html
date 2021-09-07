@@ -1,6 +1,5 @@
 <div class="wrapper">
     <div class="create-body">
-
         <div class="back-wrapper">
             <button (click)="navBack()" class="back" mat-icon-button color="primary">
                 <mat-icon>arrow_back</mat-icon>
@@ -18,54 +17,28 @@
                 <input matInput type="number" formControlName="price">
             </mat-form-field>
 
-            <mat-form-field class="full-width" appearance="fill">
-                <mat-label>Author</mat-label>
-                <input matInput type="text" 
-                  (input)="handleInput(search.value)"
-                  formControlName="author"
-                  #search name="search"
-                  appAuthor [authors]="authorsList"
-                  [matAutocomplete]="auto"
-                >
-                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFullNameAndTakeId">
-                  <mat-option *ngFor="let author of authorsList" [value]="author">
-                    {{author.firstName + " " + author.lastName}}
-                  </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
-
-            <div formArrayName="genres" class="genres-array full-width">
-                <mat-form-field *ngFor="let genreCtrl of genres.controls; let i = index"
-                 class="full-width genres-field" appearance="fill">
-                    <mat-label>genre {{i + 1}}</mat-label>
-                    <mat-select #genreSelect [formControlName]="i">
-                        <mat-option
-                         *ngFor="let genre of (genresList | filterGenres:genres) " 
-                         [value]="genre"
-                        >
-                            {{genre.name}}
-                        </mat-option>
-                    </mat-select>
-                    <button type="button" 
-                      mat-icon-button 
-                      *ngIf="i > 0" 
-                      (click)="deleteGenreSelect(i)" 
-                      class="delete-select" 
-                      color="warn"
+            <ng-container *ngIf="authors$ | async as response">
+                <mat-form-field *ngIf="response.authors as authorsList" class="full-width" appearance="fill">
+                    <mat-label>Author</mat-label>
+                    <input matInput type="text" 
+                      (input)="handleInput(search.value)"
+                      formControlName="author"
+                      #search name="search"
+                      appAuthor [authors]="authorsList"
+                      [matAutocomplete]="auto"
                     >
-                        <mat-icon class="icon">clear</mat-icon>
-                    </button>
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFullNameAndTakeId">
+                      <mat-option *ngFor="let author of authorsList" [value]="author">
+                        {{author.firstName + " " + author.lastName}}
+                      </mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
-                <button type="button"
-                 (click)="addGenreCtrl()"
-                 class="add-genre" 
-                 mat-raised-button 
-                 color="accent"
-                 [disabled]="isAddGenreDisabled">
-                    <mat-icon class="icon">add</mat-icon>
-                    add genre
-                </button>
-            </div>
+            </ng-container>
+            
+            <app-genres-autocomp class="full-width"
+                [getGenresList$]="getGenresList$"
+                formControlName="genres">
+            </app-genres-autocomp>
 
             <mat-form-field class="full-width"  appearance="fill">
                 <mat-label>description</mat-label>

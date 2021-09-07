@@ -1,0 +1,28 @@
+
+<div class="chips">
+  <mat-chip-list>
+    <mat-chip 
+    *ngFor="let genre of value"
+    (removed)="remove(genre)">
+      {{genre.name}}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+</div>
+
+<mat-form-field *ngIf="genresData$ | async as genresList" class="full-width" appearance="fill">
+    <mat-label>Genres</mat-label>
+    <input matInput type="text"
+      [formControl]="genresControl"
+      #search name="search"
+      [matAutocomplete]="auto"
+    >
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let genre of genresList" [value]="genre">
+        {{genre.name}}
+      </mat-option>
+    </mat-autocomplete>
+</mat-form-field>
+
+
+

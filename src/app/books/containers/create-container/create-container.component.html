@@ -1,6 +1,6 @@
 <app-book-create
-    [authorsList] = "authors"
-    [genresList] = "genres"
+    [authors$] = "authors$"
+    [getGenresList$] = "getGenresList$"
     (sortAuthors)="sortAuthors($event)"
     (createBook)="createBook($event)"
 >

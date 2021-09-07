@@ -11,8 +11,9 @@ export function getTrueQueryParams(
         trueParams['q[genres_name_cont]'] = params.genre;
         break;
       }
-      case 'authorName': {
-        trueParams['q[name_cont]'] = params.authorName;
+      case 'authorName':
+      case 'genreName': {
+        trueParams['q[name_cont]'] = params.authorName || params.genreName;
         break;
       }
       case 'minPrice': {
