@@ -117,7 +117,6 @@ export class GenresAutocompComponent implements OnInit, OnDestroy, ControlValueA
     if (!isSelected) {
       this.value.push(genre);
     }
-    console.log(this.value);
   }
 
   private _initGenresObservable(): void {
