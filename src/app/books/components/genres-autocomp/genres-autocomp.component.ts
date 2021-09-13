@@ -25,11 +25,12 @@ import { IGenre } from '@genres';
 })
 export class GenresAutocompComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-  @Input() public getGenresList$!: (genreName?: string) => Observable<IGenre[]>; // -
+  @Input() public getGenresList$!:
+   (genreName?: string) => Observable<IGenre[]>;
 
   public genresData$!: Observable<IGenre[]>;
 
-  public resetGenresObservable$ = new Subject<string>();
+  public setNewGenresObservable$ = new Subject<string>();
 
   public genresControl = new FormControl('');
 
@@ -53,30 +54,13 @@ export class GenresAutocompComponent implements OnInit, OnDestroy, ControlValueA
   }
 
   public ngOnInit(): void {
-    this.initGenresObservable();
+    this._initGenresObservable();
     this._subscribeGenreControl();
   }
 
   public ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
-  }
-
-  public remove(genre: IGenre): void {
-    const id = this.value.findIndex((g) => {
-      return g.id === genre.id;
-    });
-
-    this.value.splice(id, 1);
-  }
-
-  public initGenresObservable(): void {
-    this.genresData$ = this.resetGenresObservable$.asObservable()
-    .pipe(
-      startWith(''),
-      debounceTime(300),
-      switchMap((name: string) => this.getGenresList$(name)),
-    );
   }
 
   public onChange = (val: any) => {};
@@ -102,6 +86,14 @@ export class GenresAutocompComponent implements OnInit, OnDestroy, ControlValueA
     }
   }
 
+  public deleteGenre(genre: IGenre): void {
+    const id = this.value.findIndex((item) => {
+      return item.id === genre.id;
+    });
+
+    this.value.splice(id, 1);
+  }
+
   private _subscribeGenreControl(): void {
     this.genresControl.valueChanges
       .pipe(
@@ -109,20 +101,32 @@ export class GenresAutocompComponent implements OnInit, OnDestroy, ControlValueA
       )
       .subscribe((value) => {
         if (typeof value !== 'string') {
-          this._addChipsAndPushValue(value);
+          this._addChipAndPushValue(value);
           this.genresControl.patchValue('');
         } else {
-          this.resetGenresObservable$.next(value);
+          this.setNewGenresObservable$.next(value);
         }
       });
   }
 
-  private _addChipsAndPushValue(genre: IGenre): void {
-    const isSelected = this.value.some((g) => g.id === genre.id);
+  private _addChipAndPushValue(genre: IGenre): void {
+    const isSelected = this.value.some((item) => {
+      return item.id === genre.id;
+    });
+
     if (!isSelected) {
       this.value.push(genre);
     }
     console.log(this.value);
+  }
+
+  private _initGenresObservable(): void {
+    this.genresData$ = this.setNewGenresObservable$.asObservable()
+    .pipe(
+      startWith(''),
+      debounceTime(300),
+      switchMap((name: string) => this.getGenresList$(name)),
+    );
   }
 
 }

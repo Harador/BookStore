@@ -26,7 +26,7 @@ import { ToCartDialogComponent } from './components/to-cart-dialog/to-cart-dialo
 import { PriceValidateDirective } from './directives/price-validate.directive';
 import { AuthorValidateDirective } from './directives/author-validate.directive';
 import { CountPickerComponent } from './components/count-picker/count-picker.component';
-import { FilterGenresPipe } from './pipes/filter-genres.pipe';
+import { HideSelectedGenresPipe } from './pipes/hide-selected-genres.pipe';
 import { FilterDialogContainer } from './containers/filter-dialog-container/filter-container.component';
 import { BooksListComponent } from './components/books-list/books-list.component';
 import { FilterButtonComponent } from './components/filter-button/filter-button.component';
@@ -44,7 +44,7 @@ import { GenresAutocompComponent } from './components/genres-autocomp/genres-aut
     PriceValidateDirective,
     AuthorValidateDirective,
     CountPickerComponent,
-    FilterGenresPipe,
+    HideSelectedGenresPipe,
     FilterDialogContainer,
     BooksListComponent,
     FilterButtonComponent,
