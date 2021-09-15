@@ -35,10 +35,14 @@
                 </mat-form-field>
             </ng-container>
             
-            <app-genres-autocomp class="full-width"
-                [getGenresList$]="getGenresList$"
-                formControlName="genres">
-            </app-genres-autocomp>
+            <mat-form-field class="full-width"  appearance="fill">
+                <mat-label>Genres</mat-label>
+                <app-genres-autocomp class="full-width"
+                    [getGenresList$]="getGenresList$"
+                    formControlName="genres"
+                >
+                </app-genres-autocomp>
+            </mat-form-field>
 
             <mat-form-field class="full-width"  appearance="fill">
                 <mat-label>description</mat-label>

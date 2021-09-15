@@ -1,9 +1,20 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, OnDestroy } from '@angular/core';
+import {
+   Component,
+   OnInit,
+   ChangeDetectionStrategy,
+   Input,
+   OnDestroy,
+   HostBinding,
+   Self,
+   ElementRef,
+} from '@angular/core';
 import {
   FormControl,
   ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
+  NgControl,
  } from '@angular/forms';
+
+import { MatFormFieldControl } from '@angular/material/form-field';
 
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, startWith, switchMap, takeUntil } from 'rxjs/operators';
@@ -16,17 +27,42 @@ import { IGenre } from '@genres';
   styleUrls: ['./genres-autocomp.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      multi: true,
+    { provide: MatFormFieldControl,
       useExisting: GenresAutocompComponent,
     },
   ],
+  host: {
+    '[class.floating]': 'shouldLabelFloat',
+    '[id]': 'id',
+  },
 })
-export class GenresAutocompComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class GenresAutocompComponent implements OnInit, OnDestroy,
+ MatFormFieldControl<IGenre[]>, ControlValueAccessor {
+
+  public static nextId = 0;
 
   @Input() public getGenresList$!:
-   (genreName?: string) => Observable<IGenre[]>;
+    (genreName?: string) => Observable<IGenre[]>;
+
+  @Input()
+    public get required(): boolean {
+      return this._required;
+    }
+
+  public set required(req: boolean) {
+    this._required = !this._required;
+    this.stateChanges.next();
+  }
+
+  @Input()
+    public get placeholder(): string {
+      return this._placeholder;
+    }
+
+  public set placeholder(plh: string) {
+    this._placeholder = plh;
+    this.stateChanges.next();
+  }
 
   public genresData$!: Observable<IGenre[]>;
 
@@ -34,23 +70,56 @@ export class GenresAutocompComponent implements OnInit, OnDestroy, ControlValueA
 
   public genresControl = new FormControl('');
 
+  public id = `app-genres-autocomp-${GenresAutocompComponent.nextId++}`;
+
   public touched = false;
 
-  private _value: IGenre[] = [];
+  public stateChanges = new Subject<void>();
+
+  public focused = false;
+
+  public disabled = false;
+
+  public controlType = 'custom-genres-autocomplete';
+
+  private _value: IGenre[] | null = null;
+
+  private _placeholder!: string;
+
+  private _required = false;
 
   private readonly _destroy$ = new Subject();
 
-  constructor() { }
+  constructor(
+    private readonly _elementRef: ElementRef<HTMLElement>,
+    @Self() public ngControl: NgControl,
+  ) {
+    this.ngControl.valueAccessor = this;
+  }
 
-  public get value(): IGenre[] {
+  public get empty(): boolean {
+    return !this.value && !this.genresControl.value;
+  }
+
+  public get value(): IGenre[] | null {
     return this._value;
   }
 
-  public set value(value: IGenre[]) {
+  public set value(value: IGenre[] | null) {
     this._value = value;
 
     this.onChange(this.value);
     this.markAsTouched();
+    this.stateChanges.next();
+  }
+
+  public get errorState(): boolean {
+    //return this.genresControl.invalid && this.touched;
+    return false;
+  }
+
+  public get shouldLabelFloat(): boolean {
+    return this.focused || !this.empty;
   }
 
   public ngOnInit(): void {
@@ -61,6 +130,7 @@ export class GenresAutocompComponent implements OnInit, OnDestroy, ControlValueA
   public ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
+    this.stateChanges.complete();
   }
 
   public onChange = (val: any) => {};
@@ -86,12 +156,41 @@ export class GenresAutocompComponent implements OnInit, OnDestroy, ControlValueA
     }
   }
 
-  public deleteGenre(genre: IGenre): void {
-    const id = this.value.findIndex((item) => {
-      return item.id === genre.id;
-    });
+  public onFocusIn(event: FocusEvent): void {
+    if (!this.focused) {
+      this.focused = true;
+      this.stateChanges.next();
+    }
+  }
 
-    this.value.splice(id, 1);
+  public onFocusOut(event: FocusEvent): void {
+    this.touched = true;
+    this.focused = false;
+    this.onTouched();
+    this.stateChanges.next();
+  }
+
+  public setDescribedByIds(ids: string[]): void {
+    const controlElement = this._elementRef.nativeElement
+      .querySelector('.genre-autocomplete');
+
+    if (controlElement) {
+      controlElement.setAttribute('aria-describedby', ids.join(' '));
+    }
+  }
+
+  public deleteGenre(genre: IGenre): void {
+    if (this.value) {
+      const id = this.value.findIndex((item) => {
+        return item.id === genre.id;
+      });
+
+      this.value.splice(id, 1);
+    }
+  }
+
+  public onContainerClick(event: MouseEvent): void {
+    //this._elementRef.nativeElement.querySelector('input')?.focus();
   }
 
   private _subscribeGenreControl(): void {
@@ -110,6 +209,9 @@ export class GenresAutocompComponent implements OnInit, OnDestroy, ControlValueA
   }
 
   private _addChipAndPushValue(genre: IGenre): void {
+    if (!this.value) {
+      this.value = [];
+    }
     const isSelected = this.value.some((item) => {
       return item.id === genre.id;
     });

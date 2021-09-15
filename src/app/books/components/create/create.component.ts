@@ -79,11 +79,11 @@ export class BookCreateComponent implements OnInit, OnDestroy {
 
   public initForm(): void {
     this.form = this._fb.group({
-      title: ['', Validators.required],
+      title: [null, Validators.required],
       price: [null, [Validators.required, Validators.min(100)]],
       author: [null, Validators.required],
       genres: [[], Validators.required],
-      description: ['', Validators.minLength(10)],
+      description: [null, Validators.minLength(10)],
       writingDate: [
         null,
         [
