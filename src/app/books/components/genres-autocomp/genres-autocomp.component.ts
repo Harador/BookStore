@@ -109,12 +109,10 @@ export class GenresAutocompComponent implements OnInit, OnDestroy,
     this._value = value;
 
     this.onChange(this.value);
-    this.markAsTouched();
   }
 
   public get errorState(): boolean {
-    //return this.genresControl.invalid && this.touched;
-    return false;
+    return this.touched && !this.value;
   }
 
   public get shouldLabelFloat(): boolean {
@@ -193,6 +191,7 @@ export class GenresAutocompComponent implements OnInit, OnDestroy,
 
       this.value = newValue.length > 0 ? newValue : null;
     }
+    this.markAsTouched();
   }
 
   private _addChipAndPushValue(genre: IGenre): void {
@@ -204,6 +203,7 @@ export class GenresAutocompComponent implements OnInit, OnDestroy,
 
       this.value = newValue;
     }
+    this.markAsTouched();
   }
 
   private _subscribeGenreControl(): void {
