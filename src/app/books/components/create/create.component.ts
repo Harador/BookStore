@@ -82,7 +82,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
       title: [null, Validators.required],
       price: [null, [Validators.required, Validators.min(100)]],
       author: [null, Validators.required],
-      genres: [[], Validators.required],
+      genres: [null, Validators.required],
       description: [null, Validators.minLength(10)],
       writingDate: [
         null,

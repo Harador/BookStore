@@ -82,7 +82,7 @@ export class GenresAutocompComponent implements OnInit, OnDestroy,
 
   public controlType = 'custom-genres-autocomplete';
 
-  private _value: IGenre[] | null = null;
+  private _value!: IGenre[] | null;
 
   private _placeholder!: string;
 
@@ -110,7 +110,6 @@ export class GenresAutocompComponent implements OnInit, OnDestroy,
 
     this.onChange(this.value);
     this.markAsTouched();
-    this.stateChanges.next();
   }
 
   public get errorState(): boolean {
@@ -179,18 +178,32 @@ export class GenresAutocompComponent implements OnInit, OnDestroy,
     }
   }
 
+  public onContainerClick(event: MouseEvent): void {
+    //this._elementRef.nativeElement.querySelector('input')?.focus();
+  }
+
   public deleteGenre(genre: IGenre): void {
     if (this.value) {
-      const id = this.value.findIndex((item) => {
+      const index = this.value.findIndex((item) => {
         return item.id === genre.id;
       });
 
-      this.value.splice(id, 1);
+      const newValue = this.value.slice();
+      newValue.splice(index, 1);
+
+      this.value = newValue.length > 0 ? newValue : null;
     }
   }
 
-  public onContainerClick(event: MouseEvent): void {
-    //this._elementRef.nativeElement.querySelector('input')?.focus();
+  private _addChipAndPushValue(genre: IGenre): void {
+    if (!this.value) {
+      this.value = [genre];
+    } else {
+      const newValue = this.value.slice();
+      newValue.push(genre);
+
+      this.value = newValue;
+    }
   }
 
   private _subscribeGenreControl(): void {
@@ -206,19 +219,6 @@ export class GenresAutocompComponent implements OnInit, OnDestroy,
           this.setNewGenresObservable$.next(value);
         }
       });
-  }
-
-  private _addChipAndPushValue(genre: IGenre): void {
-    if (!this.value) {
-      this.value = [];
-    }
-    const isSelected = this.value.some((item) => {
-      return item.id === genre.id;
-    });
-
-    if (!isSelected) {
-      this.value.push(genre);
-    }
   }
 
   private _initGenresObservable(): void {
