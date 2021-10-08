@@ -15,6 +15,7 @@ import {
  } from '@angular/forms';
 
 import { MatFormFieldControl } from '@angular/material/form-field';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, startWith, switchMap, takeUntil } from 'rxjs/operators';
@@ -50,7 +51,7 @@ export class GenresAutocompComponent implements OnInit, OnDestroy,
     }
 
   public set required(req: boolean) {
-    this._required = !this._required;
+    this._required = coerceBooleanProperty(req);
     this.stateChanges.next();
   }
 
@@ -222,12 +223,12 @@ export class GenresAutocompComponent implements OnInit, OnDestroy,
   }
 
   private _initGenresObservable(): void {
-    this.genresData$ = this.setNewGenresObservable$.asObservable()
-    .pipe(
-      startWith(''),
-      debounceTime(300),
-      switchMap((name: string) => this.getGenresList$(name)),
-    );
+    this.genresData$ = this.setNewGenresObservable$
+      .pipe(
+        startWith(''),
+        debounceTime(300),
+        switchMap((name: string) => this.getGenresList$(name)),
+      );
   }
 
 }
