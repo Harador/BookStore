@@ -1,0 +1,27 @@
+<div class="paginator">
+    <button [disabled]="isDecreaseDisabled"
+        (click)="toStart()">
+        <<
+    </button>
+
+    <button [disabled]="isDecreaseDisabled" 
+        (click)="turnPage(-1)"> 
+        < 
+    </button>
+
+    <span>{{this.meta?.page || 1}} of {{this.meta?.pages || 1}}</span>
+
+    <button [disabled]="isIncrementDisabled"
+        (click)="turnPage(1)"> 
+        > 
+    </button>
+    <button [disabled]="isIncrementDisabled" 
+        (click)="toEnd()"> 
+        >> 
+    </button>
+    <select #select (change)="changeLimit(select.value)">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="15">15</option>
+    </select>
+</div>

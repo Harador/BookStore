@@ -1,0 +1,22 @@
+<div class="wrapper">
+    <table *ngIf="data">
+        <tr *ngFor="let item of data">
+            <ng-container *ngFor="let template of templatesArray">
+                <td>
+                    <ng-container 
+                        *ngTemplateOutlet="template; context:{ data: item }">
+                    </ng-container>
+                </td>
+            </ng-container>
+        </tr>
+    </table>
+
+
+    <app-paginator [meta]="meta"
+        (pageEvent)="paginatorEvent($event)">
+    </app-paginator>
+
+</div>
+
+
+

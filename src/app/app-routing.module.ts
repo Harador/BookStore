@@ -27,6 +27,12 @@ const routes: Routes = [
       import('./authorization/authorization.module')
         .then((m) => m.AuthorizationModule),
   },
+  {
+    path: 'table',
+    loadChildren: () =>
+      import('./table/table.module')
+        .then((m) => m.TableModule),
+  },
 ];
 
 @NgModule({

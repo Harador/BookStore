@@ -1,0 +1,11 @@
+<app-table [config]="config">
+
+    <ng-template myCell let-data="data">
+        <p  class="font1">**^-^{{data.firstName}}(O__O)**</p>
+    </ng-template>
+
+    <ng-template myCell let-data="data">
+        <p class="font2"> {{data.lastName}} </p>
+    </ng-template>
+
+</app-table>
